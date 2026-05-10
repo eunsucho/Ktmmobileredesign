@@ -819,13 +819,33 @@ const accordionItems = [
   { id: 'unlimited',icon: '🌟', title: '모두다 맘껏 안심 요금제',           subtitle: '데이터+통화 초과 과금없이 모두다 안심', color: '#00C896' }
 ];
 
-const plans = [
-  { name: '모두다 맘껏 7GB+(쿠팡캐시 5000원)', description: '데이터, 통화, 문자 모두 안심하고 사용하는 요금제', data: '최대 22GB무제한', dataDetail: '7GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공 +영상/부가통화 300분', sms: '기본제공', originalPrice: '35,200원', price: '18,500원', badge: 'BEST' },
-  { name: '통화 맘껏 20GB',                      description: '음성과 문자는 맘껏! 실속있는 데이터를 제공하는 요금제', data: '최대 35GB무제한', dataDetail: '20GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '음성통화 무제한', sms: '기본제공', originalPrice: '41,800원', price: '22,000원', badge: 'NEW' },
-  { name: '모두다 맘껏 5GB',                      description: '기본적인 사용에 최적화', data: '최대 20GB무제한', dataDetail: '5GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공 +영상/부가통화 300분', sms: '기본제공', originalPrice: '29,700원', price: '16,900원', badge: null },
-  { name: 'N페이 요금제 10GB',                    description: '네이버페이 포인트 25만원 증정', data: '최대 25GB무제한', dataDetail: '10GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공', sms: '기본제공', originalPrice: '38,500원', price: '19,800원', badge: 'HOT' },
-  { name: '쿠팡캐시 요금제 12GB',                 description: '쿠팡캐시 25만원 증정', data: '최대 27GB무제한', dataDetail: '12GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공', sms: '기본제공', originalPrice: '40,700원', price: '21,500원', badge: 'HOT' }
-];
+let plans = [];
+// 요금제 데이터 동적 로딩 및 추천 2개 선정
+fetch('ktm_mobile_plans.json')
+  .then(res => res.json())
+  .then(data => {
+    // 모든 요금제 평탄화
+    const allPlans = data.categories.flatMap(cat => cat.plans.map(plan => ({
+      name: plan.name,
+      description: plan.description || '',
+      data: plan.data,
+      dataDetail: (plan.promotion_data || '') + (plan.promotion_voice ? ' / ' + plan.promotion_voice : ''),
+      call: plan.voice + (plan.promotion_voice ? ' ' + plan.promotion_voice : ''),
+      sms: plan.sms,
+      originalPrice: plan.price_monthly_vat ? plan.price_monthly_vat + '원' : '',
+      price: plan.price_promotion_vat ? plan.price_promotion_vat + '원' : '',
+      badge: plan.benefits && plan.benefits.length > 0 ? 'BEST' : null
+    })));
+    // 프로모션 가격 기준 오름차순 정렬 후 상위 2개 추천
+    allPlans.sort((a, b) => {
+      const pa = parseInt(a.price.replace(/[^\d]/g, ''));
+      const pb = parseInt(b.price.replace(/[^\d]/g, ''));
+      return pa - pb;
+    });
+    plans = allPlans;
+    // 추천 영역이 있으면 바로 렌더링
+    if (typeof renderQA === 'function') renderQA();
+  });
 
 const phones = [
   { name: '갤럭시 A36',       data: '5G단말 (2GB/200분)',             devicePrice: '0원', planPrice: '21,000원', totalPrice: '21,000원', colors: ['#E8E3FF','#B8A9FF'],  colorType: 'purple' },
@@ -1171,7 +1191,8 @@ function renderQA() {
   if (qaShowResults) {
     title.innerHTML = `고객님께 딱 맞춘<br/><span style="color:#00C896;">요금제</span> 추천합니다`;
     subtitle.textContent = '데이터·통화량에 맞춘 최적의 요금제입니다';
-    const resultPlans = [plans[1], plans[0]];
+    // 추천 요금제 2개만 노출
+    const resultPlans = plans.slice(0, 2);
     body.innerHTML = `
       <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;">
         ${resultPlans.map(plan => `
