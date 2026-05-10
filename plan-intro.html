@@ -91,14 +91,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .intent-pill.active { background: var(--color-primary); color: #fff; }
 
 .usage-filter-wrap {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
-  background: #f9f9f9; padding: 16px 20px; border-radius: 12px; margin-bottom: 40px;
-  font-size: 15px; font-weight: 600; color: #333;
+  display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px;
+  padding: 20px 0 32px; margin-bottom: 8px;
 }
 .usage-chip {
-  padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 700;
-  background: #fff; border: 1px solid #ddd; color: #666; transition: all 0.2s;
+  padding: 12px 28px; border-radius: 10px; font-size: 16px; font-weight: 800;
+  background: #fff; border: 1.5px solid #ddd; color: #666; transition: all 0.2s;
+  letter-spacing: -0.02em;
 }
+.usage-chip:hover { border-color: #999; color: #333; }
 .usage-chip.active { background: #111; color: #fff; border-color: #111; }
 
 /* ==========================================
@@ -980,12 +981,12 @@ function App() {
   const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
   const [intent, setIntent] = useState('데이터 위주');
-  const [openGroups, setOpenGroups] = useState({ '7~30GB': true });
+  const [openGroups, setOpenGroups] = useState({ '7~29GB': true });
   const refA = React.useRef(null);
   const refB = React.useRef(null);
   const refC = React.useRef(null);
   const refD = React.useRef(null);
-  const groupRefs = { '~6GB': refA, '7~30GB': refB, '31~99GB': refC, '100GB+': refD };
+  const groupRefs = { '~6GB': refA, '7~29GB': refB, '30~99GB': refC, '100GB+': refD };
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
@@ -1061,8 +1062,8 @@ function App() {
 
   const totalGB = (p) => p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
   const groupA = allPlans.filter(p => totalGB(p) <= 6);
-  const groupB = allPlans.filter(p => { const t = totalGB(p); return t >= 7 && t <= 30; });
-  const groupC = allPlans.filter(p => { const t = totalGB(p); return t >= 31 && t <= 99; });
+  const groupB = allPlans.filter(p => { const t = totalGB(p); return t >= 7 && t <= 29; });
+  const groupC = allPlans.filter(p => { const t = totalGB(p); return t >= 30 && t <= 99; });
   const groupD = allPlans.filter(p => totalGB(p) >= 100);
 
   function handleNavClick(key) {
@@ -1116,7 +1117,7 @@ function App() {
 
           {/* 데이터 구간 빠른 이동 */}
           <div className="usage-filter-wrap">
-            {['~6GB', '7~30GB', '31~99GB', '100GB+'].map(key => (
+            {['~6GB', '7~29GB', '30~99GB', '100GB+'].map(key => (
               <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
                 onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
                 {key}
@@ -1130,13 +1131,13 @@ function App() {
               onOpen={setModalPlan} isOpen={!!openGroups['~6GB']} recoId={recoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '~6GB': !prev['~6GB']}))}
               groupRef={refA} />
-            <PlanGroup title="7~30GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['7~30GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '7~30GB': !prev['7~30GB']}))}
+            <PlanGroup title="7~29GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['7~29GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '7~29GB': !prev['7~29GB']}))}
               groupRef={refB} />
-            <PlanGroup title="31~99GB" plans={groupC} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '31~99GB': !prev['31~99GB']}))}
+            <PlanGroup title="30~99GB" plans={groupC} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['30~99GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '30~99GB': !prev['30~99GB']}))}
               groupRef={refC} />
             <PlanGroup title="100GB+" plans={groupD} compareList={compareList} toggleCompare={toggleCompare}
               onOpen={setModalPlan} isOpen={!!openGroups['100GB+']} recoId={recoId}
