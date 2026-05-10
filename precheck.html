@@ -28,6 +28,9 @@
   </style>
 </head>
 <body>
+  <script>window.KMNAV_ACTIVE = '가입하기';</script>
+  <script src="shared-nav.js"></script>
+  <div id="nav-mount"></div>
   <div id="root"></div>
 
   <script type="text/babel">
@@ -867,6 +870,11 @@
                   </div>
                   <div style={{ fontSize: '12px', color: '#9ca3af' }}>가입비 및 유심비 등 기타요금은 별도 청구됩니다</div>
                 </div>
+                <button
+                  onClick={() => window.location.href = '셀프개통.html'}
+                  style={{ marginLeft: '24px', padding: '12px 36px', background: '#E60012', color: '#fff', borderRadius: '8px', fontWeight: 700, fontSize: '16px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  다음 →
+                </button>
               </div>
             </div>
           </div>
