@@ -140,16 +140,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .pg-tab:hover { color: #444; background: #ebebeb; }
 .pg-tab.active { background: #111; color: #fff; }
 
-/* ==========================================
-   HORIZONTAL SCROLL CARDS
-   ========================================== */
-.card-scroll-wrap {
-  display: flex; gap: 16px; overflow-x: auto; padding-bottom: 28px;
-  scroll-snap-type: x mandatory;
-  -ms-overflow-style: none; scrollbar-width: none;
-}
-.card-scroll-wrap::-webkit-scrollbar { display: none; }
-.card-scroll-wrap .plan-card { flex: 0 0 300px; scroll-snap-align: start; }
 
 /* ==========================================
    PLAN CARD UI
@@ -937,7 +927,7 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
             <button className={`pg-tab ${filter==='unlimit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('unlimit');}}>데이터 무제한</button>
             <button className={`pg-tab ${filter==='limit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('limit');}}>용량 제한</button>
           </div>
-          <div className="card-scroll-wrap">
+          <div className="plan-grid" style={{marginBottom:'8px'}}>
             {filtered.length > 0
               ? filtered.map(p => (
                   <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
@@ -959,12 +949,12 @@ function App() {
   const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
   const [intent, setIntent] = useState('데이터 위주');
-  const [openGroups, setOpenGroups] = useState({ '7~10GB': true });
-  const ref1to6   = React.useRef(null);
-  const ref7to10  = React.useRef(null);
-  const ref11to49 = React.useRef(null);
-  const ref50Plus = React.useRef(null);
-  const groupRefs = { '1~6GB': ref1to6, '7~10GB': ref7to10, '11~49GB': ref11to49, '50GB+': ref50Plus };
+  const [openGroups, setOpenGroups] = useState({ '7~30GB': true });
+  const refA = React.useRef(null);
+  const refB = React.useRef(null);
+  const refC = React.useRef(null);
+  const refD = React.useRef(null);
+  const groupRefs = { '~6GB': refA, '7~30GB': refB, '31~99GB': refC, '100GB+': refD };
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
@@ -1039,10 +1029,11 @@ function App() {
     return { allPlans: list, recoId };
   }, [normalizedPlans, network, intent]);
 
-  const group1to6   = allPlans.filter(p => ['BELOW_1GB','RANGE_1_6'].includes(p.rangeId));
-  const group7to10  = allPlans.filter(p => p.rangeId === 'RANGE_7_10');
-  const group11to49 = allPlans.filter(p => p.rangeId === 'RANGE_11_50');
-  const group50Plus = allPlans.filter(p => ['RANGE_51_99','RANGE_100_PLUS'].includes(p.rangeId));
+  const totalGB = (p) => p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
+  const groupA = allPlans.filter(p => totalGB(p) <= 6);
+  const groupB = allPlans.filter(p => { const t = totalGB(p); return t >= 7 && t <= 30; });
+  const groupC = allPlans.filter(p => { const t = totalGB(p); return t >= 31 && t <= 99; });
+  const groupD = allPlans.filter(p => totalGB(p) >= 100);
 
   function handleNavClick(key) {
     setOpenGroups(prev => ({ ...prev, [key]: true }));
@@ -1095,32 +1086,32 @@ function App() {
 
           {/* 데이터 구간 빠른 이동 */}
           <div className="usage-filter-wrap">
-            {[['1~6GB','1~6GB'], ['7~10GB','7~10GB'], ['11~49GB','11~49GB'], ['50GB+','50GB+']].map(([key, label]) => (
+            {['~6GB', '7~30GB', '31~99GB', '100GB+'].map(key => (
               <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
                 onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
-                {label}
+                {key}
               </button>
             ))}
           </div>
 
           {/* 아코디언 그룹 */}
           <div>
-            <PlanGroup title="1~6GB 이하" plans={group1to6} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['1~6GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '1~6GB': !prev['1~6GB']}))}
-              groupRef={ref1to6} />
-            <PlanGroup title="7~10GB" plans={group7to10} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['7~10GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '7~10GB': !prev['7~10GB']}))}
-              groupRef={ref7to10} />
-            <PlanGroup title="11~49GB" plans={group11to49} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['11~49GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '11~49GB': !prev['11~49GB']}))}
-              groupRef={ref11to49} />
-            <PlanGroup title="50GB 이상" plans={group50Plus} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['50GB+']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '50GB+': !prev['50GB+']}))}
-              groupRef={ref50Plus} />
+            <PlanGroup title="~6GB" plans={groupA} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['~6GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '~6GB': !prev['~6GB']}))}
+              groupRef={refA} />
+            <PlanGroup title="7~30GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['7~30GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '7~30GB': !prev['7~30GB']}))}
+              groupRef={refB} />
+            <PlanGroup title="31~99GB" plans={groupC} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '31~99GB': !prev['31~99GB']}))}
+              groupRef={refC} />
+            <PlanGroup title="100GB+" plans={groupD} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['100GB+']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '100GB+': !prev['100GB+']}))}
+              groupRef={refD} />
           </div>
         </main>
 
