@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SIM 활성화 가이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    color: #111;
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    border-bottom: 1px solid #eee;
+    background: #fff;
+  }
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    height: 84px;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .logo-kt {
+    background: #ee2c2c;
+    color: #fff;
+    padding: 2px 6px 2px 6px;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .logo-name { color: #111; font-weight: 700; }
+  .logo-name b { font-weight: 900; }
+
+  .main-nav {
+    display: flex;
+    gap: 40px;
+    flex: 1;
+    margin-left: 24px;
+  }
+  .main-nav a {
+    font-size: 17px;
+    font-weight: 500;
+    color: #333;
+    padding: 6px 0;
+    position: relative;
+  }
+  .main-nav a.active {
+    color: #111;
+    font-weight: 700;
+  }
+  .main-nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -4px;
+    height: 2px;
+    background: #111;
+  }
+
+  .header-promo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #111;
+  }
+  .header-promo-tag {
+    background: #ffd02e;
+    color: #111;
+    font-weight: 900;
+    font-size: 12px;
+    padding: 3px 6px;
+    border-radius: 3px;
+  }
+
+  .header-utils {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 13px;
+    color: #555;
+    margin-left: auto;
+  }
+  .header-utils .sep { color: #ccc; }
+  .header-utils a:hover { color: #111; }
+  .login-btn {
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: #111;
+    background: #fff;
+    margin-left: 4px;
+  }
+  .icon-btn {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #333;
+  }
+  .menu-btn {
+    width: 44px; height: 44px;
+    background: #ee2c2c;
+    color: #fff;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+  }
+
+  /* ---------- Page ---------- */
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 32px 120px;
+  }
+  .page-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+  .page-title {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: #111;
+  }
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #888;
+    padding-top: 14px;
+  }
+  .breadcrumb .sep { color: #ccc; }
+  .breadcrumb .current { color: #111; font-weight: 700; }
+
+  /* ---------- Tabs ---------- */
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 880px;
+    margin: 0 auto 0;
+  }
+  .tab {
+    height: 64px;
+    background: #f3f3f3;
+    color: #888;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .tab[aria-selected="true"] {
+    background: #111;
+    color: #fff;
+  }
+  .tab:hover:not([aria-selected="true"]) {
+    background: #ececec;
+    color: #333;
+  }
+  .tabs-rule {
+    max-width: 880px;
+    margin: 0 auto;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  /* ---------- Section ---------- */
+  .section {
+    max-width: 880px;
+    margin: 72px auto 0;
+  }
+  .section-head {
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 18px;
+    margin-bottom: 48px;
+  }
+  .section-head h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #1f9e8c;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .step-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.55;
+    margin: 0 0 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .media {
+    width: 100%;
+    border-radius: 8px;
+    background: #f5f5f5;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .media img,
+  .media video,
+  .media iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border: 0;
+  }
+  .media-placeholder {
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .media-placeholder svg { color: #ccc; }
+  .media-placeholder b { color: #888; font-weight: 700; }
+
+  .media-caption {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #888;
+  }
+
+  /* YouTube embed wrapper */
+  .yt-frame {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+  .yt-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  /* small util */
+  .scroll-top {
+    position: fixed;
+    right: 32px; bottom: 32px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    transition: background 0.15s ease;
+  }
+  .scroll-top:hover { background: #f7f7f7; }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .header-inner { gap: 16px; padding: 0 16px; height: 64px; }
+    .main-nav { display: none; }
+    .header-promo { display: none; }
+    .header-utils { font-size: 12px; gap: 8px; }
+    .page { padding: 32px 16px 80px; }
+    .page-head { flex-direction: column; align-items: flex-start; }
+    .page-title { font-size: 24px; }
+    .breadcrumb { padding-top: 0; }
+    .tab { height: 52px; font-size: 16px; }
+    .section { margin-top: 48px; }
+    .step-title { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================= HEADER ======================= -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="standalone_main_v3_민이.html" class="logo" aria-label="kt M mobile">
+      <img src="ktmmobile_logo.svg" alt="kt M mobile" style="height:30px;width:auto;display:block;">
+    </a>
+
+    <nav class="main-nav" aria-label="주 메뉴">
+      <a href="셀프개통.html">가입하기</a>
+      <a href="../요금제소개-v3.html">상품</a>
+      <a href="#">혜택</a>
+      <a href="#">결합</a>
+      <a href="#" class="active">고객센터</a>
+    </nav>
+
+    <div class="header-promo">
+      <span class="header-promo-tag">M</span>
+      <span>M쇼핑할인</span>
+    </div>
+
+    <div class="header-utils">
+      <a href="#">교체 유심 신청</a>
+      <span class="sep">|</span>
+      <a href="#">신청조회</a>
+      <span class="sep">|</span>
+      <a href="#">마이페이지</a>
+      <button class="login-btn">로그인</button>
+      <button class="icon-btn" aria-label="검색">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="menu-btn" aria-label="전체 메뉴">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ======================= MAIN ======================= -->
+<main class="page">
+
+  <!-- title + breadcrumb -->
+  <div class="page-head">
+    <h1 class="page-title">SIM 활성화 가이드</h1>
+    <div class="breadcrumb">
+      <a href="standalone_main_v3_민이.html">홈</a>
+      <span class="sep">›</span>
+      <span>고객센터</span>
+      <span class="sep">›</span>
+      <span>이용/공지</span>
+      <span class="sep">›</span>
+      <span class="current">SIM 활성화 가이드</span>
+    </div>
+  </div>
+
+  <!-- tabs -->
+  <div class="tabs" role="tablist" aria-label="SIM 종류">
+    <button class="tab" role="tab" id="tab-usim" aria-selected="true" aria-controls="panel-usim" data-tab="usim">USIM 활성화</button>
+    <button class="tab" role="tab" id="tab-esim" aria-selected="false" aria-controls="panel-esim" data-tab="esim">ESIM 활성화</button>
+  </div>
+  <div class="tabs-rule"></div>
+
+  <!-- ====== USIM panel ====== -->
+  <section class="section" id="panel-usim" role="tabpanel" aria-labelledby="tab-usim">
+    <div class="section-head">
+      <h2>USIM 활성화 안내</h2>
+    </div>
+
+    <!-- Step 1: GIF -->
+    <div class="step">
+      <span class="step-num">1</span>
+      <p class="step-title">
+        USIM을 단말기에 장착하고 전원을 켜면<br/>
+        자동으로 활성화가 시작됩니다.
+      </p>
+      <div class="media" data-slot="usim-gif" data-gif="assets/esim-2.gif"></div>
+    </div>
+
+    <!-- Step 2: 설명 -->
+    <div class="step">
+      <span class="step-num">2</span>
+      <p class="step-title">
+        활성화에 약 1~3분이 소요되며,<br/>
+        화면에 신호가 잡히면 정상적으로 사용하실 수 있습니다.
+      </p>
+    </div>
+
+    <!-- Step 3: YouTube -->
+    <div class="step">
+      <span class="step-num">3</span>
+      <p class="step-title">
+        영상으로 활성화 방법을 자세히 확인하세요.
+      </p>
+      <div class="yt-frame" data-slot="usim-youtube" data-yt="4FmQ3T2k91U"></div>
+    </div>
+  </section>
+
+  <!-- ====== ESIM panel ====== -->
+  <section class="section" id="panel-esim" role="tabpanel" aria-labelledby="tab-esim" hidden>
+    <div class="section-head">
+      <h2>ESIM 활성화 안내</h2>
+    </div>
+
+    <div class="step">
+      <span class="step-num">1</span>
+      <p class="step-title">
+        QR코드를 스캔하여 ESIM 프로파일을<br/>
+        단말기에 다운로드 받아주세요.
+      </p>
+      <div class="media" data-slot="esim-gif-1" data-gif="assets/esim-1.gif"></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">2</span>
+      <p class="step-title">
+        다운로드 완료 후 설정 → 모바일 데이터에서<br/>
+        ESIM을 기본 회선으로 지정해 주세요.
+      </p>
+      <div class="media" data-slot="esim-gif-2" data-gif="assets/usim.gif"></div>
+    </div>
+
+    <div class="step">
+      <span class="step-num">3</span>
+      <p class="step-title">
+        영상으로 ESIM 활성화 방법을 자세히 확인하세요.
+      </p>
+      <div class="yt-frame" data-slot="esim-youtube" data-yt="yI7WVnJat2E"></div>
+    </div>
+  </section>
+
+</main>
+
+<button class="scroll-top" aria-label="맨 위로" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
+
+<script>
+  // ---- Tabs ----
+  const tabs = document.querySelectorAll('.tab');
+  const panels = {
+    usim: document.getElementById('panel-usim'),
+    esim: document.getElementById('panel-esim'),
+  };
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      const key = t.dataset.tab;
+      tabs.forEach(x => x.setAttribute('aria-selected', x === t ? 'true' : 'false'));
+      Object.entries(panels).forEach(([k, el]) => {
+        if (k === key) el.removeAttribute('hidden');
+        else el.setAttribute('hidden', '');
+      });
+    });
+  });
+
+  // ---- Helper: fill media slots ----
+  // Once the user adds GIFs / YouTube IDs, these helpers swap the placeholders for real content.
+  // Usage from the console (or by editing this file):
+  //   setGif('usim-gif', 'assets/usim.gif')
+  //   setYouTube('usim-youtube', 'dQw4w9WgXcQ')
+  window.setGif = function(slot, src) {
+    const el = document.querySelector(`[data-slot="${slot}"]`);
+    if (!el) return;
+    el.innerHTML = `<img src="${src}" alt="" />`;
+  };
+  window.setYouTube = function(slot, videoId) {
+    const el = document.querySelector(`[data-slot="${slot}"]`);
+    if (!el) return;
+    el.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  };
+
+  // Auto-load any [data-yt] / [data-gif] attributes on slots if present
+  document.querySelectorAll('[data-slot]').forEach(el => {
+    const yt = el.getAttribute('data-yt');
+    const gif = el.getAttribute('data-gif');
+    if (yt) setYouTube(el.dataset.slot, yt);
+    if (gif) setGif(el.dataset.slot, gif);
+  });
+</script>
+
+</body>
+</html>
