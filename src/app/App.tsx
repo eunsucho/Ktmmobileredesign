@@ -31,7 +31,7 @@ export default function App() {
 
   // Step 2 States
   const [simHasType, setSimHasType] = useState<'보유' | '미보유'>('보유');
-  const [simBuyPlace, setSimBuyPlace] = useState<'다이렉트몰' | '편의점/마트' | '오픈마켓' | ''>('다이렉트몰');
+  const [simBuyPlace, setSimBuyPlace] = useState<'다이렉트몰' | '편의점/마트' | ''>('다이렉트몰');
   const [simNumber, setSimNumber] = useState('');
   const [simFocus, setSimFocus] = useState(false);
   const [phone, setPhone] = useState('');
@@ -1051,7 +1051,7 @@ export default function App() {
                             <>
                               {/* 구매처 안내 영역 */}
                               <div className="text-[13px] text-gray-500 mb-3 text-left">
-                                유심 구매처: 다이렉트몰, 편의점/마트, 오픈마켓
+                                유심 구매처: 다이렉트몰, 편의점/마트
                               </div>
 
                               {/* 다이렉트몰 - 전체 너비 (유심 보유 + 유심 미보유 합산 너비와 동일) */}
@@ -1073,43 +1073,24 @@ export default function App() {
                                 )}
                               </button>
 
-                              {/* 편의점/마트 + 오픈마켓 - 2열 그리드 (다이렉트몰과 동일 전체 너비) */}
-                              <div className="grid grid-cols-2 gap-3">
-                                <button
-                                  onClick={() => setSimBuyPlace('편의점/마트')}
-                                  className={`h-[120px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
-                                    simBuyPlace === '편의점/마트'
-                                      ? 'border-[#00BFA5] bg-[#E0F7F4]'
-                                      : 'border-gray-200 bg-white'
-                                  }`}
-                                >
-                                  <div className="text-[30px] mb-2">🏪</div>
-                                  <div className="font-bold text-black text-[15px] mb-0.5">편의점/마트</div>
-                                  <div className="text-[12px] text-gray-400">GS25, CU, 이마트 등</div>
-                                  {simBuyPlace === '편의점/마트' && (
-                                    <div className="w-[18px] h-[18px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-4">
-                                      <Check className="w-3 h-3 text-white stroke-[3]" />
-                                    </div>
-                                  )}
-                                </button>
-                                <button
-                                  onClick={() => setSimBuyPlace('오픈마켓')}
-                                  className={`h-[120px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
-                                    simBuyPlace === '오픈마켓'
-                                      ? 'border-[#00BFA5] bg-[#E0F7F4]'
-                                      : 'border-gray-200 bg-white'
-                                  }`}
-                                >
-                                  <div className="text-[30px] mb-2">🛒</div>
-                                  <div className="font-bold text-black text-[15px] mb-0.5">오픈마켓</div>
-                                  <div className="text-[12px] text-gray-400">쿠팡, 11번가, G마켓 등</div>
-                                  {simBuyPlace === '오픈마켓' && (
-                                    <div className="w-[18px] h-[18px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-4">
-                                      <Check className="w-3 h-3 text-white stroke-[3]" />
-                                    </div>
-                                  )}
-                                </button>
-                              </div>
+                              {/* 편의점/마트 */}
+                              <button
+                                onClick={() => setSimBuyPlace('편의점/마트')}
+                                className={`w-full h-[120px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
+                                  simBuyPlace === '편의점/마트'
+                                    ? 'border-[#00BFA5] bg-[#E0F7F4]'
+                                    : 'border-gray-200 bg-white'
+                                }`}
+                              >
+                                <div className="text-[30px] mb-2">🏪</div>
+                                <div className="font-bold text-black text-[15px] mb-0.5">편의점/마트</div>
+                                <div className="text-[12px] text-gray-400">GS25, CU, 이마트 등</div>
+                                {simBuyPlace === '편의점/마트' && (
+                                  <div className="w-[18px] h-[18px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-4">
+                                    <Check className="w-3 h-3 text-white stroke-[3]" />
+                                  </div>
+                                )}
+                              </button>
 
                               {/* 배송지 정보 영역 */}
                               {simBuyPlace === '다이렉트몰' && (
