@@ -99,32 +99,57 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 700;
   background: #fff; border: 1px solid #ddd; color: #666; transition: all 0.2s;
 }
-.usage-chip.active { background: #f0f0f0; color: #999; border-color: #ddd; }
+.usage-chip.active { background: #111; color: #fff; border-color: #111; }
 
 /* ==========================================
-   PLAN GRID & SECTION
+   PLAN GROUPS (ACCORDION)
    ========================================== */
-.plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.plan-group { border-bottom: 1px solid #f0f0f0; }
+.plan-group:last-child { border-bottom: none; }
 
-/* ==========================================
-   ACCORDION
-   ========================================== */
-.accordion-container { display: flex; flex-direction: column; gap: 12px; }
-.plan-accordion { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
-.accordion-header {
-  width: 100%; display: flex; align-items: center; gap: 8px;
-  padding: 18px 20px; background: #fff; border: none; cursor: pointer;
-  font-size: 16px; font-weight: 800; color: #111; text-align: left;
-  transition: background 0.15s;
+.pg-header-row {
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; padding: 28px 0;
+  gap: 16px;
 }
-.accordion-header:hover { background: #f9f9f9; }
-.accordion-header.open { background: #f7f8fa; }
-.accordion-title { flex-shrink: 0; }
-.accordion-gb-label { font-size: 12px; font-weight: 600; color: #aaa; }
-.accordion-count { font-size: 13px; font-weight: 600; color: #bbb; margin-left: auto; }
-.accordion-chevron { font-size: 14px; color: #aaa; transition: transform 0.2s; flex-shrink: 0; }
-.accordion-chevron.open { transform: rotate(180deg); }
-.accordion-body { padding: 20px; border-top: 1px solid #eee; }
+.pg-header-left { display: flex; align-items: center; gap: 14px; }
+.pg-title {
+  font-size: 22px; font-weight: 800; margin: 0;
+  color: #111; letter-spacing: -0.04em;
+}
+.pg-count-badge {
+  display: inline-flex; align-items: center;
+  background: #f0f0f0; color: #666;
+  font-size: 12px; font-weight: 700;
+  padding: 4px 10px; border-radius: 999px;
+}
+.pg-chevron {
+  color: #bbb;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), color 0.2s;
+  flex-shrink: 0;
+}
+.pg-header-row:hover .pg-chevron { color: #185fa5; }
+
+.pg-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
+.pg-tab {
+  padding: 7px 16px; border-radius: 999px;
+  background: #f5f5f5; color: #888;
+  font-size: 13px; font-weight: 700;
+  transition: all 0.2s; border: 1.5px solid transparent;
+}
+.pg-tab:hover { color: #444; background: #ebebeb; }
+.pg-tab.active { background: #111; color: #fff; }
+
+/* ==========================================
+   HORIZONTAL SCROLL CARDS
+   ========================================== */
+.card-scroll-wrap {
+  display: flex; gap: 16px; overflow-x: auto; padding-bottom: 28px;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none; scrollbar-width: none;
+}
+.card-scroll-wrap::-webkit-scrollbar { display: none; }
+.card-scroll-wrap .plan-card { flex: 0 0 300px; scroll-snap-align: start; }
 
 /* ==========================================
    PLAN CARD UI
@@ -542,13 +567,6 @@ const USAGE_TO_RANGE = {
   "잘 모르겠어요":          null
 };
 
-const SECTION_ORDER = ['카카오·SNS 위주', '유튜브 가끔 봐요', '영상 자주 봐요', '데이터 무제한으로 써요'];
-const SECTION_META = {
-  '카카오·SNS 위주':        { gbLabel: '1~6GB' },
-  '유튜브 가끔 봐요':       { gbLabel: '7~10GB' },
-  '영상 자주 봐요':         { gbLabel: '11~49GB' },
-  '데이터 무제한으로 써요':  { gbLabel: '50GB+' },
-};
 
 /* ─── 파싱 및 정규화 함수 ─── */
 function classifyPlan(plan) {
@@ -884,17 +902,69 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
   );
 }
 
+/* =============================================
+   PLAN GROUP (ACCORDION)
+   ============================================= */
+function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, recoId }) {
+  const [filter, setFilter] = useState('all');
+
+  const filtered = useMemo(() => {
+    let list = plans;
+    if (filter === 'unlimit') list = list.filter(p => p.isUnlimited);
+    if (filter === 'limit')   list = list.filter(p => !p.isUnlimited);
+    return [...list].sort((a, b) => a.price - b.price);
+  }, [plans, filter]);
+
+  if (plans.length === 0) return null;
+
+  return (
+    <div className="plan-group" ref={groupRef}>
+      <div className="pg-header-row" onClick={onToggle}>
+        <div className="pg-header-left">
+          <h2 className="pg-title">{title}</h2>
+          <span className="pg-count-badge">{plans.length}개</span>
+        </div>
+        <svg className="pg-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" strokeWidth="2"
+          style={{transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}}>
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      </div>
+      {isOpen && (
+        <div className="pg-content">
+          <div className="pg-tabs">
+            <button className={`pg-tab ${filter==='all'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('all');}}>전체</button>
+            <button className={`pg-tab ${filter==='unlimit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('unlimit');}}>데이터 무제한</button>
+            <button className={`pg-tab ${filter==='limit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('limit');}}>용량 제한</button>
+          </div>
+          <div className="card-scroll-wrap">
+            {filtered.length > 0
+              ? filtered.map(p => (
+                  <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
+                    isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
+                    onToggle={() => toggleCompare(p)}
+                    isRecommended={`${p.familyName}_${p.price}` === recoId}
+                    onOpen={onOpen} />
+                ))
+              : <div style={{padding:'40px 0',color:'#bbb',fontSize:14}}>해당 조건의 요금제가 없습니다.</div>
+            }
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
   const [intent, setIntent] = useState('데이터 위주');
-  const [usage, setUsage] = useState('유튜브 가끔 봐요');
-  const [openSections, setOpenSections] = useState(() => new Set(['유튜브 가끔 봐요']));
-  const sectionRefs = useMemo(() => {
-    const refs = {};
-    SECTION_ORDER.forEach(key => { refs[key] = React.createRef(); });
-    return refs;
-  }, []);
+  const [openGroups, setOpenGroups] = useState({ '7~10GB': true });
+  const ref1to6   = React.useRef(null);
+  const ref7to10  = React.useRef(null);
+  const ref11to49 = React.useRef(null);
+  const ref50Plus = React.useRef(null);
+  const groupRefs = { '1~6GB': ref1to6, '7~10GB': ref7to10, '11~49GB': ref11to49, '50GB+': ref50Plus };
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
@@ -933,19 +1003,16 @@ function App() {
     return Array.from(map.values());
   }, []);
 
-  // 필터 파이프라인
-  const filteredPlans = useMemo(() => {
+  // 필터 파이프라인 (네트워크 + 의도 필터 → flat list)
+  const { allPlans, recoId } = useMemo(() => {
     let list = normalizedPlans;
 
-    // 1. 네트워크 필터
     list = list.filter(p => network === '5g' ? p.familyName.includes('5G') : !p.familyName.includes('5G'));
 
-    // 2. 의도(Intent) 필터
     if (intent === '최저가') {
-      const sortedByPrice = [...list].sort((a, b) => a.price - b.price);
-      const thresholdIndex = Math.floor(sortedByPrice.length * 0.3);
-      const thresholdPrice = sortedByPrice[thresholdIndex]?.price || Infinity;
-      list = list.filter(p => p.price <= thresholdPrice);
+      const sorted = [...list].sort((a, b) => a.price - b.price);
+      const threshold = sorted[Math.floor(sorted.length * 0.3)]?.price || Infinity;
+      list = list.filter(p => p.price <= threshold);
     } else {
       list = list.filter(p => {
         const cls = classifyPlan(p);
@@ -957,30 +1024,30 @@ function App() {
       });
     }
 
-    // 3. 섹션별 그룹핑 (rangeId 기준)
-    const sections = {};
-    SECTION_ORDER.forEach(key => {
-      const ranges = USAGE_TO_RANGE[key];
-      sections[key] = list.filter(p => ranges.includes(p.rangeId)).sort((a, b) => a.price - b.price);
-    });
-
-    // 4. 추천 카드 식별 (전체 목록의 무제한 요금제 중 혜택 최대)
-    let recoId = null;
     const unlimitedAll = list.filter(p => p.isUnlimited);
+    let recoId = null;
     if (unlimitedAll.length > 0) {
       let best = unlimitedAll[0];
       let maxVal = Math.max(...best.variants.map(v => v.giftTotalValue || 0));
       unlimitedAll.forEach(p => {
         const val = Math.max(...p.variants.map(v => v.giftTotalValue || 0));
-        if (val > maxVal || (val === maxVal && p.price < best.price)) {
-          best = p; maxVal = val;
-        }
+        if (val > maxVal || (val === maxVal && p.price < best.price)) { best = p; maxVal = val; }
       });
       recoId = `${best.familyName}_${best.price}`;
     }
 
-    return { sections, recoId };
+    return { allPlans: list, recoId };
   }, [normalizedPlans, network, intent]);
+
+  const group1to6   = allPlans.filter(p => ['BELOW_1GB','RANGE_1_6'].includes(p.rangeId));
+  const group7to10  = allPlans.filter(p => p.rangeId === 'RANGE_7_10');
+  const group11to49 = allPlans.filter(p => p.rangeId === 'RANGE_11_50');
+  const group50Plus = allPlans.filter(p => ['RANGE_51_99','RANGE_100_PLUS'].includes(p.rangeId));
+
+  function handleNavClick(key) {
+    setOpenGroups(prev => ({ ...prev, [key]: true }));
+    setTimeout(() => { groupRefs[key]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
+  }
 
   const toggleCompare = (plan) => {
     setCompareList(prev => {
@@ -1026,68 +1093,34 @@ function App() {
             ))}
           </div>
 
-          {/* 2단계 사용량 필터 */}
+          {/* 데이터 구간 빠른 이동 */}
           <div className="usage-filter-wrap">
-            <span>평소에 스마트폰으로</span>
-            {['카카오·SNS 위주', '유튜브 가끔 봐요', '영상 자주 봐요', '데이터 무제한으로 써요', '잘 모르겠어요'].map(chip => (
-              <button key={chip} className={`usage-chip ${usage === chip ? 'active' : ''}`} onClick={() => {
-                setUsage(chip);
-                window.dataLayer=window.dataLayer||[];
-                window.dataLayer.push({event:'plan_filter_usage',value:chip});
-                if (chip === '잘 모르겠어요') {
-                  setOpenSections(new Set(SECTION_ORDER));
-                } else {
-                  setOpenSections(prev => { const n = new Set(prev); n.add(chip); return n; });
-                  setTimeout(() => { sectionRefs[chip]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
-                }
-              }}>{chip}</button>
+            {[['1~6GB','1~6GB'], ['7~10GB','7~10GB'], ['11~49GB','11~49GB'], ['50GB+','50GB+']].map(([key, label]) => (
+              <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
+                onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
+                {label}
+              </button>
             ))}
-            <span>편이에요</span>
           </div>
 
-          {/* 아코디언 섹션 */}
-          <div className="accordion-container">
-            {SECTION_ORDER.map(sectionKey => {
-              const plans = filteredPlans.sections[sectionKey];
-              if (!plans || plans.length === 0) return null;
-              const { gbLabel } = SECTION_META[sectionKey];
-              const isOpen = openSections.has(sectionKey);
-              return (
-                <div key={sectionKey} className="plan-accordion" ref={sectionRefs[sectionKey]}>
-                  <button
-                    className={`accordion-header ${isOpen ? 'open' : ''}`}
-                    onClick={() => {
-                      setOpenSections(prev => {
-                        const n = new Set(prev);
-                        if (n.has(sectionKey)) n.delete(sectionKey); else n.add(sectionKey);
-                        return n;
-                      });
-                    }}
-                  >
-                    <span className="accordion-title">{sectionKey}</span>
-                    <span className="accordion-gb-label">{gbLabel}</span>
-                    <span className="accordion-count">{plans.length}개</span>
-                    <span className={`accordion-chevron ${isOpen ? 'open' : ''}`}>▾</span>
-                  </button>
-                  {isOpen && (
-                    <div className="accordion-body">
-                      <div className="plan-grid">
-                        {plans.map(p => (
-                          <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
-                            isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
-                            onToggle={() => toggleCompare(p)}
-                            isRecommended={`${p.familyName}_${p.price}` === filteredPlans.recoId}
-                            onOpen={setModalPlan} />
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-            {SECTION_ORDER.every(k => (filteredPlans.sections[k]?.length ?? 0) === 0) && (
-              <div style={{ padding: '60px 0', textAlign: 'center', color: '#888' }}>조건에 맞는 요금제가 없습니다.</div>
-            )}
+          {/* 아코디언 그룹 */}
+          <div>
+            <PlanGroup title="1~6GB 이하" plans={group1to6} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['1~6GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '1~6GB': !prev['1~6GB']}))}
+              groupRef={ref1to6} />
+            <PlanGroup title="7~10GB" plans={group7to10} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['7~10GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '7~10GB': !prev['7~10GB']}))}
+              groupRef={ref7to10} />
+            <PlanGroup title="11~49GB" plans={group11to49} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['11~49GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '11~49GB': !prev['11~49GB']}))}
+              groupRef={ref11to49} />
+            <PlanGroup title="50GB 이상" plans={group50Plus} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['50GB+']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '50GB+': !prev['50GB+']}))}
+              groupRef={ref50Plus} />
           </div>
         </main>
 
