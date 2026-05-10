@@ -142,6 +142,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .pc-speed-txt { font-size: 13px; font-weight: 600; color: #666; }
 .pc-speed-txt.alert { color: #A32D2D; }
 .pc-promo-txt { font-size: 12px; color: var(--color-green); font-weight: 700; margin-top: 2px; }
+.pc-promo-badge { display: inline-block; background: #E6F9F4; color: #047857; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-top: 4px; }
 
 .pc-divider { height: 1px; background: #f0f0f0; margin: 0 0 20px; }
 
@@ -521,11 +522,11 @@ const BENEFIT_COLOR = {
 };
 
 const USAGE_TO_RANGE = {
-  "5GB 미만": ["BELOW_1GB", "RANGE_1_6"],
-  "10~20GB": ["RANGE_7_10", "RANGE_11_50"],
-  "20~40GB": ["RANGE_11_50"],
-  "40GB+": ["RANGE_51_99", "RANGE_100_PLUS"],
-  "잘 모르겠어요": null
+  "카카오·SNS 위주":        ["BELOW_1GB", "RANGE_1_6"],
+  "유튜브 가끔 봐요":       ["RANGE_7_10"],
+  "영상 자주 봐요":         ["RANGE_11_50"],
+  "데이터 무제한으로 써요":  ["RANGE_51_99", "RANGE_100_PLUS"],
+  "잘 모르겠어요":          null
 };
 
 /* ─── 파싱 및 정규화 함수 ─── */
@@ -818,8 +819,11 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
       
       {/* 1. 최상단: 데이터와 가격 */}
       <div className="pc-top-row">
-        <div className="pc-data-huge">
-          {plan.dataVolume === 0 ? "없음" : <>{totalGB}<span>GB{plan.isUnlimited && !promoGB ? '+' : ''}</span></>}
+        <div>
+          <div className="pc-data-huge">
+            {plan.dataVolume === 0 ? "없음" : <>{plan.dataVolume}<span>GB{plan.isUnlimited ? '+' : ''}</span></>}
+          </div>
+          {promoGB > 0 && <span className="pc-promo-badge">프로모션 +{promoGB}GB</span>}
         </div>
         <div className="pc-price-huge">
           {plan.price.toLocaleString()}<span>원</span>
@@ -832,7 +836,6 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
         <div className={`pc-speed-txt ${!plan.isUnlimited ? 'alert' : ''}`}>
           소진 후 {speedText}
         </div>
-        {promoGB > 0 && <div className="pc-promo-txt">🎁 모두에게 추가 {promoGB}GB</div>}
       </div>
 
       <div className="pc-divider" />
@@ -864,7 +867,7 @@ function App() {
   const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
   const [intent, setIntent] = useState('데이터 위주');
-  const [usage, setUsage] = useState('잘 모르겠어요');
+  const [usage, setUsage] = useState('유튜브 가끔 봐요');
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
@@ -1000,11 +1003,11 @@ function App() {
 
           {/* 2단계 사용량 필터 */}
           <div className="usage-filter-wrap">
-            <span>한 달 데이터 사용량이</span>
-            {['5GB 미만', '10~20GB', '20~40GB', '40GB+', '잘 모르겠어요'].map(chip => (
+            <span>평소에 스마트폰으로</span>
+            {['카카오·SNS 위주', '유튜브 가끔 봐요', '영상 자주 봐요', '데이터 무제한으로 써요', '잘 모르겠어요'].map(chip => (
               <button key={chip} className={`usage-chip ${usage === chip ? 'active' : ''}`} onClick={() => { setUsage(chip); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_filter_usage',value:chip}); }}>{chip}</button>
             ))}
-            <span>정도예요</span>
+            <span>편이에요</span>
           </div>
 
           {/* 리스트 출력 */}
