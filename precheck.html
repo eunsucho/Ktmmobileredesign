@@ -131,39 +131,6 @@
       return (
         <div className="min-h-screen bg-white">
 
-          {/* ── Header ── */}
-          <header className="bg-white border-b border-gray-200">
-            <div className="max-w-[1200px] mx-auto px-6 py-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-8">
-                  <div className="flex items-center gap-1">
-                    <span style={{ color: '#E60012', fontWeight: 700, fontSize: '24px' }}>kt</span>
-                    <span style={{ fontWeight: 700, fontSize: '20px', marginLeft: '4px' }}>M mobile</span>
-                  </div>
-                  <nav className="flex gap-6 text-sm">
-                    {['가입하기','상품','혜택','결합','고객센터'].map(m => (
-                      <a key={m} href="#" className="text-gray-600 hover:text-gray-900">{m}</a>
-                    ))}
-                  </nav>
-                  <div className="px-3 py-1 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-full text-xs text-purple-700">
-                    트리플할인
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex gap-3 text-xs text-gray-500">
-                    {['교체 유심 신청','신청조회','마이페이지'].map(l => (
-                      <a key={l} href="#" className="hover:text-gray-700">{l}</a>
-                    ))}
-                  </div>
-                  <button style={{ border: '1px solid #E60012', color: '#E60012', padding: '6px 16px', borderRadius: '4px', fontSize: '14px', background: 'transparent', cursor: 'pointer' }}
-                    onMouseEnter={e => e.currentTarget.style.background = '#fff5f5'}
-                    onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-                    로그인
-                  </button>
-                </div>
-              </div>
-            </div>
-          </header>
 
           {/* ── Page Title ── */}
           <div className="max-w-[1200px] mx-auto px-6 py-6 border-b border-gray-100">
@@ -630,8 +597,8 @@
                 <div style={{ marginBottom: '24px' }}>
                   <PrepareImage />
                 </div>
-                <button onClick={() => setShowPrepareModal(false)}
-                  style={{ width: '100%', height: '44px', background: '#1a1a1a', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                <button onClick={() => window.location.href = '셀프개통.html'}
+                  style={{ width: '100%', height: '44px', background: '#E60012', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
                   확인
                 </button>
               </div>
