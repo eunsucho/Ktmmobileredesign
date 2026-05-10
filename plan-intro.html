@@ -169,7 +169,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .pc-price-huge { font-size: 20px; font-weight: 900; color: var(--kt-red); letter-spacing: -0.02em; }
 .pc-price-huge span { font-size: 12px; font-weight: 700; color: #888; margin-left: 2px; }
 
-.pc-base-data-note { font-size: 11px; color: #aaa; font-weight: 600; margin-bottom: 6px; }
+.pc-base-data-note { font-size: 11px; color: #047857; font-weight: 700; margin-bottom: 6px; }
+
+.pg-data-group { margin-bottom: 28px; }
+.pg-data-group:last-child { margin-bottom: 4px; }
+.pg-data-label {
+  font-size: 13px; font-weight: 800; color: #aaa;
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 10px; padding-bottom: 6px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.pg-data-count { font-size: 11px; font-weight: 600; color: #ccc; }
 .pc-title-row { margin-bottom: 12px; }
 .pc-title { font-size: 14px; font-weight: 800; color: #111; line-height: 1.3; margin: 0 0 4px; word-break: keep-all; }
 .pc-speed-txt { font-size: 12px; font-weight: 600; color: #666; }
@@ -905,6 +915,19 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
     });
   }, [plans, filter]);
 
+  // totalGB 기준으로 서브 그룹화 → 같은 데이터량끼리 한 행에, 열 = 가격 비교
+  const dataGroups = useMemo(() => {
+    const map = new Map();
+    filtered.forEach(p => {
+      const tgb = p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
+      if (!map.has(tgb)) map.set(tgb, []);
+      map.get(tgb).push(p);
+    });
+    return Array.from(map.entries())
+      .sort(([a], [b]) => a - b)
+      .map(([tgb, groupPlans]) => ({ tgb, groupPlans }));
+  }, [filtered]);
+
   if (plans.length === 0) return null;
 
   return (
@@ -927,18 +950,26 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
             <button className={`pg-tab ${filter==='unlimit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('unlimit');}}>데이터 무제한</button>
             <button className={`pg-tab ${filter==='limit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('limit');}}>용량 제한</button>
           </div>
-          <div className="plan-grid" style={{marginBottom:'8px'}}>
-            {filtered.length > 0
-              ? filtered.map(p => (
-                  <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
-                    isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
-                    onToggle={() => toggleCompare(p)}
-                    isRecommended={`${p.familyName}_${p.price}` === recoId}
-                    onOpen={onOpen} />
-                ))
-              : <div style={{padding:'40px 0',color:'#bbb',fontSize:14}}>해당 조건의 요금제가 없습니다.</div>
-            }
-          </div>
+          {filtered.length === 0
+            ? <div style={{padding:'40px 0',color:'#bbb',fontSize:14}}>해당 조건의 요금제가 없습니다.</div>
+            : dataGroups.map(({ tgb, groupPlans }) => (
+              <div key={tgb} className="pg-data-group">
+                <div className="pg-data-label">
+                  {tgb}GB{groupPlans[0]?.isUnlimited ? '+' : ''}
+                  <span className="pg-data-count">{groupPlans.length}개 요금제</span>
+                </div>
+                <div className="plan-grid">
+                  {groupPlans.map(p => (
+                    <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
+                      isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
+                      onToggle={() => toggleCompare(p)}
+                      isRecommended={`${p.familyName}_${p.price}` === recoId}
+                      onOpen={onOpen} />
+                  ))}
+                </div>
+              </div>
+            ))
+          }
         </div>
       )}
     </div>
