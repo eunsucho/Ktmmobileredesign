@@ -219,6 +219,86 @@
 
     /* ---- Price text ---- */
     .price-green { color: var(--green); font-weight: 800; letter-spacing: -0.03em; }
+
+    /* ===== NEW HERO ===== */
+    #new-hero { width:100%; background:#fff; padding:28px 0 0; }
+    .nh-wrap { max-width:1280px; margin:0 auto; padding:0 32px; display:flex; gap:20px; align-items:stretch; min-height:420px; }
+
+    /* 진단 패널 */
+    .nh-diag {
+      flex: 0 0 60%; border-radius:var(--radius-lg);
+      background:#EBF2FF; padding:40px 44px;
+      display:flex; flex-direction:column; overflow:hidden; position:relative;
+    }
+    .nh-step-dots { display:flex; gap:8px; margin-bottom:28px; align-items:center; }
+    .nh-dot { width:28px; height:6px; border-radius:3px; background:#c7d9f5; transition:background 0.2s, width 0.2s; }
+    .nh-dot.active { background:#2E5BFF; width:40px; }
+    .nh-dot.done { background:#93b4e8; }
+    .nh-diag-label { font-size:12px; font-weight:700; color:#2E5BFF; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:10px; }
+    .nh-diag-headline { font-size:26px; font-weight:800; color:#111827; line-height:1.3; margin-bottom:6px; letter-spacing:-0.03em; }
+    .nh-diag-sub { font-size:14px; color:#4b5563; margin-bottom:28px; font-weight:500; }
+    .nh-q-label { font-size:13px; font-weight:700; color:#2E5BFF; margin-bottom:10px; letter-spacing:-0.01em; }
+    .nh-q-text { font-size:18px; font-weight:800; color:#111827; margin-bottom:20px; letter-spacing:-0.03em; line-height:1.4; }
+    .nh-opts { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .nh-opt {
+      padding:14px 16px; border-radius:var(--radius-md);
+      background:rgba(255,255,255,0.75); border:1.5px solid rgba(255,255,255,0.9);
+      font-size:14px; font-weight:700; color:#374151; text-align:left;
+      cursor:pointer; transition:all 0.18s var(--ease);
+      display:flex; align-items:center; gap:8px;
+    }
+    .nh-opt:hover { background:#fff; border-color:#93b4e8; transform:translateY(-1px); box-shadow:var(--shadow-sm); }
+    .nh-opt.selected { background:#fff; border-color:#2E5BFF; color:#2E5BFF; box-shadow:0 0 0 3px rgba(46,91,255,0.12); }
+    .nh-opt-check { width:18px; height:18px; border-radius:50%; border:2px solid #c7d9f5; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+    .nh-opt.selected .nh-opt-check { background:#2E5BFF; border-color:#2E5BFF; }
+    .nh-bottom-row { display:flex; align-items:center; justify-content:space-between; margin-top:24px; }
+    .nh-skip { font-size:13px; color:#9ca3af; text-decoration:none; transition:color 0.15s; }
+    .nh-skip:hover { color:#374151; }
+    .nh-next-btn {
+      display:flex; align-items:center; gap:6px;
+      padding:12px 22px; border-radius:999px;
+      background:#2E5BFF; color:#fff; border:none;
+      font-size:14px; font-weight:700; cursor:pointer;
+      transition:all 0.18s var(--ease); opacity:0.35;
+    }
+    .nh-next-btn.enabled { opacity:1; }
+    .nh-next-btn.enabled:hover { background:#1a4aff; box-shadow:var(--shadow-md); transform:translateY(-1px); }
+
+    /* 핫딜 패널 */
+    .nh-hotdeal-wrap { flex:1; display:flex; flex-direction:column; gap:10px; }
+    .nh-hotdeal {
+      flex:1; border-radius:var(--radius-lg);
+      background:#FFFBEB; border:1px solid #FDE68A;
+      padding:36px 32px; display:flex; flex-direction:column;
+    }
+    .nh-hd-cat { font-size:11px; font-weight:800; color:#b45309; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:12px; }
+    .nh-hd-dday { display:inline-flex; align-items:center; padding:4px 10px; background:#F59E0B; color:#fff; border-radius:999px; font-size:11px; font-weight:800; margin-bottom:16px; letter-spacing:0.02em; }
+    .nh-hd-headline { font-size:20px; font-weight:800; color:#111827; line-height:1.35; margin-bottom:10px; letter-spacing:-0.03em; word-break:keep-all; }
+    .nh-hd-copy { font-size:13px; color:#6b7280; line-height:1.6; flex:1; margin-bottom:24px; }
+    .nh-hd-cta {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:12px 22px; border-radius:999px;
+      background:#E60012; color:#fff; border:none;
+      font-size:14px; font-weight:700; cursor:pointer;
+      transition:all 0.18s var(--ease); align-self:flex-start;
+    }
+    .nh-hd-cta:hover { background:#c40010; box-shadow:var(--shadow-md); transform:translateY(-1px); }
+    .nh-all-events { font-size:13px; color:#9ca3af; text-align:right; padding:0 4px; }
+    .nh-all-events a { color:inherit; text-decoration:none; transition:color 0.15s; }
+    .nh-all-events a:hover { color:#374151; }
+
+    /* 반응형 */
+    @media (max-width:1023px) {
+      .nh-wrap { flex-direction:column; min-height:auto; }
+      .nh-diag { flex:none; }
+      .nh-hotdeal-wrap { flex:none; }
+    }
+    @media (max-width:767px) {
+      .nh-diag { padding:28px 24px; }
+      .nh-diag-headline { font-size:21px; }
+      .nh-opts { grid-template-columns:1fr; }
+      .nh-hotdeal { padding:28px 24px; }
+    }
   </style>
 </head>
 <body class="min-h-screen bg-white">
@@ -429,6 +509,36 @@ function closePopup() {
     </div>
   </div>
 </header>
+
+<!-- ===== NEW HERO: 맞춤형 진단 + 핫딜 슬롯 ===== -->
+<section id="new-hero">
+  <div class="nh-wrap">
+
+    <!-- ── 좌 60%: 맞춤형 요금제 진단 ── -->
+    <div class="nh-diag" role="region" aria-label="맞춤형 요금제 진단">
+      <!-- 단계 점 -->
+      <div class="nh-step-dots" id="nh-dots" aria-hidden="true"></div>
+      <!-- 진단 콘텐츠 (JS 주입) -->
+      <div id="nh-diag-content" style="display:flex;flex-direction:column;flex:1;"></div>
+    </div>
+
+    <!-- ── 우 40%: 오늘의 핫딜 ── -->
+    <div class="nh-hotdeal-wrap">
+      <div class="nh-hotdeal">
+        <div class="nh-hd-cat">이벤트 · 프로모션</div>
+        <div class="nh-hd-dday">D-3</div>
+        <div class="nh-hd-headline">쿠팡·N페이 페이백<br>지금 가입하면 최대 2만원</div>
+        <p class="nh-hd-copy">5월 한 달간 kt M mobile 신규 가입 고객 대상,<br>쿠팡캐시 또는 네이버페이 포인트를 선택해 받으세요.</p>
+        <button class="nh-hd-cta" onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'hero_hotdeal_click',label:'쿠팡_N페이_페이백'});window.location.href='plan-intro.html'">
+          자세히 보기
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div class="nh-all-events"><a href="plan-intro.html">전체 이벤트 17개 보기 →</a></div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ===== SECTION 3 & 4: Hero Slider + Q&A ===== -->
 <div style="width:100%;background:white;padding:24px 0;">
@@ -1556,7 +1666,108 @@ function buildReviews() {
   buildAccordion();
   buildPhones();
   buildReviews();
+  initHeroDiag();
 })();
+
+// ============================================================
+// NEW HERO — 맞춤형 요금제 진단
+// ============================================================
+
+const HERO_DIAG_QUESTIONS = [
+  {
+    q: '매월 데이터 얼마나 쓰세요?',
+    opts: ['6GB 미만', '6~10GB', '10~25GB', '25GB 이상']
+  },
+  {
+    // TODO: 실제 질문 내용 확정 후 교체
+    q: '주로 어떻게 사용하시나요?',
+    opts: ['유튜브·영상', 'SNS·메신저', '게임', '통화 위주']
+  },
+  {
+    // TODO: 실제 질문 내용 확정 후 교체
+    q: '월 통신비 예산은요?',
+    opts: ['1만원대', '2만원대', '3만원대', '4만원 이상']
+  }
+];
+
+let nhStep = 1;
+let nhAnswers = {};
+
+function initHeroDiag() { renderHeroDiag(); }
+
+function renderHeroDiag() {
+  // 단계 점
+  const dots = document.getElementById('nh-dots');
+  if (!dots) return;
+  dots.innerHTML = HERO_DIAG_QUESTIONS.map((_, i) => {
+    const n = i + 1;
+    const cls = n === nhStep ? 'nh-dot active' : (n < nhStep ? 'nh-dot done' : 'nh-dot');
+    return `<div class="${cls}"></div>`;
+  }).join('') + `<span style="font-size:12px;color:#6b7280;margin-left:6px;font-weight:600;">${nhStep} / ${HERO_DIAG_QUESTIONS.length}</span>`;
+
+  const content = document.getElementById('nh-diag-content');
+  if (!content) return;
+  const q = HERO_DIAG_QUESTIONS[nhStep - 1];
+  const answered = !!nhAnswers[nhStep];
+
+  content.innerHTML = `
+    ${nhStep === 1 ? `
+      <div class="nh-diag-label">맞춤형 요금제 진단</div>
+      <div class="nh-diag-headline">30초 만에<br>딱 맞는 요금제 찾기</div>
+      <div class="nh-diag-sub">3가지 질문에 답하면 추천해드려요</div>
+    ` : ''}
+    <div class="nh-q-label">Q${nhStep}</div>
+    <div class="nh-q-text">${q.q}</div>
+    <div class="nh-opts" role="radiogroup" aria-label="${q.q}">
+      ${q.opts.map(opt => `
+        <button class="nh-opt${nhAnswers[nhStep] === opt ? ' selected' : ''}"
+          role="radio" aria-checked="${nhAnswers[nhStep] === opt}"
+          aria-label="${opt}"
+          onclick="nhSelectAnswer('${opt.replace(/'/g,"\\'")}')">
+          <span class="nh-opt-check">
+            ${nhAnswers[nhStep] === opt ? '<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="2,5 4,7 8,3" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
+          </span>
+          ${opt}
+        </button>
+      `).join('')}
+    </div>
+    <div class="nh-bottom-row">
+      <a href="plan-intro.html" class="nh-skip"
+        onclick="window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'hero_diagnosis_skip',step:${nhStep}});">
+        건너뛰고 전체 요금제 보기 →
+      </a>
+      <button class="nh-next-btn${answered ? ' enabled' : ''}"
+        ${!answered ? 'disabled aria-disabled="true"' : ''}
+        onclick="nhNextStep()">
+        다음
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  `;
+}
+
+function nhSelectAnswer(opt) {
+  nhAnswers[nhStep] = opt;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: nhStep === 1 ? 'hero_diagnosis_start' : 'hero_diagnosis_step',
+    step: nhStep, answer: opt
+  });
+  renderHeroDiag();
+}
+
+function nhNextStep() {
+  if (!nhAnswers[nhStep]) return;
+  if (nhStep < HERO_DIAG_QUESTIONS.length) {
+    nhStep++;
+    renderHeroDiag();
+  } else {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'hero_diagnosis_complete', answers: nhAnswers });
+    // TODO: 결과에 따라 plan-intro.html로 쿼리파라미터 전달하며 이동
+    window.location.href = 'plan-intro.html';
+  }
+}
 
 </script>
 </body>
