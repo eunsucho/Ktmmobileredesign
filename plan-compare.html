@@ -999,6 +999,9 @@ img { max-width: 100%; display: block; }
 </style>
 </head>
 <body>
+<script>window.KMNAV_ACTIVE = '상품';</script>
+<script src="shared-nav.js"></script>
+<div id="nav-mount"></div>
 <div id="root"></div>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -1579,36 +1582,7 @@ window.PlanModal2 = PlanModal2;
 /* global React, ReactDOM */
 const { useState, useEffect, useMemo } = React;
 
-function Header() {
-  const promos = ['mobi 요금제 12% 할인', '트리플 할인 진행 중', 'M쇼핑 할인 진행 중'];
-  const [pi, setPi] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setPi(x => (x + 1) % promos.length), 2800);
-    return () => clearInterval(t);
-  }, []);
-  return (
-    <header className="kt-header">
-      <div className="kt-header-inner">
-        <a className="kt-logo" href="index.html" style={{alignItems:'center'}}>
-          <img src="ktmmobile_logo.svg" alt="kt M mobile" style={{height:'30px',width:'auto',display:'block'}} />
-        </a>
-        <nav className="kt-nav">
-          <a className="kt-nav-item">요금제</a>
-          <a className="kt-nav-item">휴대폰</a>
-          <a className="kt-nav-item">유심/eSIM</a>
-          <a className="kt-nav-item">멤버십·이벤트</a>
-          <a className="kt-nav-item">고객지원</a>
-        </nav>
-        <div className="kt-promo-badge"><span className="kt-promo-dot"></span>{promos[pi]}</div>
-        <div className="kt-utils">
-          <a>매장찾기</a><span className="kt-utils-divider">|</span>
-          <a>마이</a><span className="kt-utils-divider">|</span>
-          <button className="kt-login-btn">로그인</button>
-        </div>
-      </div>
-    </header>
-  );
-}
+function Header() { return null; }
 
 function App() {
   const [filters, setFilters] = useState({ data: 7, budget: 20000 });

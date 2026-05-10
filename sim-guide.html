@@ -34,118 +34,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   a { color: inherit; text-decoration: none; }
   button { font-family: inherit; cursor: pointer; border: none; background: none; }
 
-  /* ---------- Header ---------- */
-  .site-header {
-    border-bottom: 1px solid #eee;
-    background: #fff;
-  }
-  .header-inner {
-    max-width: 1280px;
-    margin: 0 auto;
-    height: 84px;
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-  }
-  .logo {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    font-weight: 700;
-    font-size: 22px;
-    letter-spacing: -0.02em;
-  }
-  .logo-kt {
-    background: #ee2c2c;
-    color: #fff;
-    padding: 2px 6px 2px 6px;
-    border-radius: 3px;
-    font-size: 18px;
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -0.04em;
-  }
-  .logo-name { color: #111; font-weight: 700; }
-  .logo-name b { font-weight: 900; }
-
-  .main-nav {
-    display: flex;
-    gap: 40px;
-    flex: 1;
-    margin-left: 24px;
-  }
-  .main-nav a {
-    font-size: 17px;
-    font-weight: 500;
-    color: #333;
-    padding: 6px 0;
-    position: relative;
-  }
-  .main-nav a.active {
-    color: #111;
-    font-weight: 700;
-  }
-  .main-nav a.active::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: -4px;
-    height: 2px;
-    background: #111;
-  }
-
-  .header-promo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 700;
-    font-size: 15px;
-    color: #111;
-  }
-  .header-promo-tag {
-    background: #ffd02e;
-    color: #111;
-    font-weight: 900;
-    font-size: 12px;
-    padding: 3px 6px;
-    border-radius: 3px;
-  }
-
-  .header-utils {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    font-size: 13px;
-    color: #555;
-    margin-left: auto;
-  }
-  .header-utils .sep { color: #ccc; }
-  .header-utils a:hover { color: #111; }
-  .login-btn {
-    border: 1px solid #d0d0d0;
-    border-radius: 4px;
-    padding: 6px 14px;
-    font-size: 13px;
-    color: #111;
-    background: #fff;
-    margin-left: 4px;
-  }
-  .icon-btn {
-    width: 32px; height: 32px;
-    display: inline-flex; align-items: center; justify-content: center;
-    color: #333;
-  }
-  .menu-btn {
-    width: 44px; height: 44px;
-    background: #ee2c2c;
-    color: #fff;
-    border-radius: 4px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 6px;
-  }
-
   /* ---------- Page ---------- */
   .page {
     max-width: 1280px;
@@ -318,10 +206,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   /* responsive */
   @media (max-width: 900px) {
-    .header-inner { gap: 16px; padding: 0 16px; height: 64px; }
-    .main-nav { display: none; }
-    .header-promo { display: none; }
-    .header-utils { font-size: 12px; gap: 8px; }
     .page { padding: 32px 16px 80px; }
     .page-head { flex-direction: column; align-items: flex-start; }
     .page-title { font-size: 24px; }
@@ -333,43 +217,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 </head>
 <body>
-
-<!-- ======================= HEADER ======================= -->
-<header class="site-header">
-  <div class="header-inner">
-    <a href="index.html" class="logo" aria-label="kt M mobile">
-      <img src="ktmmobile_logo.svg" alt="kt M mobile" style="height:30px;width:auto;display:block;">
-    </a>
-
-    <nav class="main-nav" aria-label="주 메뉴">
-      <a href="셀프개통.html">가입하기</a>
-      <a href="plan-intro.html">상품</a>
-      <a href="#">혜택</a>
-      <a href="#">결합</a>
-      <a href="#" class="active">고객센터</a>
-    </nav>
-
-    <div class="header-promo">
-      <span class="header-promo-tag">M</span>
-      <span>M쇼핑할인</span>
-    </div>
-
-    <div class="header-utils">
-      <a href="#">교체 유심 신청</a>
-      <span class="sep">|</span>
-      <a href="#">신청조회</a>
-      <span class="sep">|</span>
-      <a href="#">마이페이지</a>
-      <button class="login-btn">로그인</button>
-      <button class="icon-btn" aria-label="검색">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      </button>
-      <button class="menu-btn" aria-label="전체 메뉴">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-      </button>
-    </div>
-  </div>
-</header>
+<script>window.KMNAV_ACTIVE = '고객센터';</script>
+<script src="shared-nav.js"></script>
+<div id="nav-mount"></div>
 
 <!-- ======================= MAIN ======================= -->
 <main class="page">
