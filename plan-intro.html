@@ -99,19 +99,32 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 700;
   background: #fff; border: 1px solid #ddd; color: #666; transition: all 0.2s;
 }
-.usage-chip.active { background: #111; color: #fff; border-color: #111; }
+.usage-chip.active { background: #f0f0f0; color: #999; border-color: #ddd; }
 
 /* ==========================================
    PLAN GRID & SECTION
    ========================================== */
-.plan-section { margin-bottom: 48px; }
-.section-title {
-  font-size: 18px; font-weight: 800; color: #111;
-  margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #111;
-  display: flex; align-items: center; gap: 8px;
-}
-.section-title .sub { font-size: 13px; font-weight: 600; color: #888; }
 .plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+/* ==========================================
+   ACCORDION
+   ========================================== */
+.accordion-container { display: flex; flex-direction: column; gap: 12px; }
+.plan-accordion { border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
+.accordion-header {
+  width: 100%; display: flex; align-items: center; gap: 8px;
+  padding: 18px 20px; background: #fff; border: none; cursor: pointer;
+  font-size: 16px; font-weight: 800; color: #111; text-align: left;
+  transition: background 0.15s;
+}
+.accordion-header:hover { background: #f9f9f9; }
+.accordion-header.open { background: #f7f8fa; }
+.accordion-title { flex-shrink: 0; }
+.accordion-gb-label { font-size: 12px; font-weight: 600; color: #aaa; }
+.accordion-count { font-size: 13px; font-weight: 600; color: #bbb; margin-left: auto; }
+.accordion-chevron { font-size: 14px; color: #aaa; transition: transform 0.2s; flex-shrink: 0; }
+.accordion-chevron.open { transform: rotate(180deg); }
+.accordion-body { padding: 20px; border-top: 1px solid #eee; }
 
 /* ==========================================
    PLAN CARD UI
@@ -529,6 +542,14 @@ const USAGE_TO_RANGE = {
   "잘 모르겠어요":          null
 };
 
+const SECTION_ORDER = ['카카오·SNS 위주', '유튜브 가끔 봐요', '영상 자주 봐요', '데이터 무제한으로 써요'];
+const SECTION_META = {
+  '카카오·SNS 위주':        { gbLabel: '1~6GB' },
+  '유튜브 가끔 봐요':       { gbLabel: '7~10GB' },
+  '영상 자주 봐요':         { gbLabel: '11~49GB' },
+  '데이터 무제한으로 써요':  { gbLabel: '50GB+' },
+};
+
 /* ─── 파싱 및 정규화 함수 ─── */
 function classifyPlan(plan) {
   const name = plan.familyName;
@@ -868,6 +889,12 @@ function App() {
   const [network, setNetwork] = useState('lte');
   const [intent, setIntent] = useState('데이터 위주');
   const [usage, setUsage] = useState('유튜브 가끔 봐요');
+  const [openSections, setOpenSections] = useState(() => new Set(['유튜브 가끔 봐요']));
+  const sectionRefs = useMemo(() => {
+    const refs = {};
+    SECTION_ORDER.forEach(key => { refs[key] = React.createRef(); });
+    return refs;
+  }, []);
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
@@ -930,22 +957,20 @@ function App() {
       });
     }
 
-    // 3. 사용량(Usage) 필터
-    const targetRanges = USAGE_TO_RANGE[usage];
-    if (targetRanges) {
-      list = list.filter(p => targetRanges.includes(p.rangeId));
-    }
+    // 3. 섹션별 그룹핑 (rangeId 기준)
+    const sections = {};
+    SECTION_ORDER.forEach(key => {
+      const ranges = USAGE_TO_RANGE[key];
+      sections[key] = list.filter(p => ranges.includes(p.rangeId)).sort((a, b) => a.price - b.price);
+    });
 
-    // 4. 무제한 여부 분리 및 가격 정렬
-    const unlimited = list.filter(p => p.isUnlimited).sort((a, b) => a.price - b.price);
-    const limited = list.filter(p => !p.isUnlimited).sort((a, b) => a.price - b.price);
-
-    // 5. 추천 카드 식별
+    // 4. 추천 카드 식별 (전체 목록의 무제한 요금제 중 혜택 최대)
     let recoId = null;
-    if (unlimited.length > 0) {
-      let best = unlimited[0];
+    const unlimitedAll = list.filter(p => p.isUnlimited);
+    if (unlimitedAll.length > 0) {
+      let best = unlimitedAll[0];
       let maxVal = Math.max(...best.variants.map(v => v.giftTotalValue || 0));
-      unlimited.forEach(p => {
+      unlimitedAll.forEach(p => {
         const val = Math.max(...p.variants.map(v => v.giftTotalValue || 0));
         if (val > maxVal || (val === maxVal && p.price < best.price)) {
           best = p; maxVal = val;
@@ -954,8 +979,8 @@ function App() {
       recoId = `${best.familyName}_${best.price}`;
     }
 
-    return { unlimited, limited, recoId };
-  }, [normalizedPlans, network, intent, usage]);
+    return { sections, recoId };
+  }, [normalizedPlans, network, intent]);
 
   const toggleCompare = (plan) => {
     setCompareList(prev => {
@@ -1005,48 +1030,65 @@ function App() {
           <div className="usage-filter-wrap">
             <span>평소에 스마트폰으로</span>
             {['카카오·SNS 위주', '유튜브 가끔 봐요', '영상 자주 봐요', '데이터 무제한으로 써요', '잘 모르겠어요'].map(chip => (
-              <button key={chip} className={`usage-chip ${usage === chip ? 'active' : ''}`} onClick={() => { setUsage(chip); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_filter_usage',value:chip}); }}>{chip}</button>
+              <button key={chip} className={`usage-chip ${usage === chip ? 'active' : ''}`} onClick={() => {
+                setUsage(chip);
+                window.dataLayer=window.dataLayer||[];
+                window.dataLayer.push({event:'plan_filter_usage',value:chip});
+                if (chip === '잘 모르겠어요') {
+                  setOpenSections(new Set(SECTION_ORDER));
+                } else {
+                  setOpenSections(prev => { const n = new Set(prev); n.add(chip); return n; });
+                  setTimeout(() => { sectionRefs[chip]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
+                }
+              }}>{chip}</button>
             ))}
             <span>편이에요</span>
           </div>
 
-          {/* 리스트 출력 */}
-          {filteredPlans.unlimited.length > 0 && (
-            <div className="plan-section">
-              <div className="section-title">
-                ── 데이터 무제한 <span className="sub">[∞ 소진 후 속도 유지]</span> ──
-              </div>
-              <div className="plan-grid">
-                {filteredPlans.unlimited.map(p => (
-                  <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
-                    isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
-                    onToggle={() => toggleCompare(p)}
-                    isRecommended={`${p.familyName}_${p.price}` === filteredPlans.recoId}
-                    onOpen={setModalPlan} />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {filteredPlans.limited.length > 0 && (
-            <div className="plan-section">
-              <div className="section-title" style={{ color: '#666', borderBottomColor: '#ccc' }}>
-                ── 데이터 용량 제한 <span className="sub">[🔒 소진 시 차단]</span> ──
-              </div>
-              <div className="plan-grid">
-                {filteredPlans.limited.map(p => (
-                  <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
-                    isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
-                    onToggle={() => toggleCompare(p)}
-                    onOpen={setModalPlan} />
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {(filteredPlans.unlimited.length === 0 && filteredPlans.limited.length === 0) && (
-            <div style={{ padding: '60px 0', textAlign: 'center', color: '#888' }}>조건에 맞는 요금제가 없습니다.</div>
-          )}
+          {/* 아코디언 섹션 */}
+          <div className="accordion-container">
+            {SECTION_ORDER.map(sectionKey => {
+              const plans = filteredPlans.sections[sectionKey];
+              if (!plans || plans.length === 0) return null;
+              const { gbLabel } = SECTION_META[sectionKey];
+              const isOpen = openSections.has(sectionKey);
+              return (
+                <div key={sectionKey} className="plan-accordion" ref={sectionRefs[sectionKey]}>
+                  <button
+                    className={`accordion-header ${isOpen ? 'open' : ''}`}
+                    onClick={() => {
+                      setOpenSections(prev => {
+                        const n = new Set(prev);
+                        if (n.has(sectionKey)) n.delete(sectionKey); else n.add(sectionKey);
+                        return n;
+                      });
+                    }}
+                  >
+                    <span className="accordion-title">{sectionKey}</span>
+                    <span className="accordion-gb-label">{gbLabel}</span>
+                    <span className="accordion-count">{plans.length}개</span>
+                    <span className={`accordion-chevron ${isOpen ? 'open' : ''}`}>▾</span>
+                  </button>
+                  {isOpen && (
+                    <div className="accordion-body">
+                      <div className="plan-grid">
+                        {plans.map(p => (
+                          <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
+                            isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
+                            onToggle={() => toggleCompare(p)}
+                            isRecommended={`${p.familyName}_${p.price}` === filteredPlans.recoId}
+                            onOpen={setModalPlan} />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+            {SECTION_ORDER.every(k => (filteredPlans.sections[k]?.length ?? 0) === 0) && (
+              <div style={{ padding: '60px 0', textAlign: 'center', color: '#888' }}>조건에 맞는 요금제가 없습니다.</div>
+            )}
+          </div>
         </main>
 
         <aside className="kt-side">
