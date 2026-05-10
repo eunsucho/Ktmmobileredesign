@@ -140,52 +140,54 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .pg-tab:hover { color: #444; background: #ebebeb; }
 .pg-tab.active { background: #111; color: #fff; }
 
+/* ==========================================
+   PLAN GRID
+   ========================================== */
+.plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 
 /* ==========================================
    PLAN CARD UI
    ========================================== */
 .plan-card {
   background: #fff; border: 1px solid var(--color-border-tertiary);
-  border-radius: 16px; padding: 24px; display: flex; flex-direction: column;
-  position: relative; transition: all 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+  border-radius: 14px; padding: 16px; display: flex; flex-direction: column;
+  position: relative; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   cursor: pointer;
 }
-.plan-card:hover { border-color: var(--color-border-primary); box-shadow: 0 6px 24px rgba(24,95,165,0.08); transform: translateY(-2px); }
+.plan-card:hover { border-color: var(--color-border-primary); box-shadow: 0 6px 20px rgba(24,95,165,0.08); transform: translateY(-2px); }
 .plan-card.added { border: 2px solid var(--color-primary); }
 
 .pc-reco-badge {
-  position: absolute; top: -12px; right: 20px;
-  background: #111; color: #fff; font-size: 11px; font-weight: 800;
-  padding: 4px 10px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  position: absolute; top: -10px; right: 14px;
+  background: #111; color: #fff; font-size: 10px; font-weight: 800;
+  padding: 3px 8px; border-radius: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 
-.pc-top-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-.pc-data-huge { font-size: 34px; font-weight: 900; color: #111; letter-spacing: -0.04em; }
-.pc-data-huge span { font-size: 18px; font-weight: 800; }
-.pc-price-huge { font-size: 24px; font-weight: 900; color: var(--kt-red); letter-spacing: -0.02em; }
-.pc-price-huge span { font-size: 14px; font-weight: 700; color: #888; margin-left: 2px; }
+.pc-top-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+.pc-data-huge { font-size: 28px; font-weight: 900; color: #111; letter-spacing: -0.04em; }
+.pc-data-huge span { font-size: 15px; font-weight: 800; }
+.pc-price-huge { font-size: 20px; font-weight: 900; color: var(--kt-red); letter-spacing: -0.02em; }
+.pc-price-huge span { font-size: 12px; font-weight: 700; color: #888; margin-left: 2px; }
 
-.pc-title-row { margin-bottom: 20px; }
-.pc-title { font-size: 17px; font-weight: 800; color: #111; line-height: 1.3; margin: 0 0 6px; word-break: keep-all; }
-.pc-speed-txt { font-size: 13px; font-weight: 600; color: #666; }
+.pc-base-data-note { font-size: 11px; color: #aaa; font-weight: 600; margin-bottom: 6px; }
+.pc-title-row { margin-bottom: 12px; }
+.pc-title { font-size: 14px; font-weight: 800; color: #111; line-height: 1.3; margin: 0 0 4px; word-break: keep-all; }
+.pc-speed-txt { font-size: 12px; font-weight: 600; color: #666; }
 .pc-speed-txt.alert { color: #A32D2D; }
-.pc-promo-txt { font-size: 12px; color: var(--color-green); font-weight: 700; margin-top: 2px; }
-.pc-promo-badge { display: inline-block; background: #E6F9F4; color: #047857; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-top: 4px; }
+.pc-promo-txt { font-size: 11px; color: var(--color-green); font-weight: 700; margin-top: 2px; }
+.pc-promo-badge { display: inline-block; background: #E6F9F4; color: #047857; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-top: 3px; }
 
-.pc-divider { height: 1px; background: #f0f0f0; margin: 0 0 20px; }
+.pc-divider { height: 1px; background: #f0f0f0; margin: 0 0 12px; }
 
-.pc-benefits-wrapper { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; min-height: 44px; }
-.pc-benefit-item { display: flex; align-items: center; gap: 12px; }
-.pc-benefit-logo {
-  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
-  display: grid; place-items: center; font-size: 22px;
-  border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+.pc-benefit-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; min-height: 24px; }
+.pc-benefit-chip {
+  font-size: 11px; font-weight: 700; color: #555;
+  background: #f5f5f5; border-radius: 999px; padding: 3px 9px;
 }
-.pc-benefit-text { font-size: 15px; font-weight: 800; color: #222; }
 
 .pc-add-btn {
-  width: 100%; padding: 14px; border-radius: 10px; margin-top: auto;
-  font-size: 14px; font-weight: 800; text-align: center; transition: all 0.2s;
+  width: 100%; padding: 10px; border-radius: 8px; margin-top: auto;
+  font-size: 12px; font-weight: 800; text-align: center; transition: all 0.2s;
   border: 1px solid var(--color-border-tertiary); color: #444; background: #fff;
 }
 .pc-add-btn:hover { background: #f9f9f9; }
@@ -354,7 +356,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (max-width: 1024px) {
   .kt-layout { flex-direction: column; }
   .kt-side { width: 100%; position: static; }
-  .plan-grid { grid-template-columns: 1fr; }
+  .plan-grid { grid-template-columns: repeat(2, 1fr); }
   .kt-svc-4grid { grid-template-columns: repeat(2,1fr); }
   .kt-mdl-icons { grid-template-columns: repeat(2, 1fr); gap: 16px 0; }
   .kt-mdl-icon-item:nth-child(2)::after { display: none; }
@@ -846,13 +848,13 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
     <div className={`plan-card ${isAdded ? 'added' : ''}`} onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_card_open',plan_name:plan.familyName,price:plan.price}); onOpen(plan); }}>
       {isRecommended && <div className="pc-reco-badge">추천</div>}
       
-      {/* 1. 최상단: 데이터와 가격 */}
+      {/* 1. 최상단: 데이터(totalGB)와 가격 */}
       <div className="pc-top-row">
         <div>
           <div className="pc-data-huge">
-            {plan.dataVolume === 0 ? "없음" : <>{plan.dataVolume}<span>GB{plan.isUnlimited ? '+' : ''}</span></>}
+            {totalGB === 0 ? "없음" : <>{totalGB}<span>GB{plan.isUnlimited ? '+' : ''}</span></>}
           </div>
-          {promoGB > 0 && <span className="pc-promo-badge">프로모션 +{promoGB}GB</span>}
+          {promoGB > 0 && <div className="pc-base-data-note">기본 {plan.dataVolume}GB + 프로모션 {promoGB}GB</div>}
         </div>
         <div className="pc-price-huge">
           {plan.price.toLocaleString()}<span>원</span>
@@ -869,19 +871,12 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
 
       <div className="pc-divider" />
 
-      {/* 3. 제휴처 혜택 (정사각형 로고 44x44) */}
-      <div className="pc-benefits-wrapper">
-        {uniqueBenefits.length > 0 ? uniqueBenefits.map((b, i) => {
-          const config = getBenefitConfig(b);
-          return (
-            <div key={i} className="pc-benefit-item">
-              <div className="pc-benefit-logo" style={{ background: config.bg }}>
-                {config.icon}
-              </div>
-              <div className="pc-benefit-text">{b}</div>
-            </div>
-          );
-        }) : <div className="pc-benefit-item" style={{opacity: 0.4}}><div className="pc-benefit-logo">✔️</div><div className="pc-benefit-text" style={{fontWeight: 600}}>기본 혜택 적용</div></div>}
+      {/* 3. 제휴처 혜택 칩 */}
+      <div className="pc-benefit-chips">
+        {uniqueBenefits.length > 0
+          ? uniqueBenefits.map((b, i) => <span key={i} className="pc-benefit-chip">{b}</span>)
+          : <span className="pc-benefit-chip" style={{opacity: 0.5}}>기본 혜택</span>
+        }
       </div>
 
       {/* 4. 버튼 */}
@@ -982,12 +977,11 @@ function App() {
   const normalizedPlans = useMemo(() => {
     const map = new Map();
     RAW_PLANS.forEach(p => {
-      const key = `${p.familyName}_${p.price}`;
+      const key = `${p.price}_${p.dataVolume}_${p.isUnlimited}`;
       if (!map.has(key)) {
         map.set(key, { ...p, variants: [...(p.variants || [])] });
       } else {
-        const existing = map.get(key);
-        existing.variants.push(...(p.variants || []));
+        map.get(key).variants.push(...(p.variants || []));
       }
     });
     return Array.from(map.values());
