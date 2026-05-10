@@ -3,7 +3,7 @@ import { Check, Calendar, X, Clock, ChevronDown, ChevronUp, Search, MapPin, Sett
 import '../styles/fonts.css';
 
 export default function App() {
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(1);
   const [isFading, setIsFading] = useState(false);
 
   // Step 1 States
@@ -195,7 +195,7 @@ export default function App() {
     if (document.getElementById('kmnav-header')) return;
     (window as any).KMNAV_ACTIVE = '가입하기';
     const script = document.createElement('script');
-    script.src = '/shared-nav.js';
+    script.src = './shared-nav.js';
     document.head.appendChild(script);
   }, []);
 
