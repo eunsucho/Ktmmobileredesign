@@ -154,10 +154,24 @@ export default function App() {
   const isStep2Valid = phone.trim() !== '' && email.trim() !== '' && zipcode.trim() !== '' && address.trim() !== '' && selectedIdType !== '' && idIssueDate !== '' && idAgree && ((selectedIdType === '주민등록증' || selectedIdType === '운전면허증') ? faceResultChecked : true) && (simHasType === '보유' ? (simNumber.length === 19 && simValidated) : simBuyPlace !== '');
   const isStep3Valid = telecom !== '' && movingPhone.trim() !== '';
 
+  const stepEntryTime = useRef(Date.now());
+  const appStartTime = useRef(Date.now());
+
+  const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event, ...params });
+  };
+
   const goToStep = (step: number) => {
+    const timeOnStep = Math.round((Date.now() - stepEntryTime.current) / 1000);
+    pushEvent('signup_step_complete', { step: currentStep, time_on_step: timeOnStep });
+    if (step === 6) {
+      pushEvent('signup_complete', { total_time: Math.round((Date.now() - appStartTime.current) / 1000) });
+    }
     setIsFading(true);
     setTimeout(() => {
       setCurrentStep(step);
+      stepEntryTime.current = Date.now();
       window.scrollTo({ top: 0, behavior: 'instant' });
       setIsFading(false);
     }, 250);
@@ -198,6 +212,12 @@ export default function App() {
     script.src = './shared-nav.js';
     document.head.appendChild(script);
   }, []);
+
+  // Track step view
+  useEffect(() => {
+    pushEvent('signup_step_view', { step: currentStep });
+    stepEntryTime.current = Date.now();
+  }, [currentStep]);
 
   // Timer Effect
   useEffect(() => {

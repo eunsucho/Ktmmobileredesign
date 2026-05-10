@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PGSPQPK8');</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "wowsjj6lt6");
+</script>
   <title>KT M mobile - 가입조건 선택</title>
 
   <!-- Tailwind CSS CDN (JIT, supports arbitrary values) -->
@@ -151,7 +164,7 @@
                       { value: 'minor',    icon: '19-', label: '미성년자(19세 미만)' },
                       { value: 'foreigner',icon: '🌐',  label: '외국인 (Foreigner)' }
                     ].map(item => (
-                      <button key={item.value} onClick={() => setCustomerType(item.value)}
+                      <button key={item.value} onClick={() => { setCustomerType(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_customer_type',value:item.value}); }}
                         style={{
                           padding: '12px 16px', borderRadius: '8px', border: customerType === item.value ? '1px solid #00B5A5' : '1px solid #e5e7eb',
                           background: customerType === item.value ? '#F0FAF9' : '#fff',
@@ -181,7 +194,7 @@
                     { value: 'self', label: '셀프 개통' },
                     { value: 'consultant', label: '상담사 개통' }
                   ].map(item => (
-                    <button key={item.value} onClick={() => setActivationMethod(item.value)}
+                    <button key={item.value} onClick={() => { setActivationMethod(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_activation_method',value:item.value}); }}
                       style={{
                         height: '44px', borderRadius: '12px',
                         border: activationMethod === item.value ? '2px solid #4ECDC4' : '1px solid #E0E0E0',
@@ -206,7 +219,7 @@
                       { value: 'usim-have', label: 'USIM' },
                       { value: 'esim',      label: 'ESIM' }
                     ].map(item => (
-                      <button key={item.value} onClick={() => setActivationType(item.value)}
+                      <button key={item.value} onClick={() => { setActivationType(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_sim_type',value:item.value}); }}
                         style={{
                           height: '44px', borderRadius: '12px',
                           border: activationType === item.value ? '1px solid #00B5A5' : '1px solid #e5e7eb',
@@ -291,7 +304,7 @@
                     { value: 'transfer', title: '번호이동', sub: '쓰던번호 그대로' },
                     { value: 'new',      title: '신규가입', sub: '새로운 번호로' }
                   ].map(item => (
-                    <button key={item.value} onClick={() => setSubscriptionType(item.value)}
+                    <button key={item.value} onClick={() => { setSubscriptionType(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_subscription_type',value:item.value}); }}
                       style={{
                         padding: '14px 16px', borderRadius: '8px',
                         border: subscriptionType === item.value ? '1px solid #00B5A5' : '1px solid #e5e7eb',
@@ -838,7 +851,7 @@
                   <div style={{ fontSize: '12px', color: '#9ca3af' }}>가입비 및 유심비 등 기타요금은 별도 청구됩니다</div>
                 </div>
                 <button
-                  onClick={() => window.location.href = '셀프개통.html'}
+                  onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_next_click',customer_type:customerType,sim_type:activationType,subscription_type:subscriptionType}); window.location.href = '셀프개통.html'; }}
                   style={{ marginLeft: '24px', padding: '12px 36px', background: '#E60012', color: '#fff', borderRadius: '8px', fontWeight: 700, fontSize: '16px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
                   다음 →
                 </button>

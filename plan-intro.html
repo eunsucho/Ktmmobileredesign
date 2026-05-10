@@ -4,6 +4,19 @@
 <meta charset="UTF-8">
 <title>요금제 | kt M mobile</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PGSPQPK8');</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "wowsjj6lt6");
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
@@ -676,7 +689,7 @@ function PlanModal({ plan, onClose }) {
 
           {/* 가입 버튼 */}
           <div className="kt-mdl-btns">
-            <button className="kt-mdl-btn" onClick={() => window.location.href = 'precheck.html'}>가입하기</button>
+            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:modalPlan&&modalPlan.familyName,price:modalPlan&&modalPlan.price,time_on_page:Math.round((Date.now()-pageEntryTime.current)/1000)}); window.location.href = 'precheck.html'; }}>가입하기</button>
           </div>
 
           {/* 탭 */}
@@ -800,7 +813,7 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
   const uniqueBenefits = [...new Set(benefits)];
 
   return (
-    <div className={`plan-card ${isAdded ? 'added' : ''}`} onClick={() => onOpen(plan)}>
+    <div className={`plan-card ${isAdded ? 'added' : ''}`} onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_card_open',plan_name:plan.familyName,price:plan.price}); onOpen(plan); }}>
       {isRecommended && <div className="pc-reco-badge">추천</div>}
       
       {/* 1. 최상단: 데이터와 가격 */}
@@ -848,6 +861,7 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
 }
 
 function App() {
+  const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
   const [intent, setIntent] = useState('데이터 위주');
   const [usage, setUsage] = useState('잘 모르겠어요');
@@ -943,13 +957,13 @@ function App() {
   const toggleCompare = (plan) => {
     setCompareList(prev => {
       const exists = prev.find(p => p.familyName === plan.familyName && p.price === plan.price);
-      if (exists) return prev.filter(p => !(p.familyName === plan.familyName && p.price === plan.price));
+      if (exists) { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_compare_remove',plan_name:plan.familyName,price:plan.price}); return prev.filter(p => !(p.familyName === plan.familyName && p.price === plan.price)); }
       
       if (prev.length >= 3) {
         alert('비교함은 최대 3개까지만 담을 수 있습니다.');
         return prev;
       }
-      return [...prev, plan];
+      window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_compare_add',plan_name:plan.familyName,price:plan.price}); return [...prev, plan];
     });
   };
 
@@ -980,7 +994,7 @@ function App() {
           {/* 1단계 의도 필터 */}
           <div className="intent-filter-wrap">
             {['데이터 위주', '통화 포함', '최저가', '시니어/복지', '키즈'].map(tab => (
-              <button key={tab} className={`intent-pill ${intent === tab ? 'active' : ''}`} onClick={() => setIntent(tab)}>{tab}</button>
+              <button key={tab} className={`intent-pill ${intent === tab ? 'active' : ''}`} onClick={() => { setIntent(tab); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_filter_intent',value:tab}); }}>{tab}</button>
             ))}
           </div>
 
@@ -988,7 +1002,7 @@ function App() {
           <div className="usage-filter-wrap">
             <span>한 달 데이터 사용량이</span>
             {['5GB 미만', '10~20GB', '20~40GB', '40GB+', '잘 모르겠어요'].map(chip => (
-              <button key={chip} className={`usage-chip ${usage === chip ? 'active' : ''}`} onClick={() => setUsage(chip)}>{chip}</button>
+              <button key={chip} className={`usage-chip ${usage === chip ? 'active' : ''}`} onClick={() => { setUsage(chip); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_filter_usage',value:chip}); }}>{chip}</button>
             ))}
             <span>정도예요</span>
           </div>
