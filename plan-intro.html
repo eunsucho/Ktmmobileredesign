@@ -854,7 +854,7 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
           <div className="pc-data-huge">
             {totalGB === 0 ? "없음" : <>{totalGB}<span>GB{plan.isUnlimited ? '+' : ''}</span></>}
           </div>
-          {promoGB > 0 && <div className="pc-base-data-note">기본 {plan.dataVolume}GB + 프로모션 {promoGB}GB</div>}
+          {promoGB > 0 && <div className="pc-base-data-note">모두에게 +{promoGB}GB 프로모션</div>}
         </div>
         <div className="pc-price-huge">
           {plan.price.toLocaleString()}<span>원</span>
@@ -897,7 +897,12 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
     let list = plans;
     if (filter === 'unlimit') list = list.filter(p => p.isUnlimited);
     if (filter === 'limit')   list = list.filter(p => !p.isUnlimited);
-    return [...list].sort((a, b) => a.price - b.price);
+    return [...list].sort((a, b) => {
+      const aFirst = a.familyName.includes('모두다 맘껏') ? 0 : 1;
+      const bFirst = b.familyName.includes('모두다 맘껏') ? 0 : 1;
+      if (aFirst !== bFirst) return aFirst - bFirst;
+      return a.price - b.price;
+    });
   }, [plans, filter]);
 
   if (plans.length === 0) return null;
