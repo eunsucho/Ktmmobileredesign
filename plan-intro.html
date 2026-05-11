@@ -97,6 +97,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: all 0.2s; border: 1px solid transparent;
 }
 .intent-pill.active { background: var(--color-primary); color: #fff; }
+.segment-filter-wrap { display: flex; gap: 6px; margin: 12px 0 0; }
+.segment-pill {
+  padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 700;
+  background: #f5f5f5; color: #666; border: 1.5px solid transparent;
+  cursor: pointer; transition: all 0.15s;
+}
+.segment-pill.active { background: #fff; color: #E60012; border-color: #E60012; }
 
 .usage-filter-wrap {
   position: sticky; top: 0; z-index: 40;
@@ -986,7 +993,7 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
 /* =============================================
    PLAN GROUP (ACCORDION)
    ============================================= */
-function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, recoId }) {
+function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, recoId, sortDesc = false }) {
   const [filter, setFilter] = useState('all');
 
   const filtered = useMemo(() => {
@@ -1015,10 +1022,10 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
         const bHasReco = bPlans.some(p => `${p.familyName}_${p.price}` === recoId);
         if (aHasReco && !bHasReco) return -1;
         if (!aHasReco && bHasReco) return 1;
-        return a - b;
+        return sortDesc ? b - a : a - b;
       })
       .map(([tgb, groupPlans]) => ({ tgb, groupPlans }));
-  }, [filtered, recoId]);
+  }, [filtered, recoId, sortDesc]);
 
   if (plans.length === 0) return null;
 
@@ -1085,6 +1092,7 @@ function App() {
   const [showWelcome, setShowWelcome] = useState(true);
   const [myPrice, setMyPrice] = useState('');
   const [myData, setMyData] = useState('');
+  const [segment, setSegment] = useState('일반');
 
   useEffect(() => {
     if (modalPlan) document.body.style.overflow = 'hidden';
@@ -1124,6 +1132,15 @@ function App() {
 
     list = list.filter(p => network === '5g' ? p.familyName.includes('5G') : !p.familyName.includes('5G'));
 
+    if (segment === '일반') {
+      list = list.filter(p => !p.familyName.includes('시니어') && !p.familyName.includes('복지') && !p.familyName.includes('키즈'));
+    } else if (segment === '시니어') {
+      list = list.filter(p => p.familyName.includes('시니어') || p.familyName.includes('복지'));
+    } else if (segment === '키즈') {
+      list = list.filter(p => p.familyName.includes('키즈'));
+    } else if (segment === '2nd기기') {
+      list = list.filter(p => p.familyName.includes('세컨드') || p.familyName.includes('2nd') || p.familyName.includes('쉐어'));
+    }
 
     const unlimitedAll = list.filter(p => p.isUnlimited);
     let recoId = null;
@@ -1138,7 +1155,7 @@ function App() {
     }
 
     return { allPlans: list, recoId };
-  }, [normalizedPlans, network]);
+  }, [normalizedPlans, network, segment]);
 
   const totalGB = (p) => p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
   const groupA = allPlans.filter(p => totalGB(p) <= 10);
@@ -1189,6 +1206,14 @@ function App() {
             <button className={`network-tab ${network === '5g' ? 'active' : ''}`} onClick={() => setNetwork('5g')}>5G 요금제</button>
           </div>
 
+          {/* 대상 세그먼트 필터 */}
+          <div className="segment-filter-wrap">
+            {['일반', '시니어', '키즈', '2nd기기'].map(seg => (
+              <button key={seg} className={`segment-pill ${segment === seg ? 'active' : ''}`}
+                onClick={() => setSegment(seg)}>{seg}</button>
+            ))}
+          </div>
+
           {/* 데이터 구간 빠른 이동 — LTE/5G 탭 아래, kt-main 너비 내 */}
           <div className="usage-filter-wrap">
             <div className="usage-filter-logo">
@@ -1209,7 +1234,7 @@ function App() {
             <PlanGroup title="10GB 이하" plans={groupA} compareList={compareList} toggleCompare={toggleCompare}
               onOpen={setModalPlan} isOpen={!!openGroups['10GB 이하']} recoId={recoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '10GB 이하': !prev['10GB 이하']}))}
-              groupRef={refA} />
+              groupRef={refA} sortDesc={true} />
             <PlanGroup title="11~29GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
               onOpen={setModalPlan} isOpen={!!openGroups['11~29GB']} recoId={recoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '11~29GB': !prev['11~29GB']}))}
