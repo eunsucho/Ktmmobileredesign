@@ -320,6 +320,40 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .kt-modal-close:hover { background: #f0f0f0; color: #000; }
 .kt-modal-scroll { overflow-y: auto; flex: 1; padding-bottom: 40px; }
 
+/* Welcome Modal */
+.wm-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  z-index: 2000; display: grid; place-items: center; padding: 20px;
+  animation: kt-fade-bg .2s ease;
+}
+.wm-box {
+  background: #fff; border-radius: 20px; padding: 36px 32px 28px;
+  width: min(400px, 100%); display: flex; flex-direction: column; gap: 20px;
+  animation: kt-pop .25s ease; position: relative;
+}
+.wm-title { font-size: 18px; font-weight: 800; color: #111; letter-spacing: -0.03em; line-height: 1.4; }
+.wm-sub { font-size: 13px; color: #888; margin-top: 4px; }
+.wm-fields { display: flex; flex-direction: column; gap: 12px; }
+.wm-field { display: flex; flex-direction: column; gap: 6px; }
+.wm-label { font-size: 12px; font-weight: 700; color: #555; }
+.wm-input-wrap { display: flex; align-items: center; border: 1.5px solid #ddd; border-radius: 10px; padding: 0 14px; transition: .2s; background: #fafafa; }
+.wm-input-wrap:focus-within { border-color: #E60012; background: #fff; }
+.wm-input { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 700; padding: 12px 0; background: transparent; }
+.wm-unit { font-size: 13px; color: #aaa; font-weight: 600; flex-shrink: 0; }
+.wm-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.wm-btn-primary {
+  width: 100%; padding: 14px; border-radius: 12px;
+  background: #E60012; color: #fff; font-size: 15px; font-weight: 800;
+  border: none; cursor: pointer; transition: .15s;
+}
+.wm-btn-primary:hover { background: #c4000f; }
+.wm-btn-skip {
+  width: 100%; padding: 10px; border-radius: 12px; border: none;
+  background: transparent; color: #aaa; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: .15s;
+}
+.wm-btn-skip:hover { color: #555; }
+
 /* Modal Summary Box */
 .kt-mdl-sumbox {
   margin: 0 40px 24px; border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden; background: #fff;
@@ -1048,6 +1082,9 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
   const [modalPlan, setModalPlan] = useState(null);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [myPrice, setMyPrice] = useState('');
+  const [myData, setMyData] = useState('');
 
   useEffect(() => {
     if (modalPlan) document.body.style.overflow = 'hidden';
@@ -1295,8 +1332,57 @@ function App() {
         </aside>
       </div>
 
-      {/* 모달(상세 페이지) 컴포넌트 렌더링 */}
+      {/* 요금제 상세 모달 */}
       {modalPlan && <PlanModal plan={modalPlan} onClose={() => setModalPlan(null)} />}
+
+      {/* 진입 환영 모달 */}
+      {showWelcome && (
+        <div className="wm-overlay" onClick={() => setShowWelcome(false)}>
+          <div className="wm-box" onClick={e => e.stopPropagation()}>
+            <div>
+              <div className="wm-title">지금 쓰는 요금제가 있나요?</div>
+              <div className="wm-sub">입력하면 비교함 첫 칸에 넣어드려요</div>
+            </div>
+            <div className="wm-fields">
+              <div className="wm-field">
+                <span className="wm-label">월 납부금액</span>
+                <div className="wm-input-wrap">
+                  <input className="wm-input" type="number" placeholder="예) 29000" value={myPrice}
+                    onChange={e => setMyPrice(e.target.value)} />
+                  <span className="wm-unit">원</span>
+                </div>
+              </div>
+              <div className="wm-field">
+                <span className="wm-label">기본 데이터</span>
+                <div className="wm-input-wrap">
+                  <input className="wm-input" type="number" placeholder="예) 15" value={myData}
+                    onChange={e => setMyData(e.target.value)} />
+                  <span className="wm-unit">GB</span>
+                </div>
+              </div>
+            </div>
+            <div className="wm-actions">
+              <button className="wm-btn-primary" onClick={() => {
+                const price = parseInt(myPrice, 10);
+                const data = parseFloat(myData);
+                if (price > 0 && data > 0) {
+                  const myPlan = {
+                    familyName: '현재 내 요금제',
+                    price,
+                    dataVolume: data,
+                    isUnlimited: false,
+                    dataRaw: `${data}GB`,
+                    variants: []
+                  };
+                  setCompareList([myPlan]);
+                }
+                setShowWelcome(false);
+              }}>비교함에 넣고 시작하기</button>
+              <button className="wm-btn-skip" onClick={() => setShowWelcome(false)}>그냥 둘러볼게요</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
