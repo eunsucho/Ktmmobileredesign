@@ -215,12 +215,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .pc-partner-logos { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
 .pc-partner-logo-sq {
-  width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 800;
+  font-size: 12px; font-weight: 800;
   border: 1px solid rgba(0,0,0,0.06);
 }
-.pc-benefit-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; min-height: 24px; }
 .pc-benefit-chip {
   font-size: 11px; font-weight: 700; color: #555;
   background: #f5f5f5; border-radius: 999px; padding: 3px 9px;
@@ -238,13 +237,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ==========================================
    COMPARE BOARD
    ========================================== */
-.comp-intro-label {
-  font-size: 13px; font-weight: 800; color: #555;
-  padding: 0 4px 10px; letter-spacing: -0.02em;
-}
 .comp-board { background: #fff; border: 1px solid var(--color-border-tertiary); border-radius: 16px; overflow: hidden; position: sticky; top: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
-.comp-header { padding: 20px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
+.comp-header { padding: 16px 20px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
 .comp-title { font-size: 16px; font-weight: 800; }
+.comp-diff-subtitle { font-size: 11px; font-weight: 700; color: #888; margin-top: 2px; letter-spacing: -0.01em; }
 .comp-count { font-size: 13px; color: #888; font-weight: 600; }
 
 .comp-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 16px; border-bottom: 1px solid #f0f0f0; }
@@ -269,11 +265,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 100%; border-top: 1px solid #f0f0f0; padding-top: 10px; margin-top: 4px;
   display: flex; flex-direction: column; gap: 7px;
 }
-.cs-extra-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
-.cs-extra-label { font-size: 11px; color: #aaa; font-weight: 600; flex-shrink: 0; }
-.cs-extra-val { font-size: 11px; font-weight: 700; color: #333; text-align: right; }
+.cs-extra-item { font-size: 11px; font-weight: 700; color: #333; text-align: center; line-height: 1.4; }
 .cs-extra-good { color: #047857; }
 .cs-extra-na { color: #bbb; }
+.cs-benefit-icons { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+.cs-benefit-logo-sq { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; border: 1px solid rgba(0,0,0,0.06); flex-shrink: 0; }
 
 .cs-del-btn {
   position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: #f5f5f5;
@@ -915,8 +911,22 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
           </div>
           {promoGB > 0 && <div className="pc-base-data-note">모두에게 +{promoGB}GB 프로모션</div>}
         </div>
-        <div className="pc-price-huge">
-          {plan.price.toLocaleString()}<span>원</span>
+        <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'6px'}}>
+          <div className="pc-price-huge">
+            {plan.price.toLocaleString()}<span>원</span>
+          </div>
+          {uniqueBenefits.length > 0 && (
+            <div style={{display:'flex', gap:'4px', flexWrap:'wrap', justifyContent:'flex-end'}}>
+              {uniqueBenefits.map((b, i) => {
+                const cfg = getBenefitConfig(b);
+                return (
+                  <div key={i} className="pc-partner-logo-sq" style={{background: cfg.bg}} title={b}>
+                    <span>{cfg.icon}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 
@@ -929,21 +939,6 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
       </div>
 
       <div className="pc-divider" />
-
-      {/* 3. 제휴처 로고 + 혜택 칩 (같은 행, 카드 높이 불변) */}
-      <div className="pc-benefit-chips">
-        {uniqueBenefits.length > 0
-          ? uniqueBenefits.map((b, i) => {
-              const cfg = getBenefitConfig(b);
-              return (
-                <div key={i} className="pc-partner-logo-sq" style={{background: cfg.bg}} title={b}>
-                  <span>{cfg.icon}</span>
-                </div>
-              );
-            })
-          : <span className="pc-benefit-chip" style={{opacity: 0.5}}>기본 혜택</span>
-        }
-      </div>
 
       {/* 4. 버튼 */}
       <button className={`pc-add-btn ${isAdded ? 'added' : ''}`} onClick={(e) => { e.stopPropagation(); onToggle(plan); }}>
@@ -1219,10 +1214,12 @@ function App() {
         </main>
 
         <aside className="kt-side">
-          <div className="comp-intro-label">요금제간 차이를 알려드려요!</div>
           <div className="comp-board">
             <div className="comp-header">
-              <span className="comp-title">비교함</span>
+              <div>
+                <span className="comp-title">비교함</span>
+                <div className="comp-diff-subtitle">요금제간 차이를 알려드려요!</div>
+              </div>
               <span className="comp-count"><span style={{color: 'var(--color-primary)'}}>{compareList.length}</span> / 3</span>
             </div>
             
@@ -1269,36 +1266,23 @@ function App() {
 
                       {/* 제휴 혜택 */}
                       {uniqueBenefits.length > 0 && (
-                        <div className="cs-extra-row">
-                          <span className="cs-extra-label">제휴 혜택</span>
-                          <span className="cs-extra-val">{uniqueBenefits.join(' · ')}</span>
+                        <div className="cs-benefit-icons">
+                          {uniqueBenefits.map((b, idx) => {
+                            const cfg = getBenefitConfig(b);
+                            return <div key={idx} className="cs-benefit-logo-sq" style={{background: cfg.bg}} title={b}>{cfg.icon}</div>;
+                          })}
                         </div>
                       )}
 
                       {/* 추가 비교 항목 (하드코딩) */}
                       <div className="cs-extra-section">
-                        <div className="cs-extra-row">
-                          <span className="cs-extra-label">아무나 SOLO결합</span>
-                          <span className="cs-extra-val cs-extra-good">월 5,000원↓</span>
+                        <div className="cs-extra-item cs-extra-good">SOLO결합 시 월 5,000원 할인</div>
+                        <div className="cs-extra-item cs-extra-good">가족결합+ 시 최대 월 15,000원 할인</div>
+                        <div className={`cs-extra-item ${item.isUnlimited ? 'cs-extra-good' : 'cs-extra-na'}`}>
+                          데이터쉐어링 {item.isUnlimited ? '무료 제공' : '미지원'}
                         </div>
-                        <div className="cs-extra-row">
-                          <span className="cs-extra-label">아무나 가족결합+</span>
-                          <span className="cs-extra-val cs-extra-good">최대 월 15,000원↓</span>
-                        </div>
-                        <div className="cs-extra-row">
-                          <span className="cs-extra-label">데이터쉐어링</span>
-                          <span className={`cs-extra-val ${item.isUnlimited ? 'cs-extra-good' : 'cs-extra-na'}`}>
-                            {item.isUnlimited ? '무료 제공' : '미지원'}
-                          </span>
-                        </div>
-                        <div className="cs-extra-row">
-                          <span className="cs-extra-label">KT 인터넷 결합</span>
-                          <span className="cs-extra-val cs-extra-good">트리플 할인 가능</span>
-                        </div>
-                        <div className="cs-extra-row">
-                          <span className="cs-extra-label">부가서비스</span>
-                          <span className="cs-extra-val">후후·T전화·로밍 등</span>
-                        </div>
+                        <div className="cs-extra-item cs-extra-good">KT 인터넷 트리플 할인 가능</div>
+                        <div className="cs-extra-item">후후·T전화·로밍 이용 가능</div>
                       </div>
                     </div>
                   </div>
