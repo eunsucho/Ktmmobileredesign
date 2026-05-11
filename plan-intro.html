@@ -1337,16 +1337,18 @@ function App() {
                         </div>
                       )}
 
-                      {/* 추가 비교 항목 (하드코딩) */}
-                      <div className="cs-extra-section">
-                        <div className="cs-extra-item cs-extra-good">SOLO결합 시 월 5,000원 할인</div>
-                        <div className="cs-extra-item cs-extra-good">가족결합+ 시 최대 월 15,000원 할인</div>
-                        <div className={`cs-extra-item ${item.isUnlimited ? 'cs-extra-good' : 'cs-extra-na'}`}>
-                          데이터쉐어링 {item.isUnlimited ? '무료 제공' : '미지원'}
+                      {/* 추가 비교 항목 (하드코딩) — 현재 내 요금제는 공란 */}
+                      {item.familyName !== '현재 내 요금제' && (
+                        <div className="cs-extra-section">
+                          <div className="cs-extra-item cs-extra-good">SOLO결합 시 월 5,000원 할인</div>
+                          <div className="cs-extra-item cs-extra-good">가족결합+ 시 최대 월 15,000원 할인</div>
+                          <div className={`cs-extra-item ${item.isUnlimited ? 'cs-extra-good' : 'cs-extra-na'}`}>
+                            데이터쉐어링 {item.isUnlimited ? '무료 제공' : '미지원'}
+                          </div>
+                          <div className="cs-extra-item cs-extra-good">KT 인터넷 트리플 할인 가능</div>
+                          <div className="cs-extra-item">후후·T전화·로밍 이용 가능</div>
                         </div>
-                        <div className="cs-extra-item cs-extra-good">KT 인터넷 트리플 할인 가능</div>
-                        <div className="cs-extra-item">후후·T전화·로밍 이용 가능</div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 );
