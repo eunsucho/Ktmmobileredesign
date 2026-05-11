@@ -29,6 +29,9 @@ function copyStaticFiles() {
     'ktmmobile_logo.svg',
     'ktm_mobile_plans.json',
     'default_shadcn_theme.css',
+    'USIM_01.gif',
+    'eSIM_01.gif',
+    'eSIM_02.gif',
   ]
   const staticDirs = ['data']
   return {
