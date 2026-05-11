@@ -1101,7 +1101,7 @@ function App() {
     }
 
     return { allPlans: list, recoId };
-  }, [normalizedPlans, network, intent]);
+  }, [normalizedPlans, network]);
 
   const totalGB = (p) => p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
   const groupA = allPlans.filter(p => totalGB(p) <= 10);
