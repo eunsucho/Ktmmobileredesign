@@ -238,6 +238,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ==========================================
    COMPARE BOARD
    ========================================== */
+.comp-intro-label {
+  font-size: 13px; font-weight: 800; color: #555;
+  padding: 0 4px 10px; letter-spacing: -0.02em;
+}
 .comp-board { background: #fff; border: 1px solid var(--color-border-tertiary); border-radius: 16px; overflow: hidden; position: sticky; top: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
 .comp-header { padding: 20px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
 .comp-title { font-size: 16px; font-weight: 800; }
@@ -260,6 +264,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .cs-price { font-size: 15px; font-weight: 800; color: var(--kt-red); }
 .cs-speed, .cs-call { font-size: 12px; font-weight: 700; color: #555; }
 .cs-benefit-logo { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; font-size: 14px; margin: 0 auto; border: 1px solid #eee; }
+
+.cs-extra-section {
+  width: 100%; border-top: 1px solid #f0f0f0; padding-top: 10px; margin-top: 4px;
+  display: flex; flex-direction: column; gap: 7px;
+}
+.cs-extra-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.cs-extra-label { font-size: 11px; color: #aaa; font-weight: 600; flex-shrink: 0; }
+.cs-extra-val { font-size: 11px; font-weight: 700; color: #333; text-align: right; }
+.cs-extra-good { color: #047857; }
+.cs-extra-na { color: #bbb; }
 
 .cs-del-btn {
   position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: #f5f5f5;
@@ -914,26 +928,19 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
         </div>
       </div>
 
-      {/* 3. 제휴처 로고 정사각형 (제휴처 있는 경우만) */}
-      {uniqueBenefits.length > 0 && (
-        <div className="pc-partner-logos">
-          {uniqueBenefits.map((b, i) => {
-            const cfg = getBenefitConfig(b);
-            return (
-              <div key={i} className="pc-partner-logo-sq" style={{background: cfg.bg}} title={b}>
-                <span>{cfg.icon}</span>
-              </div>
-            );
-          })}
-        </div>
-      )}
-
       <div className="pc-divider" />
 
-      {/* 4. 제휴처 혜택 칩 */}
+      {/* 3. 제휴처 로고 + 혜택 칩 (같은 행, 카드 높이 불변) */}
       <div className="pc-benefit-chips">
         {uniqueBenefits.length > 0
-          ? uniqueBenefits.map((b, i) => <span key={i} className="pc-benefit-chip">{b}</span>)
+          ? uniqueBenefits.map((b, i) => {
+              const cfg = getBenefitConfig(b);
+              return (
+                <div key={i} className="pc-partner-logo-sq" style={{background: cfg.bg}} title={b}>
+                  <span>{cfg.icon}</span>
+                </div>
+              );
+            })
           : <span className="pc-benefit-chip" style={{opacity: 0.5}}>기본 혜택</span>
         }
       </div>
@@ -1212,6 +1219,7 @@ function App() {
         </main>
 
         <aside className="kt-side">
+          <div className="comp-intro-label">요금제간 차이를 알려드려요!</div>
           <div className="comp-board">
             <div className="comp-header">
               <span className="comp-title">비교함</span>
@@ -1259,16 +1267,39 @@ function App() {
                         <div className="cs-call">통화: {callBasic}</div>
                       </div>
 
-                      {/* 제휴 혜택 로고 미니버전 */}
+                      {/* 제휴 혜택 */}
                       {uniqueBenefits.length > 0 && (
-                        <div className="cs-row" style={{marginTop: '4px', borderTop: '1px solid #f0f0f0', paddingTop: '10px', width: '100%'}}>
-                          <span className="cs-label" style={{marginBottom: '4px'}}>제휴 혜택</span>
-                          {uniqueBenefits.map((b, idx) => {
-                             const cfg = getBenefitConfig(b);
-                             return <div key={idx} className="cs-benefit-logo" title={b} style={{background: cfg.bg}}>{cfg.icon}</div>
-                          })}
+                        <div className="cs-extra-row">
+                          <span className="cs-extra-label">제휴 혜택</span>
+                          <span className="cs-extra-val">{uniqueBenefits.join(' · ')}</span>
                         </div>
                       )}
+
+                      {/* 추가 비교 항목 (하드코딩) */}
+                      <div className="cs-extra-section">
+                        <div className="cs-extra-row">
+                          <span className="cs-extra-label">아무나 SOLO결합</span>
+                          <span className="cs-extra-val cs-extra-good">월 5,000원↓</span>
+                        </div>
+                        <div className="cs-extra-row">
+                          <span className="cs-extra-label">아무나 가족결합+</span>
+                          <span className="cs-extra-val cs-extra-good">최대 월 15,000원↓</span>
+                        </div>
+                        <div className="cs-extra-row">
+                          <span className="cs-extra-label">데이터쉐어링</span>
+                          <span className={`cs-extra-val ${item.isUnlimited ? 'cs-extra-good' : 'cs-extra-na'}`}>
+                            {item.isUnlimited ? '무료 제공' : '미지원'}
+                          </span>
+                        </div>
+                        <div className="cs-extra-row">
+                          <span className="cs-extra-label">KT 인터넷 결합</span>
+                          <span className="cs-extra-val cs-extra-good">트리플 할인 가능</span>
+                        </div>
+                        <div className="cs-extra-row">
+                          <span className="cs-extra-label">부가서비스</span>
+                          <span className="cs-extra-val">후후·T전화·로밍 등</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
