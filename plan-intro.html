@@ -75,7 +75,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: flex; gap: 32px; align-items: flex-start;
 }
 .kt-main { flex: 1; min-width: 0; }
-.kt-side { width: 340px; flex-shrink: 0; position: sticky; top: 156px; }
+.kt-side { width: 340px; flex-shrink: 0; position: sticky; top: 100px; }
 
 /* ==========================================
    TABS & FILTERS
@@ -102,10 +102,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   position: sticky; top: 90px; z-index: 40;
   background: #fff; border-bottom: 1px solid #f0f0f0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-}
-.usage-filter-inner {
-  max-width: 1280px; margin: 0 auto; padding: 0 20px;
   display: flex; align-items: stretch; height: 54px;
+  margin: 0 0 24px;
 }
 .usage-filter-logo {
   width: 60px; flex-shrink: 0;
@@ -1019,12 +1017,13 @@ function App() {
   const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
   const [intent, setIntent] = useState('데이터 위주');
-  const [openGroups, setOpenGroups] = useState({ '11~30GB': true });
+  const [openGroups, setOpenGroups] = useState({ '11~29GB': true });
   const refA = React.useRef(null);
   const refB = React.useRef(null);
   const refC = React.useRef(null);
   const refD = React.useRef(null);
-  const groupRefs = { '10GB 이하': refA, '11~30GB': refB, '31~99GB': refC, '100GB+': refD };
+  const refE = React.useRef(null);
+  const groupRefs = { '10GB 이하': refA, '11~29GB': refB, '30GB': refC, '31~99GB': refD, '100GB+': refE };
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
@@ -1100,9 +1099,10 @@ function App() {
 
   const totalGB = (p) => p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
   const groupA = allPlans.filter(p => totalGB(p) <= 10);
-  const groupB = allPlans.filter(p => { const t = totalGB(p); return t >= 11 && t <= 30; });
-  const groupC = allPlans.filter(p => { const t = totalGB(p); return t >= 31 && t <= 99; });
-  const groupD = allPlans.filter(p => totalGB(p) >= 100);
+  const groupB = allPlans.filter(p => { const t = totalGB(p); return t >= 11 && t <= 29; });
+  const groupC = allPlans.filter(p => totalGB(p) === 30);
+  const groupD = allPlans.filter(p => { const t = totalGB(p); return t >= 31 && t <= 99; });
+  const groupE = allPlans.filter(p => totalGB(p) >= 100);
 
   function handleNavClick(key) {
     setOpenGroups(prev => ({ ...prev, [key]: true }));
@@ -1138,29 +1138,27 @@ function App() {
         <p className="kt-page-sub">나에게 딱 맞는 데이터와 혜택을 찾아보세요.</p>
       </header>
 
-      {/* 데이터 구간 빠른 이동 — sticky */}
-      <div className="usage-filter-wrap">
-        <div className="usage-filter-inner">
-          <div className="usage-filter-logo">
-            <div className="usage-filter-logo-sq">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#E60012"/><text x="4" y="14" font-size="10" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
-            </div>
-          </div>
-          {['10GB 이하', '11~30GB', '31~99GB', '100GB+'].map(key => (
-            <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
-              onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
-              {key}
-            </button>
-          ))}
-        </div>
-      </div>
-
       <div className="kt-layout">
         <main className="kt-main">
           {/* 상단 탭 */}
           <div className="network-tabs">
             <button className={`network-tab ${network === 'lte' ? 'active' : ''}`} onClick={() => setNetwork('lte')}>LTE 요금제</button>
             <button className={`network-tab ${network === '5g' ? 'active' : ''}`} onClick={() => setNetwork('5g')}>5G 요금제</button>
+          </div>
+
+          {/* 데이터 구간 빠른 이동 — sticky (LTE/5G 탭 아래) */}
+          <div className="usage-filter-wrap">
+            <div className="usage-filter-logo">
+              <div className="usage-filter-logo-sq">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#E60012"/><text x="4" y="14" font-size="10" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
+              </div>
+            </div>
+            {['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'].map(key => (
+              <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
+                onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
+                {key}
+              </button>
+            ))}
           </div>
 
           {/* 1단계 의도 필터 */}
@@ -1176,18 +1174,22 @@ function App() {
               onOpen={setModalPlan} isOpen={!!openGroups['10GB 이하']} recoId={recoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '10GB 이하': !prev['10GB 이하']}))}
               groupRef={refA} />
-            <PlanGroup title="11~30GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['11~30GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '11~30GB': !prev['11~30GB']}))}
+            <PlanGroup title="11~29GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['11~29GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '11~29GB': !prev['11~29GB']}))}
               groupRef={refB} />
-            <PlanGroup title="31~99GB" plans={groupC} compareList={compareList} toggleCompare={toggleCompare}
+            <PlanGroup title="30GB" plans={groupC} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['30GB']} recoId={recoId}
+              onToggle={() => setOpenGroups(prev => ({...prev, '30GB': !prev['30GB']}))}
+              groupRef={refC} />
+            <PlanGroup title="31~99GB" plans={groupD} compareList={compareList} toggleCompare={toggleCompare}
               onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']} recoId={recoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '31~99GB': !prev['31~99GB']}))}
-              groupRef={refC} />
-            <PlanGroup title="100GB+" plans={groupD} compareList={compareList} toggleCompare={toggleCompare}
+              groupRef={refD} />
+            <PlanGroup title="100GB+" plans={groupE} compareList={compareList} toggleCompare={toggleCompare}
               onOpen={setModalPlan} isOpen={!!openGroups['100GB+']} recoId={recoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '100GB+': !prev['100GB+']}))}
-              groupRef={refD} />
+              groupRef={refE} />
           </div>
         </main>
 
