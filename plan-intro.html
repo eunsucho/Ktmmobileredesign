@@ -600,7 +600,7 @@ const BENEFIT_COLOR = {
   "밀리": { bg: "#FFF2CC", img: "./data/millie.png" },
   "지니뮤직": { bg: "#E6E6FA", img: "./data/genie.png" },
   "모아진": { bg: "#E6F1FB", img: "./data/moazine.png" },
-  "CU": { bg: "#EAF3DE", img: "./data/cu.png" },
+  "CU": { bg: "#EAF3DE", img: "./data/cu.jpg" },
   "후후": { bg: "#E6F1FB", img: "./data/whowho.png" },
   "default": { bg: "#f0f0f0", img: null }
 };
@@ -1037,7 +1037,6 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
 function App() {
   const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
-  const [intent, setIntent] = useState('데이터 위주');
   const [openGroups, setOpenGroups] = useState({ '11~29GB': true });
   const refA = React.useRef(null);
   const refB = React.useRef(null);
@@ -1088,20 +1087,6 @@ function App() {
 
     list = list.filter(p => network === '5g' ? p.familyName.includes('5G') : !p.familyName.includes('5G'));
 
-    if (intent === '최저가') {
-      const sorted = [...list].sort((a, b) => a.price - b.price);
-      const threshold = sorted[Math.floor(sorted.length * 0.3)]?.price || Infinity;
-      list = list.filter(p => p.price <= threshold);
-    } else {
-      list = list.filter(p => {
-        const cls = classifyPlan(p);
-        if (intent === '데이터 위주') return cls === 'general' || cls === '5g';
-        if (intent === '통화 포함') return cls === 'voice' || p.familyName.includes('통화');
-        if (intent === '시니어/복지') return cls === 'senior' || cls === 'welfare';
-        if (intent === '키즈') return cls === 'kids';
-        return true;
-      });
-    }
 
     const unlimitedAll = list.filter(p => p.isUnlimited);
     let recoId = null;
@@ -1179,13 +1164,6 @@ function App() {
                 onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
                 {key}
               </button>
-            ))}
-          </div>
-
-          {/* 1단계 의도 필터 */}
-          <div className="intent-filter-wrap">
-            {['데이터 위주', '통화 포함', '최저가', '시니어/복지', '키즈'].map(tab => (
-              <button key={tab} className={`intent-pill ${intent === tab ? 'active' : ''}`} onClick={() => { setIntent(tab); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_filter_intent',value:tab}); }}>{tab}</button>
             ))}
           </div>
 
