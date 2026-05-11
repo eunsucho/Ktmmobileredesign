@@ -71,7 +71,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .kt-page-sub { font-size: 14px; color: #999; margin: 0; }
 
 .kt-layout {
-  max-width: 1280px; margin: 0 auto; padding: 0 20px 100px;
+  max-width: 1280px; margin: 0 auto; padding: 24px 20px 100px;
   display: flex; gap: 32px; align-items: flex-start;
 }
 .kt-main { flex: 1; min-width: 0; }
@@ -103,7 +103,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: #fff; border-bottom: 1px solid #f0f0f0;
   box-shadow: 0 2px 8px rgba(0,0,0,0.04);
   display: flex; align-items: stretch; height: 54px;
-  margin: 0 0 24px;
+  margin: 0;
 }
 .usage-filter-logo {
   width: 60px; flex-shrink: 0;
@@ -1158,27 +1158,27 @@ function App() {
         <p className="kt-page-sub">나에게 딱 맞는 데이터와 혜택을 찾아보세요.</p>
       </header>
 
+      {/* 데이터 구간 빠른 이동 — sticky, 전체 너비 */}
+      <div className="usage-filter-wrap">
+        <div className="usage-filter-logo">
+          <div className="usage-filter-logo-sq">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#E60012"/><text x="4" y="14" font-size="10" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
+          </div>
+        </div>
+        {['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'].map(key => (
+          <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
+            onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
+            {key}
+          </button>
+        ))}
+      </div>
+
       <div className="kt-layout">
         <main className="kt-main">
           {/* 상단 탭 */}
           <div className="network-tabs">
             <button className={`network-tab ${network === 'lte' ? 'active' : ''}`} onClick={() => setNetwork('lte')}>LTE 요금제</button>
             <button className={`network-tab ${network === '5g' ? 'active' : ''}`} onClick={() => setNetwork('5g')}>5G 요금제</button>
-          </div>
-
-          {/* 데이터 구간 빠른 이동 — sticky (LTE/5G 탭 아래) */}
-          <div className="usage-filter-wrap">
-            <div className="usage-filter-logo">
-              <div className="usage-filter-logo-sq">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#E60012"/><text x="4" y="14" font-size="10" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
-              </div>
-            </div>
-            {['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'].map(key => (
-              <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
-                onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
-                {key}
-              </button>
-            ))}
           </div>
 
           {/* 1단계 의도 필터 */}
