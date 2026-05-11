@@ -31,7 +31,7 @@ export default function App() {
 
   // Step 2 States
   const [simHasType, setSimHasType] = useState<'보유' | '미보유'>('보유');
-  const [simBuyPlace, setSimBuyPlace] = useState<'다이렉트몰' | '편의점/마트' | ''>('다이렉트몰');
+  const [simBuyPlace, setSimBuyPlace] = useState<'다이렉트몰' | ''>('다이렉트몰');
   const [simNumber, setSimNumber] = useState('');
   const [simFocus, setSimFocus] = useState(false);
   const [phone, setPhone] = useState('');
@@ -1049,15 +1049,10 @@ export default function App() {
                             </>
                           ) : (
                             <>
-                              {/* 구매처 안내 영역 */}
-                              <div className="text-[13px] text-gray-500 mb-3 text-left">
-                                유심 구매처: 다이렉트몰, 편의점/마트
-                              </div>
-
-                              {/* 다이렉트몰 - 전체 너비 (유심 보유 + 유심 미보유 합산 너비와 동일) */}
+                              {/* 다이렉트몰 */}
                               <button
                                 onClick={() => setSimBuyPlace('다이렉트몰')}
-                                className={`w-full h-[200px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative mb-3 ${
+                                className={`w-full h-[200px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
                                   simBuyPlace === '다이렉트몰'
                                     ? 'border-[#00BFA5] bg-[#E0F7F4]'
                                     : 'border-gray-200 bg-white'
@@ -1068,25 +1063,6 @@ export default function App() {
                                 <div className="text-[14px] text-gray-500 mb-4">오늘 신청, 오늘 받기</div>
                                 {simBuyPlace === '다이렉트몰' && (
                                   <div className="w-[20px] h-[20px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-5">
-                                    <Check className="w-3 h-3 text-white stroke-[3]" />
-                                  </div>
-                                )}
-                              </button>
-
-                              {/* 편의점/마트 */}
-                              <button
-                                onClick={() => setSimBuyPlace('편의점/마트')}
-                                className={`w-full h-[120px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
-                                  simBuyPlace === '편의점/마트'
-                                    ? 'border-[#00BFA5] bg-[#E0F7F4]'
-                                    : 'border-gray-200 bg-white'
-                                }`}
-                              >
-                                <div className="text-[30px] mb-2">🏪</div>
-                                <div className="font-bold text-black text-[15px] mb-0.5">편의점/마트</div>
-                                <div className="text-[12px] text-gray-400">GS25, CU, 이마트 등</div>
-                                {simBuyPlace === '편의점/마트' && (
-                                  <div className="w-[18px] h-[18px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-4">
                                     <Check className="w-3 h-3 text-white stroke-[3]" />
                                   </div>
                                 )}
@@ -1868,6 +1844,7 @@ export default function App() {
                     메인으로
                   </button>
                   <button
+                    onClick={() => window.location.href = 'sim-guide.html'}
                     className="w-[200px] h-[56px] rounded-[4px] bg-black hover:bg-gray-800 text-white font-bold text-[16px] transition-colors"
                   >SIM 활성화 방법</button>
                 </div>
