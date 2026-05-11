@@ -593,15 +593,15 @@ const BENEFIT_NORMALIZE = {
 };
 
 const BENEFIT_COLOR = {
-  "쿠팡캐시": { bg: "#EAF3DE", img: "data/coupang.png" },
-  "네이버페이": { bg: "#E6F1FB", img: "data/naverpay.png" },
-  "올리브영": { bg: "#FAEEDA", img: "data/oliveyoung.png" },
-  "다이소": { bg: "#FAEEDA", img: "data/daiso.png" },
-  "밀리": { bg: "#FFF2CC", img: "data/millie.png" },
-  "지니뮤직": { bg: "#E6E6FA", img: "data/genie.png" },
-  "모아진": { bg: "#E6F1FB", img: "data/moazine.png" },
-  "CU": { bg: "#EAF3DE", img: null },
-  "후후": { bg: "#E6F1FB", img: null },
+  "쿠팡캐시": { bg: "#EAF3DE", img: "./data/coupang.png" },
+  "네이버페이": { bg: "#E6F1FB", img: "./data/naverpay.png" },
+  "올리브영": { bg: "#FAEEDA", img: "./data/oliveyoung.png" },
+  "다이소": { bg: "#FAEEDA", img: "./data/daiso.png" },
+  "밀리": { bg: "#FFF2CC", img: "./data/millie.png" },
+  "지니뮤직": { bg: "#E6E6FA", img: "./data/genie.png" },
+  "모아진": { bg: "#E6F1FB", img: "./data/moazine.png" },
+  "CU": { bg: "#EAF3DE", img: "./data/cu.png" },
+  "후후": { bg: "#E6F1FB", img: "./data/whowho.png" },
   "default": { bg: "#f0f0f0", img: null }
 };
 
@@ -775,7 +775,7 @@ function PlanModal({ plan, onClose }) {
 
           {/* 가입 버튼 */}
           <div className="kt-mdl-btns">
-            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:modalPlan&&modalPlan.familyName,price:modalPlan&&modalPlan.price,time_on_page:Math.round((Date.now()-pageEntryTime.current)/1000)}); window.location.href = 'precheck.html'; }}>가입하기</button>
+            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:plan.familyName,price:plan.price,time_on_page:Math.round((Date.now()-pageEntryTime.current)/1000)}); window.location.href = `precheck.html?plan=${encodeURIComponent(plan.familyName)}&price=${plan.price}`; }}>가입하기</button>
           </div>
 
           {/* 탭 */}
@@ -1159,27 +1159,27 @@ function App() {
         <p className="kt-page-sub">나에게 딱 맞는 데이터와 혜택을 찾아보세요.</p>
       </header>
 
-      {/* 데이터 구간 빠른 이동 — sticky, 전체 너비 */}
-      <div className="usage-filter-wrap">
-        <div className="usage-filter-logo">
-          <div className="usage-filter-logo-sq">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#E60012"/><text x="4" y="14" font-size="10" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
-          </div>
-        </div>
-        {['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'].map(key => (
-          <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
-            onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
-            {key}
-          </button>
-        ))}
-      </div>
-
       <div className="kt-layout">
         <main className="kt-main">
           {/* 상단 탭 */}
           <div className="network-tabs">
             <button className={`network-tab ${network === 'lte' ? 'active' : ''}`} onClick={() => setNetwork('lte')}>LTE 요금제</button>
             <button className={`network-tab ${network === '5g' ? 'active' : ''}`} onClick={() => setNetwork('5g')}>5G 요금제</button>
+          </div>
+
+          {/* 데이터 구간 빠른 이동 — LTE/5G 탭 아래, kt-main 너비 내 */}
+          <div className="usage-filter-wrap">
+            <div className="usage-filter-logo">
+              <div className="usage-filter-logo-sq">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#E60012"/><text x="4" y="14" font-size="10" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
+              </div>
+            </div>
+            {['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'].map(key => (
+              <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
+                onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
+                {key}
+              </button>
+            ))}
           </div>
 
           {/* 1단계 의도 필터 */}
@@ -1215,6 +1215,22 @@ function App() {
         </main>
 
         <aside className="kt-side">
+          <form className="comp-search-wrap" onSubmit={handleSearch} style={{marginBottom:'12px'}}>
+            <div className="comp-search-input-box">
+              <input
+                type="text"
+                className="comp-search-input"
+                placeholder="모르는 내용은 물어보세요"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type="submit" className="comp-search-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </button>
+            </div>
+            {searchResult && <div className="comp-search-result">{searchResult}</div>}
+          </form>
+
           <div className="comp-board">
             <div className="comp-header">
               <div>
@@ -1297,25 +1313,6 @@ function App() {
               })}
             </div>
 
-            <div className="comp-action">
-              <form className="comp-search-wrap" onSubmit={handleSearch}>
-                <div className="comp-search-input-box">
-                  <input 
-                    type="text" 
-                    className="comp-search-input" 
-                    placeholder="모르는 내용은 물어보세요" 
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <button type="submit" className="comp-search-btn">🔍</button>
-                </div>
-                {searchResult && (
-                  <div className="comp-search-result">
-                    {searchResult}
-                  </div>
-                )}
-              </form>
-            </div>
           </div>
         </aside>
       </div>
