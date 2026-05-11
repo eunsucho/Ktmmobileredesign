@@ -177,6 +177,51 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 
 /* ==========================================
+   FAMILY PLAN CARD (제휴별 가격 묶음 카드)
+   ========================================== */
+.fpc-card {
+  background: #fff; border: 1px solid var(--color-border-tertiary);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); position: relative;
+  display: flex; flex-direction: column;
+}
+.fpc-card.has-reco { border-color: var(--color-primary); }
+.fpc-header {
+  padding: 14px 16px 12px; cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+}
+.fpc-header:hover { background: #fafafa; }
+.fpc-title { font-size: 14px; font-weight: 800; color: #111; line-height: 1.3; margin-bottom: 3px; word-break: keep-all; }
+.fpc-meta { font-size: 11px; color: #888; font-weight: 600; }
+.fpc-promo-note { color: #047857; font-weight: 700; }
+.fpc-price-list { display: flex; flex-direction: column; }
+.fpc-price-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 14px; border-bottom: 1px solid #f5f5f5;
+  transition: background 0.15s;
+}
+.fpc-price-row:last-child { border-bottom: none; }
+.fpc-price-row:hover { background: #fafafa; }
+.fpc-price-row.is-reco { background: #FFF7F7; }
+.fpc-logo-wrap {
+  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.fpc-logo-wrap img { width: 18px; height: 18px; object-fit: contain; }
+.fpc-benefit-label { font-size: 11px; font-weight: 700; color: #444; flex: 1; line-height: 1.3; }
+.fpc-price-val { font-size: 14px; font-weight: 900; color: var(--kt-red); white-space: nowrap; letter-spacing: -0.02em; }
+.fpc-price-val span { font-size: 10px; font-weight: 600; color: #aaa; margin-left: 1px; }
+.fpc-add-btn {
+  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+  font-size: 16px; font-weight: 800; line-height: 1;
+  border: 1px solid var(--color-border-tertiary); color: #666; background: #fff;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+}
+.fpc-add-btn:hover { background: #f0f0f0; }
+.fpc-add-btn.added { background: var(--color-primary-light); color: var(--color-primary); border-color: var(--color-primary-light); font-size: 12px; }
+
+/* ==========================================
    PLAN CARD UI
    ========================================== */
 .plan-card {
@@ -929,6 +974,51 @@ function PlanModal({ plan, onClose }) {
    COMPONENTS: PLAN CARD & APP
    ============================================= */
 
+function FamilyPlanCard({ family, compareList, toggleCompare, onOpen, recoId }) {
+  const promoGB = calculatePromoGB(family.familyName, family.dataVolume);
+  const { speedAfter } = parseDataRaw(family.dataRaw);
+  const hasReco = family.priceOptions.some(o => `${family.familyName}_${o.price}` === recoId);
+
+  return (
+    <div className={`fpc-card ${hasReco ? 'has-reco' : ''}`}>
+      {hasReco && <div className="pc-reco-badge">추천</div>}
+      <div className="fpc-header" onClick={() => onOpen({ ...family, price: family.priceOptions[0].price, variants: family.priceOptions[0].variants })}>
+        <div className="fpc-title">{cleanPlanName(family.familyName)}</div>
+        <div className="fpc-meta">
+          {family.dataVolume > 0 ? `${family.dataVolume}GB${family.isUnlimited ? '+' : ''}` : ''}
+          {speedAfter ? ` · 소진 시 ${speedAfter}` : (family.isUnlimited ? ' · 무제한' : '')}
+          {promoGB > 0 && <span className="fpc-promo-note"> · +{promoGB}GB 추가제공</span>}
+        </div>
+      </div>
+      <div className="fpc-price-list">
+        {family.priceOptions.map((opt, i) => {
+          const isAdded = compareList.some(c => c.familyName === family.familyName && c.price === opt.price);
+          const isReco = `${family.familyName}_${opt.price}` === recoId;
+          const benefitKey = opt.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean)[0];
+          const cfg = benefitKey ? getBenefitConfig(benefitKey) : null;
+          const displayLabel = benefitKey || '기본형';
+          return (
+            <div key={i} className={`fpc-price-row ${isReco ? 'is-reco' : ''}`}>
+              <div className="fpc-logo-wrap" style={{ background: cfg ? cfg.bg : '#f5f5f5' }}>
+                {cfg?.img
+                  ? <img src={cfg.img} alt={displayLabel} />
+                  : <span style={{fontSize:'10px', fontWeight:800, color:'#aaa'}}>기본</span>}
+              </div>
+              <span className="fpc-benefit-label">{displayLabel}</span>
+              <span className="fpc-price-val">{opt.price.toLocaleString()}<span>원/월</span></span>
+              <button
+                className={`fpc-add-btn ${isAdded ? 'added' : ''}`}
+                onClick={() => toggleCompare({ ...family, price: opt.price, variants: opt.variants })}
+                title={isAdded ? '비교함에서 제거' : '비교함에 추가'}
+              >{isAdded ? '✓' : '+'}</button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
   const promoGB = calculatePromoGB(plan.familyName, plan.dataVolume);
   const totalGB = plan.dataVolume + promoGB;
@@ -993,7 +1083,7 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
 /* =============================================
    PLAN GROUP (ACCORDION)
    ============================================= */
-function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, recoId, sortDesc = false }) {
+function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, recoId, sortDesc = false, familyMode = false }) {
   const [filter, setFilter] = useState('all');
 
   const filtered = useMemo(() => {
@@ -1001,14 +1091,19 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
     if (filter === 'unlimit') list = list.filter(p => p.isUnlimited);
     if (filter === 'limit')   list = list.filter(p => !p.isUnlimited);
     return [...list].sort((a, b) => {
-      const aReco = `${a.familyName}_${a.price}` === recoId ? 0 : 1;
-      const bReco = `${b.familyName}_${b.price}` === recoId ? 0 : 1;
+      const aReco = familyMode
+        ? (a.priceOptions.some(o => `${a.familyName}_${o.price}` === recoId) ? 0 : 1)
+        : (`${a.familyName}_${a.price}` === recoId ? 0 : 1);
+      const bReco = familyMode
+        ? (b.priceOptions.some(o => `${b.familyName}_${o.price}` === recoId) ? 0 : 1)
+        : (`${b.familyName}_${b.price}` === recoId ? 0 : 1);
       if (aReco !== bReco) return aReco - bReco;
-      return a.price - b.price;
+      const aP = familyMode ? a.priceOptions[0].price : a.price;
+      const bP = familyMode ? b.priceOptions[0].price : b.price;
+      return aP - bP;
     });
-  }, [plans, filter, recoId]);
+  }, [plans, filter, recoId, familyMode]);
 
-  // totalGB 기준으로 서브 그룹화 → 같은 데이터량끼리 한 행에, 열 = 가격 비교
   const dataGroups = useMemo(() => {
     const map = new Map();
     filtered.forEach(p => {
@@ -1017,15 +1112,19 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
       map.get(tgb).push(p);
     });
     return Array.from(map.entries())
-      .sort(([a, aPlans], [b, bPlans]) => {
-        const aHasReco = aPlans.some(p => `${p.familyName}_${p.price}` === recoId);
-        const bHasReco = bPlans.some(p => `${p.familyName}_${p.price}` === recoId);
+      .sort(([a, aItems], [b, bItems]) => {
+        const aHasReco = familyMode
+          ? aItems.some(p => p.priceOptions.some(o => `${p.familyName}_${o.price}` === recoId))
+          : aItems.some(p => `${p.familyName}_${p.price}` === recoId);
+        const bHasReco = familyMode
+          ? bItems.some(p => p.priceOptions.some(o => `${p.familyName}_${o.price}` === recoId))
+          : bItems.some(p => `${p.familyName}_${p.price}` === recoId);
         if (aHasReco && !bHasReco) return -1;
         if (!aHasReco && bHasReco) return 1;
         return sortDesc ? b - a : a - b;
       })
       .map(([tgb, groupPlans]) => ({ tgb, groupPlans }));
-  }, [filtered, recoId, sortDesc]);
+  }, [filtered, recoId, sortDesc, familyMode]);
 
   if (plans.length === 0) return null;
 
@@ -1055,16 +1154,23 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
               <div key={tgb} className="pg-data-group">
                 <div className="pg-data-label">
                   {tgb}GB{groupPlans[0]?.isUnlimited ? '+' : ''}
-                  <span className="pg-data-count">{groupPlans.length}개 요금제</span>
+                  <span className="pg-data-count">{groupPlans.length}개</span>
                 </div>
                 <div className="plan-grid">
-                  {groupPlans.map(p => (
-                    <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
-                      isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
-                      onToggle={() => toggleCompare(p)}
-                      isRecommended={`${p.familyName}_${p.price}` === recoId}
-                      onOpen={onOpen} />
-                  ))}
+                  {familyMode
+                    ? groupPlans.map(f => (
+                        <FamilyPlanCard key={f.familyName} family={f}
+                          compareList={compareList} toggleCompare={toggleCompare}
+                          onOpen={onOpen} recoId={recoId} />
+                      ))
+                    : groupPlans.map(p => (
+                        <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
+                          isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
+                          onToggle={() => toggleCompare(p)}
+                          isRecommended={`${p.familyName}_${p.price}` === recoId}
+                          onOpen={onOpen} />
+                      ))
+                  }
                 </div>
               </div>
             ))
@@ -1111,6 +1217,60 @@ function App() {
       setSearchResult('');
     }
   };
+
+  // ── 제휴별 가격 묶음: familyName 기준 그룹화 ──
+  const familyNormalizedPlans = useMemo(() => {
+    const map = new Map();
+    RAW_PLANS.forEach(p => {
+      if (!map.has(p.familyName)) {
+        map.set(p.familyName, {
+          familyName: p.familyName, dataVolume: p.dataVolume,
+          dataRaw: p.dataRaw, rangeId: p.rangeId, isUnlimited: p.isUnlimited,
+          priceMap: new Map()
+        });
+      }
+      const entry = map.get(p.familyName);
+      if (!entry.priceMap.has(p.price)) entry.priceMap.set(p.price, { price: p.price, variants: [] });
+      entry.priceMap.get(p.price).variants.push(...p.variants);
+    });
+    return Array.from(map.values()).map(({ priceMap, ...rest }) => ({
+      ...rest,
+      priceOptions: Array.from(priceMap.values()).sort((a, b) => a.price - b.price)
+    }));
+  }, []);
+
+  const { familyAllPlans, familyRecoId } = useMemo(() => {
+    let list = familyNormalizedPlans;
+    list = list.filter(f => network === '5g' ? f.familyName.includes('5G') : !f.familyName.includes('5G'));
+    if (segment === '일반') {
+      list = list.filter(f => !f.familyName.includes('시니어') && !f.familyName.includes('복지') && !f.familyName.includes('키즈'));
+    } else if (segment === '시니어') {
+      list = list.filter(f => f.familyName.includes('시니어') || f.familyName.includes('복지'));
+    } else if (segment === '키즈') {
+      list = list.filter(f => f.familyName.includes('키즈'));
+    } else if (segment === '2nd기기') {
+      list = list.filter(f => f.familyName.includes('세컨드') || f.familyName.includes('2nd') || f.familyName.includes('쉐어'));
+    }
+    const unlimFams = list.filter(f => f.isUnlimited);
+    let familyRecoId = null;
+    if (unlimFams.length > 0) {
+      let best = unlimFams[0];
+      let maxVal = Math.max(...best.priceOptions.flatMap(o => o.variants.map(v => v.giftTotalValue || 0)));
+      unlimFams.forEach(f => {
+        const val = Math.max(...f.priceOptions.flatMap(o => o.variants.map(v => v.giftTotalValue || 0)));
+        if (val > maxVal || (val === maxVal && f.priceOptions[0].price < best.priceOptions[0].price)) { best = f; maxVal = val; }
+      });
+      familyRecoId = `${best.familyName}_${best.priceOptions[0].price}`;
+    }
+    return { familyAllPlans: list, familyRecoId };
+  }, [familyNormalizedPlans, network, segment]);
+
+  const famTGB = (f) => f.dataVolume + calculatePromoGB(f.familyName, f.dataVolume);
+  const famGroupA = familyAllPlans.filter(f => famTGB(f) <= 10);
+  const famGroupB = familyAllPlans.filter(f => { const t = famTGB(f); return t >= 11 && t <= 29; });
+  const famGroupC = familyAllPlans.filter(f => famTGB(f) === 30);
+  const famGroupD = familyAllPlans.filter(f => { const t = famTGB(f); return t >= 31 && t <= 99; });
+  const famGroupE = familyAllPlans.filter(f => famTGB(f) >= 100);
 
   // 데이터 정규화 (변형 병합)
   const normalizedPlans = useMemo(() => {
@@ -1229,28 +1389,28 @@ function App() {
             ))}
           </div>
 
-          {/* 아코디언 그룹 */}
+          {/* 아코디언 그룹 — 제휴별 가격 묶음 카드 */}
           <div>
-            <PlanGroup title="10GB 이하" plans={groupA} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['10GB 이하']} recoId={recoId}
+            <PlanGroup title="10GB 이하" plans={famGroupA} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['10GB 이하']} recoId={familyRecoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '10GB 이하': !prev['10GB 이하']}))}
-              groupRef={refA} sortDesc={true} />
-            <PlanGroup title="11~29GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['11~29GB']} recoId={recoId}
+              groupRef={refA} sortDesc={true} familyMode={true} />
+            <PlanGroup title="11~29GB" plans={famGroupB} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['11~29GB']} recoId={familyRecoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '11~29GB': !prev['11~29GB']}))}
-              groupRef={refB} />
-            <PlanGroup title="30GB" plans={groupC} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['30GB']} recoId={recoId}
+              groupRef={refB} familyMode={true} />
+            <PlanGroup title="30GB" plans={famGroupC} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['30GB']} recoId={familyRecoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '30GB': !prev['30GB']}))}
-              groupRef={refC} />
-            <PlanGroup title="31~99GB" plans={groupD} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']} recoId={recoId}
+              groupRef={refC} familyMode={true} />
+            <PlanGroup title="31~99GB" plans={famGroupD} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']} recoId={familyRecoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '31~99GB': !prev['31~99GB']}))}
-              groupRef={refD} />
-            <PlanGroup title="100GB+" plans={groupE} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['100GB+']} recoId={recoId}
+              groupRef={refD} familyMode={true} />
+            <PlanGroup title="100GB+" plans={famGroupE} compareList={compareList} toggleCompare={toggleCompare}
+              onOpen={setModalPlan} isOpen={!!openGroups['100GB+']} recoId={familyRecoId}
               onToggle={() => setOpenGroups(prev => ({...prev, '100GB+': !prev['100GB+']}))}
-              groupRef={refE} />
+              groupRef={refE} familyMode={true} />
           </div>
         </main>
 
