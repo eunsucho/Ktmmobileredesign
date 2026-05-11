@@ -775,7 +775,7 @@ function PlanModal({ plan, onClose }) {
 
           {/* 가입 버튼 */}
           <div className="kt-mdl-btns">
-            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:plan.familyName,price:plan.price,time_on_page:Math.round((Date.now()-pageEntryTime.current)/1000)}); window.location.href = `precheck.html?plan=${encodeURIComponent(plan.familyName)}&price=${plan.price}`; }}>가입하기</button>
+            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:plan.familyName,price:plan.price}); window.location.href = `precheck.html?plan=${encodeURIComponent(plan.familyName)}&price=${plan.price}`; }}>가입하기</button>
           </div>
 
           {/* 탭 */}
