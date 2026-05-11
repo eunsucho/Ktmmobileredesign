@@ -592,18 +592,17 @@ const BENEFIT_NORMALIZE = {
   "기본형": null
 };
 
-// 로고 플레이스홀더를 위한 배경색상 매핑
 const BENEFIT_COLOR = {
-  "쿠팡캐시": { bg: "#EAF3DE", icon: "📦" },
-  "네이버페이": { bg: "#E6F1FB", icon: "N" },
-  "올리브영": { bg: "#FAEEDA", icon: "🌿" },
-  "다이소": { bg: "#FAEEDA", icon: "🛒" },
-  "밀리": { bg: "#FFF2CC", icon: "📚" },
-  "지니뮤직": { bg: "#E6E6FA", icon: "🎵" },
-  "모아진": { bg: "#E6F1FB", icon: "📖" },
-  "CU": { bg: "#EAF3DE", icon: "🏪" },
-  "후후": { bg: "#E6F1FB", icon: "🛡️" },
-  "default": { bg: "#f0f0f0", icon: "✨" }
+  "쿠팡캐시": { bg: "#EAF3DE", img: "data/coupang.png" },
+  "네이버페이": { bg: "#E6F1FB", img: "data/naverpay.png" },
+  "올리브영": { bg: "#FAEEDA", img: "data/oliveyoung.png" },
+  "다이소": { bg: "#FAEEDA", img: "data/daiso.png" },
+  "밀리": { bg: "#FFF2CC", img: "data/millie.png" },
+  "지니뮤직": { bg: "#E6E6FA", img: "data/genie.png" },
+  "모아진": { bg: "#E6F1FB", img: "data/moazine.png" },
+  "CU": { bg: "#EAF3DE", img: null },
+  "후후": { bg: "#E6F1FB", img: null },
+  "default": { bg: "#f0f0f0", img: null }
 };
 
 const USAGE_TO_RANGE = {
@@ -921,7 +920,9 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
                 const cfg = getBenefitConfig(b);
                 return (
                   <div key={i} className="pc-partner-logo-sq" style={{background: cfg.bg}} title={b}>
-                    <span>{cfg.icon}</span>
+                    {cfg.img
+                      ? <img src={cfg.img} alt={b} style={{width:'18px', height:'18px', objectFit:'contain'}} />
+                      : <span style={{fontSize:'11px', fontWeight:800}}>{b.slice(0,2)}</span>}
                   </div>
                 );
               })}
@@ -1269,7 +1270,13 @@ function App() {
                         <div className="cs-benefit-icons">
                           {uniqueBenefits.map((b, idx) => {
                             const cfg = getBenefitConfig(b);
-                            return <div key={idx} className="cs-benefit-logo-sq" style={{background: cfg.bg}} title={b}>{cfg.icon}</div>;
+                            return (
+                              <div key={idx} className="cs-benefit-logo-sq" style={{background: cfg.bg}} title={b}>
+                                {cfg.img
+                                  ? <img src={cfg.img} alt={b} style={{width:'18px', height:'18px', objectFit:'contain'}} />
+                                  : <span style={{fontSize:'11px', fontWeight:800}}>{b.slice(0,2)}</span>}
+                              </div>
+                            );
                           })}
                         </div>
                       )}
