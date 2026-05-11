@@ -50,13 +50,13 @@
   const menuContent = {
     '가입하기': {
       groups: [
-        { title: '요금제 가입하기', links: [{ label: '셀프개통', href: '셀프개통.html' }] },
+        { title: '요금제 가입하기', links: [{ label: '가입하기', href: 'plan-intro.html' }] },
         { title: '유심구매하기',    links: ['다이렉트몰 구매하기', '오픈마켓 구매하기', '편의점/마트 구매하기'] }
       ]
     },
     '상품': {
       groups: [
-        { title: '요금제',       links: [{ label: '요금제 소개', href: 'plan-intro.html' }, { label: '요금제 비교', href: 'plan-compare.html' }] },
+        { title: '요금제',       links: [{ label: '요금제 소개', href: 'plan-intro.html' }] },
         { title: '부가서비스',   links: ['전체 부가서비스', '해외 로밍'] },
         { title: '추가서비스',   links: ['함께쓰기', '데이터쉐어링', '휴대폰안심보험'] },
         { title: '휴대폰',       links: ['새 휴대폰', 'KT휴대폰'] },

@@ -3,7 +3,7 @@ import { Check, Calendar, X, Clock, ChevronDown, ChevronUp, Search, MapPin, Sett
 import '../styles/fonts.css';
 
 export default function App() {
-  const [currentStep, setCurrentStep] = useState(2);
+  const [currentStep, setCurrentStep] = useState(1);
   const [isFading, setIsFading] = useState(false);
 
   // Step 1 States
@@ -31,7 +31,7 @@ export default function App() {
 
   // Step 2 States
   const [simHasType, setSimHasType] = useState<'보유' | '미보유'>('보유');
-  const [simBuyPlace, setSimBuyPlace] = useState<'다이렉트몰' | '편의점/마트' | '오픈마켓' | ''>('다이렉트몰');
+  const [simBuyPlace, setSimBuyPlace] = useState<'다이렉트몰' | '편의점/마트' | ''>('다이렉트몰');
   const [simNumber, setSimNumber] = useState('');
   const [simFocus, setSimFocus] = useState(false);
   const [phone, setPhone] = useState('');
@@ -154,10 +154,24 @@ export default function App() {
   const isStep2Valid = phone.trim() !== '' && email.trim() !== '' && zipcode.trim() !== '' && address.trim() !== '' && selectedIdType !== '' && idIssueDate !== '' && idAgree && ((selectedIdType === '주민등록증' || selectedIdType === '운전면허증') ? faceResultChecked : true) && (simHasType === '보유' ? (simNumber.length === 19 && simValidated) : simBuyPlace !== '');
   const isStep3Valid = telecom !== '' && movingPhone.trim() !== '';
 
+  const stepEntryTime = useRef(Date.now());
+  const appStartTime = useRef(Date.now());
+
+  const pushEvent = (event: string, params: Record<string, unknown> = {}) => {
+    (window as any).dataLayer = (window as any).dataLayer || [];
+    (window as any).dataLayer.push({ event, ...params });
+  };
+
   const goToStep = (step: number) => {
+    const timeOnStep = Math.round((Date.now() - stepEntryTime.current) / 1000);
+    pushEvent('signup_step_complete', { step: currentStep, time_on_step: timeOnStep });
+    if (step === 6) {
+      pushEvent('signup_complete', { total_time: Math.round((Date.now() - appStartTime.current) / 1000) });
+    }
     setIsFading(true);
     setTimeout(() => {
       setCurrentStep(step);
+      stepEntryTime.current = Date.now();
       window.scrollTo({ top: 0, behavior: 'instant' });
       setIsFading(false);
     }, 250);
@@ -189,6 +203,21 @@ export default function App() {
       setShowSimResultModal(true);
     }, 1500);
   };
+
+  // Load shared navbar
+  useEffect(() => {
+    if (document.getElementById('kmnav-header')) return;
+    (window as any).KMNAV_ACTIVE = '가입하기';
+    const script = document.createElement('script');
+    script.src = './shared-nav.js';
+    document.head.appendChild(script);
+  }, []);
+
+  // Track step view
+  useEffect(() => {
+    pushEvent('signup_step_view', { step: currentStep });
+    stepEntryTime.current = Date.now();
+  }, [currentStep]);
 
   // Timer Effect
   useEffect(() => {
@@ -224,58 +253,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white pb-[90px] font-sans relative">
-      {/* GNB - Global Navigation Bar */}
-      <header className="border-b border-gray-200 bg-white sticky top-0 z-50 min-w-[1024px]">
-        <div className="w-[1200px] mx-auto h-[80px] flex items-center justify-between">
-          <div className="flex items-center">
-            {/* Logo */}
-            <div className="flex items-center cursor-pointer mr-[60px]">
-              <span className="font-extrabold text-black text-[22px] tracking-tight">kt</span>
-              <span className="font-extrabold text-[#E60012] text-[22px] ml-1.5 tracking-tight">M mobile</span>
-            </div>
-
-            {/* Main Menu */}
-            <nav className="flex items-center gap-[42px] text-[18px] font-bold">
-              <button className="text-gray-900 hover:text-[#E60012] whitespace-nowrap">가입하기</button>
-              <button className="text-gray-900 hover:text-[#E60012] whitespace-nowrap">상품</button>
-              <button className="text-gray-900 hover:text-[#E60012] whitespace-nowrap">혜택</button>
-              <button className="text-gray-900 hover:text-[#E60012] whitespace-nowrap">결합</button>
-              <button className="text-gray-900 hover:text-[#E60012] whitespace-nowrap">고객센터</button>
-              <button className="text-gray-900 hover:text-[#E60012] flex items-center gap-1.5 whitespace-nowrap">
-                <div className="bg-[#E60012] text-white text-[11px] font-black rounded-full w-5 h-5 flex items-center justify-center leading-none mt-0.5">m</div>
-                <span>mobi</span>
-              </button>
-            </nav>
-          </div>
-
-          {/* Right Utils */}
-          <div className="flex items-center">
-            <div className="flex items-center gap-[18px] text-[14px] font-medium text-gray-600">
-              <button className="hover:text-black whitespace-nowrap">교체 유심 신청</button>
-              <span className="text-gray-300 text-xs">|</span>
-              <button className="hover:text-black whitespace-nowrap">신청조회</button>
-              <span className="text-gray-300 text-xs">|</span>
-              <button className="hover:text-black whitespace-nowrap">마이페이지</button>
-            </div>
-            
-            <button className="px-4 py-[5px] border border-gray-300 rounded text-[13px] font-medium text-gray-800 hover:border-gray-500 whitespace-nowrap ml-[18px]">
-              로그인
-            </button>
-            
-            <button className="text-gray-800 hover:text-black ml-4">
-              <svg className="w-[26px] h-[26px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </button>
-            
-            <button className="bg-[#E60012] text-white w-[50px] h-[50px] flex flex-col items-center justify-center gap-[5px] flex-shrink-0 ml-4 rounded-sm">
-              <div className="w-[22px] h-[2px] bg-white"></div>
-              <div className="w-[22px] h-[2px] bg-white"></div>
-              <div className="w-[22px] h-[2px] bg-white"></div>
-            </button>
-          </div>
-        </div>
-      </header>
+      <div id="nav-mount"></div>
 
       {/* Main Content Area (800px width) */}
       <main className="max-w-[800px] mx-auto px-6 py-12">
@@ -1073,7 +1051,7 @@ export default function App() {
                             <>
                               {/* 구매처 안내 영역 */}
                               <div className="text-[13px] text-gray-500 mb-3 text-left">
-                                유심 구매처: 다이렉트몰, 편의점/마트, 오픈마켓
+                                유심 구매처: 다이렉트몰, 편의점/마트
                               </div>
 
                               {/* 다이렉트몰 - 전체 너비 (유심 보유 + 유심 미보유 합산 너비와 동일) */}
@@ -1095,43 +1073,24 @@ export default function App() {
                                 )}
                               </button>
 
-                              {/* 편의점/마트 + 오픈마켓 - 2열 그리드 (다이렉트몰과 동일 전체 너비) */}
-                              <div className="grid grid-cols-2 gap-3">
-                                <button
-                                  onClick={() => setSimBuyPlace('편의점/마트')}
-                                  className={`h-[120px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
-                                    simBuyPlace === '편의점/마트'
-                                      ? 'border-[#00BFA5] bg-[#E0F7F4]'
-                                      : 'border-gray-200 bg-white'
-                                  }`}
-                                >
-                                  <div className="text-[30px] mb-2">🏪</div>
-                                  <div className="font-bold text-black text-[15px] mb-0.5">편의점/마트</div>
-                                  <div className="text-[12px] text-gray-400">GS25, CU, 이마트 등</div>
-                                  {simBuyPlace === '편의점/마트' && (
-                                    <div className="w-[18px] h-[18px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-4">
-                                      <Check className="w-3 h-3 text-white stroke-[3]" />
-                                    </div>
-                                  )}
-                                </button>
-                                <button
-                                  onClick={() => setSimBuyPlace('오픈마켓')}
-                                  className={`h-[120px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
-                                    simBuyPlace === '오픈마켓'
-                                      ? 'border-[#00BFA5] bg-[#E0F7F4]'
-                                      : 'border-gray-200 bg-white'
-                                  }`}
-                                >
-                                  <div className="text-[30px] mb-2">🛒</div>
-                                  <div className="font-bold text-black text-[15px] mb-0.5">오픈마켓</div>
-                                  <div className="text-[12px] text-gray-400">쿠팡, 11번가, G마켓 등</div>
-                                  {simBuyPlace === '오픈마켓' && (
-                                    <div className="w-[18px] h-[18px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-4">
-                                      <Check className="w-3 h-3 text-white stroke-[3]" />
-                                    </div>
-                                  )}
-                                </button>
-                              </div>
+                              {/* 편의점/마트 */}
+                              <button
+                                onClick={() => setSimBuyPlace('편의점/마트')}
+                                className={`w-full h-[120px] rounded-[12px] border flex flex-col items-center justify-center transition-colors relative ${
+                                  simBuyPlace === '편의점/마트'
+                                    ? 'border-[#00BFA5] bg-[#E0F7F4]'
+                                    : 'border-gray-200 bg-white'
+                                }`}
+                              >
+                                <div className="text-[30px] mb-2">🏪</div>
+                                <div className="font-bold text-black text-[15px] mb-0.5">편의점/마트</div>
+                                <div className="text-[12px] text-gray-400">GS25, CU, 이마트 등</div>
+                                {simBuyPlace === '편의점/마트' && (
+                                  <div className="w-[18px] h-[18px] rounded-full bg-[#00BFA5] flex items-center justify-center absolute bottom-4">
+                                    <Check className="w-3 h-3 text-white stroke-[3]" />
+                                  </div>
+                                )}
+                              </button>
 
                               {/* 배송지 정보 영역 */}
                               {simBuyPlace === '다이렉트몰' && (

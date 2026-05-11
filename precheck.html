@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5JHN9VNR');</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMT2504JR3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EMT2504JR3');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "wp9p8g08eg");
+</script>
+  <title>KT M mobile - 가입조건 선택</title>
+
+  <!-- Tailwind CSS CDN (JIT, supports arbitrary values) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Pretendard Font -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet" />
+
+  <!-- React 18 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+  <!-- Babel (JSX transform) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    * { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    body { margin: 0; background: #fff; }
+    mark { background-color: rgba(253, 224, 71, 0.55); padding: 0 2px; border-radius: 2px; }
+    input[type="file"] { display: none; }
+    :focus { outline: none; }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JHN9VNR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <script>window.KMNAV_ACTIVE = '가입하기';</script>
+  <script src="shared-nav.js"></script>
+  <div id="nav-mount"></div>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    /* ──────────────────────────────────────────
+       이미지 placeholder (원본: image-5.png / image-8.png)
+       실제 파일을 같은 폴더에 두면 src를 바꿔 사용하세요.
+    ────────────────────────────────────────── */
+    function PrepareImage() {
+      return (
+        <div style={{
+          background: 'linear-gradient(135deg, #f0f9ff 0%, #f0faf9 100%)',
+          border: '2px dashed #00B5A5',
+          borderRadius: '12px',
+          padding: '48px 24px',
+          textAlign: 'center',
+          color: '#666',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          minHeight: '200px'
+        }}>
+          <div style={{ fontSize: '52px' }}>🪪</div>
+          <div style={{ fontSize: '15px', fontWeight: 700, color: '#333' }}>신분증과 계좌/신용카드를 준비해주세요!</div>
+          <div style={{ fontSize: '12px', color: '#999' }}>(신분증 및 카드 준비 안내 이미지 – image-5.png)</div>
+        </div>
+      );
+    }
+
+    function EsimGuideImage() {
+      return (
+        <div style={{
+          background: '#f8f8f8',
+          border: '1px dashed #ccc',
+          borderRadius: '8px',
+          padding: '32px 16px',
+          textAlign: 'center',
+          color: '#999',
+          fontSize: '12px',
+          marginBottom: '16px'
+        }}>
+          (이미지 가이드 – image-8.png)
+        </div>
+      );
+    }
+
+    /* ──────────────────────────────────────────
+       메인 App 컴포넌트
+    ────────────────────────────────────────── */
+    function App() {
+      const [customerType, setCustomerType] = useState('domestic');
+      const [activationMethod, setActivationMethod] = useState(null);
+      const [activationType, setActivationType] = useState('usim-have');
+      const [subscriptionType, setSubscriptionType] = useState('transfer');
+      const [deliveryType, setDeliveryType] = useState('same-day');
+      const [eventCode, setEventCode] = useState('');
+      const [showBenefitDetails, setShowBenefitDetails] = useState({ mobile: true, internet: false, extra: false });
+      const [ktInternet, setKtInternet] = useState('none');
+      const [selectedCard, setSelectedCard] = useState('none');
+      const [tempSelectedCard, setTempSelectedCard] = useState('none');
+      const [showCardModal, setShowCardModal] = useState(false);
+      const [cardAgreement, setCardAgreement] = useState(false);
+      const [showHelp, setShowHelp] = useState(true);
+      const [showImageGuideModal, setShowImageGuideModal] = useState(false);
+      const [showUsimValidModal, setShowUsimValidModal] = useState(false);
+      const [showEsimGuidePanel, setShowEsimGuidePanel] = useState(false);
+      const [showEsimConfirmModal, setShowEsimConfirmModal] = useState(false);
+      const [showMemberCheckModal, setShowMemberCheckModal] = useState(true);
+      const [showPrepareModal, setShowPrepareModal] = useState(false);
+      const [phoneModel, setPhoneModel] = useState('');
+      const [eid, setEid] = useState('');
+      const [imei1, setImei1] = useState('');
+      const [imei2, setImei2] = useState('');
+
+      const handleCardSelect = (card) => {
+        if (card !== 'none') {
+          setTempSelectedCard(card);
+          setShowCardModal(true);
+          setCardAgreement(false);
+        } else {
+          setSelectedCard(card);
+        }
+      };
+
+      const handleCardConfirm = () => {
+        if (cardAgreement) {
+          setSelectedCard(tempSelectedCard);
+          setShowCardModal(false);
+        }
+      };
+
+      const handleNonMemberSignup = () => setShowMemberCheckModal(false);
+      const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      return (
+        <div className="min-h-screen bg-white">
+
+
+          {/* ── Page Title ── */}
+          <div className="max-w-[800px] mx-auto px-6 py-6 border-b border-gray-100">
+            <h1 style={{ fontSize: '22px', fontWeight: 700, color: '#111' }}>가입조건 선택</h1>
+          </div>
+
+          {/* ── Main Form ── */}
+          <div className="max-w-[800px] mx-auto px-6 pb-24">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingTop: '24px' }}>
+
+              {/* ── 고객유형 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <label style={{ fontWeight: 600, color: '#111', paddingTop: '12px', fontSize: '16px' }}>고객유형</label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px' }}>
+                    {[
+                      { value: 'domestic', icon: '19+', label: '내국인' },
+                      { value: 'minor',    icon: '19-', label: '미성년자(19세 미만)' },
+                      { value: 'foreigner',icon: '🌐',  label: '외국인 (Foreigner)' }
+                    ].map(item => (
+                      <button key={item.value} onClick={() => { setCustomerType(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_customer_type',value:item.value}); }}
+                        style={{
+                          padding: '12px 16px', borderRadius: '8px', border: customerType === item.value ? '1px solid #00B5A5' : '1px solid #e5e7eb',
+                          background: customerType === item.value ? '#F0FAF9' : '#fff',
+                          display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', transition: 'all .15s'
+                        }}>
+                        <div style={{ width: '28px', height: '28px', borderRadius: '50%', background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', flexShrink: 0 }}>
+                          {item.icon}
+                        </div>
+                        <span style={{ fontSize: '14px', flex: 1, textAlign: 'left' }}>{item.label}</span>
+                        {customerType === item.value && <span style={{ color: '#00B5A5', fontSize: '14px' }}>✓</span>}
+                      </button>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: '12px', color: '#6b7280', lineHeight: '1.6' }}>
+                    {customerType === 'domestic' && '성인(19세 이상 내국인)은 셀프개통과 상담사 개통신청 모두 가능합니다.'}
+                    {customerType === 'minor' && '미성년자(19세 미만 내국인)는 상담사 개통 신청만 가능합니다. 가입신청서 작성 완료 후, 법정대리인에게 순차적으로 연락하여 개통 안내를 드립니다.'}
+                    {customerType === 'foreigner' && '외국인은 상담사 개통신청만 가능합니다. 가입신청서 작성 완료 후, 순차적으로 연락하여 개통 안내를 드립니다. (안내는 한국어, 영어, 중국어로 제공됩니다.)'}
+                  </p>
+                </div>
+              </section>
+
+              {/* ── 개통유형1 (셀프/상담사) ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <label style={{ fontWeight: 500, color: '#000', paddingTop: '14px', fontSize: '16px' }}>개통 유형</label>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {[
+                    { value: 'self', label: '셀프 개통' },
+                    { value: 'consultant', label: '상담사 개통' }
+                  ].map(item => (
+                    <button key={item.value} onClick={() => { setActivationMethod(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_activation_method',value:item.value}); }}
+                      style={{
+                        height: '44px', borderRadius: '12px',
+                        border: activationMethod === item.value ? '2px solid #4ECDC4' : '1px solid #E0E0E0',
+                        background: activationMethod === item.value ? '#F0FAF9' : '#fff',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                        fontSize: '14px', fontWeight: 500, cursor: 'pointer', transition: 'all .15s',
+                        color: activationMethod === item.value ? '#111' : '#555'
+                      }}>
+                      {item.label}
+                      {activationMethod === item.value && <span style={{ color: '#4ECDC4', fontWeight: 700 }}>✓</span>}
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* ── SIM 유형 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <label style={{ fontWeight: 600, color: '#111', paddingTop: '12px', fontSize: '16px' }}>SIM 유형</label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                    {[
+                      { value: 'usim-have', label: 'USIM' },
+                      { value: 'esim',      label: 'ESIM' }
+                    ].map(item => (
+                      <button key={item.value} onClick={() => { setActivationType(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_sim_type',value:item.value}); }}
+                        style={{
+                          height: '44px', borderRadius: '12px',
+                          border: activationType === item.value ? '1px solid #00B5A5' : '1px solid #e5e7eb',
+                          background: activationType === item.value ? '#F0FAF9' : '#fff',
+                          color: activationType === item.value ? '#00B5A5' : '#555',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                          fontSize: '14px', cursor: 'pointer', transition: 'all .15s'
+                        }}>
+                        {item.label}
+                        {activationType === item.value && <span style={{ fontSize: '14px' }}>✓</span>}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* USIM 선택 시 */}
+                  {activationType === 'usim-have' && (
+                    <p style={{ fontSize: '12px', color: '#6b7280' }}>유심 구매처: 다이렉트몰, 편의점/마트, 오픈마켓</p>
+                  )}
+
+                  {/* eSIM 선택 시 */}
+                  {activationType === 'esim' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                      <div style={{ fontSize: '12px', color: '#6b7280', lineHeight: '1.7', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <p>• 한 휴대폰에서 2회선 이용 시, 메인회선과 서브회선이 동일 명의가 아닐 경우 이용에 제약이 있을 수 있습니다.</p>
+                        <p>• 외국인, 미성년자는 셀프개통이 불가하므로 '상담사 개통 신청'을 이용 바랍니다.</p>
+                        <p>• 개통이 잘 안되시거나 어려운 부분이 있으시면 평일 09:00 ~ 18:00 고객센터(1899-5000/유료)로 연락 부탁드립니다.</p>
+                        <p>• eSIM 개통을 위해서는 EID 등록이 선행되어야 하며, IMEI 및 32자리 EID 캡쳐화면 이미지 업로드가 필요합니다.</p>
+                        <p>
+                          • 이미지 업로드 시 자동으로 입력됩니다.{' '}
+                          <button onClick={() => setShowEsimGuidePanel(true)}
+                            style={{ color: '#00B5A5', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontSize: '12px', padding: 0 }}>
+                            이미지 가이드 보기
+                          </button>
+                        </p>
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '16px', alignItems: 'start' }}>
+                        <label style={{ fontSize: '12px', fontWeight: 500, color: '#374151', paddingTop: '12px' }}>휴대폰 정보 등록</label>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                          {[
+                            { val: phoneModel, set: setPhoneModel, ph: '휴대폰 모델명' },
+                            { val: eid,        set: setEid,        ph: 'EID', max: 32 },
+                            { val: imei1,      set: setImei1,      ph: 'IMEI1' },
+                            { val: imei2,      set: setImei2,      ph: 'IMEI2' },
+                          ].map((f, i) => (
+                            <input key={i} type="text" value={f.val}
+                              onChange={e => f.set(e.target.value)}
+                              placeholder={f.ph} maxLength={f.max}
+                              style={{ height: '44px', padding: '0 12px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', width: '100%', boxSizing: 'border-box' }}
+                              onFocus={e => e.target.style.borderColor = '#00B5A5'}
+                              onBlur={e => e.target.style.borderColor = '#d1d5db'} />
+                          ))}
+                        </div>
+                      </div>
+
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <input type="file" accept="image/*" id="esim-image-upload"
+                          onChange={e => {
+                            if (e.target.files && e.target.files[0]) {
+                              setShowEsimConfirmModal(true);
+                              setPhoneModel('아이폰12미니-256');
+                              setEid('89044452175923879469136765827398');
+                              setImei1('352958772864489');
+                              setImei2('352682930948978');
+                            }
+                          }} />
+                        <label htmlFor="esim-image-upload"
+                          style={{ width: '360px', height: '44px', background: '#00B5A5', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                          이미지 등록
+                        </label>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </section>
+
+              {/* ── 가입유형 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <label style={{ fontWeight: 600, color: '#111', paddingTop: '12px', fontSize: '16px' }}>가입 유형</label>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  {[
+                    { value: 'transfer', title: '번호이동', sub: '쓰던번호 그대로' },
+                    { value: 'new',      title: '신규가입', sub: '새로운 번호로' }
+                  ].map(item => (
+                    <button key={item.value} onClick={() => { setSubscriptionType(item.value); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_subscription_type',value:item.value}); }}
+                      style={{
+                        padding: '14px 16px', borderRadius: '8px',
+                        border: subscriptionType === item.value ? '1px solid #00B5A5' : '1px solid #e5e7eb',
+                        background: subscriptionType === item.value ? '#F0FAF9' : '#fff',
+                        cursor: 'pointer', transition: 'all .15s', textAlign: 'center'
+                      }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', marginBottom: '4px' }}>
+                        <span style={{ fontSize: '14px', fontWeight: 600 }}>{item.title}</span>
+                        {subscriptionType === item.value && <span style={{ color: '#00B5A5', fontSize: '14px' }}>✓</span>}
+                      </div>
+                      <p style={{ fontSize: '12px', color: '#6b7280', margin: 0 }}>{item.sub}</p>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* ── 요금제 선택 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <label style={{ fontWeight: 600, color: '#111', paddingTop: '12px', fontSize: '15px' }}>요금제 선택</label>
+                <div style={{ display: 'flex', gap: '12px' }}>
+                  <div style={{ flex: 1, padding: '20px', background: 'linear-gradient(135deg, rgba(240,250,249,.5) 0%, rgba(240,253,250,.5) 100%)', borderRadius: '8px', border: '1px solid #ccf0ee' }}>
+                    <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#111', marginBottom: '12px', marginTop: 0 }}>모두다 맘껏 15GB+(PAY쿠폰 5000P)</h3>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                        <span style={{ padding: '2px 10px', background: '#00B5A5', color: '#fff', borderRadius: '999px', fontSize: '12px' }}>
+                          최대 35GB무제한
+                        </span>
+                        <span style={{ fontSize: '12px', color: '#4b5563' }}>
+                          15GB+최대1Mbps +10GB(아무나SOLO경험) + 데이터 추가제공 10GB(24개월)
+                        </span>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '12px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span>📞</span>
+                          <span style={{ fontWeight: 500 }}>기본제공</span>
+                          <span style={{ color: '#6b7280' }}>+영상/부가통화 300분</span>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span>📧</span>
+                          <span style={{ fontWeight: 500 }}>기본제공</span>
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ padding: '2px 10px', background: '#f3f4f6', color: '#374151', borderRadius: '999px', fontSize: '12px' }}>[추가혜택]</span>
+                        <span style={{ fontSize: '12px', color: '#4b5563' }}>네이버페이 5,000P(매월 제공)</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button style={{
+                    width: '160px', minHeight: '140px', border: '1px dashed #d1d5db', borderRadius: '8px',
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                    background: '#fff', cursor: 'pointer', transition: 'border-color .15s', flexShrink: 0
+                  }}>
+                    <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px' }}>+</div>
+                    <span style={{ fontSize: '12px', color: '#4b5563' }}>다른 요금제 고르기</span>
+                  </button>
+                </div>
+              </section>
+
+              {/* ── 이벤트 코드 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <label style={{ fontWeight: 600, color: '#111', paddingTop: '12px', fontSize: '16px' }}>이벤트 코드</label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <p style={{ fontSize: '12px', color: '#6b7280', margin: 0 }}>해당 요금제는 이벤트 코드 적용이 가능합니다. 이벤트에서 확인한 코드가 있다면 입력해 주세요.</p>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input type="text" value={eventCode} onChange={e => setEventCode(e.target.value)}
+                      placeholder="이벤트 코드 입력"
+                      style={{ flex: 1, height: '44px', padding: '0 16px', border: '1px solid #d1d5db', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box', display: 'block' }}
+                      onFocus={e => e.target.style.borderColor = '#00B5A5'}
+                      onBlur={e => e.target.style.borderColor = '#d1d5db'} />
+                    <button style={{ padding: '0 20px', height: '44px', background: '#00B5A5', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>확인</button>
+                    <button style={{ padding: '0 20px', height: '44px', background: '#f3f4f6', color: '#4b5563', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>재입력</button>
+                  </div>
+                </div>
+              </section>
+
+              {/* ── 가입 사은품 안내 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <label style={{ fontWeight: 600, color: '#111', fontSize: '16px' }}>가입 사은품 안내</label>
+                <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', padding: '20px' }}>
+                  <h3 style={{ fontSize: '16px', fontWeight: 600, marginTop: 0, marginBottom: '14px' }}>최대 28만원 가입 혜택</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                    {/* 모바일 혜택 */}
+                    <div style={{ borderBottom: '1px solid #f3f4f6', paddingBottom: '10px' }}>
+                      <button onClick={() => setShowBenefitDetails(p => ({ ...p, mobile: !p.mobile }))}
+                        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ padding: '2px 10px', background: '#faf5ff', color: '#7e22ce', borderRadius: '999px', fontSize: '12px', fontWeight: 500 }}>모바일 혜택</span>
+                          <span style={{ fontWeight: 600, fontSize: '14px' }}>최대 28만원</span>
+                        </div>
+                        <span style={{ color: '#9ca3af', fontSize: '14px' }}>{showBenefitDetails.mobile ? '˄' : '˅'}</span>
+                      </button>
+                      {showBenefitDetails.mobile && (
+                        <div style={{ marginTop: '10px', marginLeft: '12px', display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '12px', color: '#4b5563' }}>
+                          <p style={{ margin: 0, display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
+                            <span style={{ color: '#E60012' }}>●</span>
+                            이벤트 코드 '보너스' 입력 시 2만 5천원 X 10개월
+                          </p>
+                          <p style={{ margin: 0, display: 'flex', alignItems: 'flex-start', gap: '6px' }}>
+                            <span style={{ color: '#E60012' }}>●</span>
+                            바로배송/바로유심으로 가입 시 3만원
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                    {/* 인터넷 혜택 */}
+                    <div style={{ borderBottom: '1px solid #f3f4f6', paddingBottom: '10px' }}>
+                      <button onClick={() => setShowBenefitDetails(p => ({ ...p, internet: !p.internet }))}
+                        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ padding: '2px 10px', background: '#faf5ff', color: '#7e22ce', borderRadius: '999px', fontSize: '12px', fontWeight: 500 }}>인터넷 혜택</span>
+                          <span style={{ fontWeight: 600, fontSize: '14px' }}>최대 16만원</span>
+                        </div>
+                        <span style={{ color: '#9ca3af', fontSize: '14px' }}>{showBenefitDetails.internet ? '˄' : '˅'}</span>
+                      </button>
+                    </div>
+                    {/* 추가 혜택 */}
+                    <div>
+                      <button onClick={() => setShowBenefitDetails(p => ({ ...p, extra: !p.extra }))}
+                        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ padding: '2px 10px', background: '#faf5ff', color: '#7e22ce', borderRadius: '999px', fontSize: '12px', fontWeight: 500 }}>추가 혜택</span>
+                          <span style={{ fontSize: '14px', color: '#4b5563' }}>엠모바일 고객 한정</span>
+                        </div>
+                        <span style={{ color: '#9ca3af', fontSize: '14px' }}>{showBenefitDetails.extra ? '˄' : '˅'}</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* ── KT인터넷 가입 상담 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <div>
+                  <label style={{ fontWeight: 600, color: '#111', fontSize: '15px' }}>KT인터넷 가입 상담</label>
+                  <span style={{ fontSize: '12px', color: '#6b7280', marginLeft: '6px' }}>(선택)</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                    {[
+                      { value: 'combo', title: 'KT 인터넷/TV 결합 할인', sub: '최대 30,040원' },
+                      { value: 'none',  title: '선택 안함',             sub: null }
+                    ].map(item => (
+                      <button key={item.value} onClick={() => setKtInternet(item.value)}
+                        style={{
+                          padding: '14px 16px', borderRadius: '8px',
+                          border: ktInternet === item.value ? '1px solid #00B5A5' : '1px solid #e5e7eb',
+                          background: ktInternet === item.value ? '#F0FAF9' : '#fff',
+                          cursor: 'pointer', transition: 'all .15s', textAlign: 'left'
+                        }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: item.sub ? '4px' : 0 }}>
+                          <span style={{ fontSize: '14px', fontWeight: 600 }}>{item.title}</span>
+                          {ktInternet === item.value && <span style={{ color: '#00B5A5', fontSize: '14px' }}>✓</span>}
+                        </div>
+                        {item.sub && <p style={{ margin: 0, fontSize: '12px', color: '#6b7280' }}>{item.sub}</p>}
+                      </button>
+                    ))}
+                  </div>
+                  {ktInternet === 'combo' && (
+                    <>
+                      <div style={{ background: 'linear-gradient(135deg, rgba(255,251,235,.5) 0%, rgba(255,247,237,.5) 100%)', border: '1px solid rgba(251,191,36,.3)', borderRadius: '8px', padding: '20px' }}>
+                        <div style={{ marginBottom: '8px' }}>
+                          <span style={{ padding: '2px 10px', background: '#00B5A5', color: '#fff', borderRadius: '999px', fontSize: '12px' }}>5/7~5/19 기간 한정</span>
+                        </div>
+                        <h3 style={{ margin: '0 0 6px', fontSize: '16px', fontWeight: 600 }}>
+                          KT인터넷 가입 상담만 해도,<br />
+                          <mark>1) N페이 3천원</mark>
+                        </h3>
+                        <h3 style={{ margin: '0 0 12px', fontSize: '16px', fontWeight: 600 }}>
+                          인터넷 신규 가입시,<br />
+                          <mark>2) 최대 16만원 추가 혜택!</mark>
+                        </h3>
+                        <p style={{ margin: '0 0 6px', fontSize: '12px', color: '#4b5563' }}>KT 인터넷 가입 시 최대 16만원 추가 혜택을 받으실 수 있습니다.</p>
+                        <p style={{ margin: 0, fontSize: '12px', color: '#E60012', lineHeight: '1.7' }}>
+                          ※ 본 혜택은 KT 인터넷 가입 상담 시에만 제공됩니다.<br />
+                          ※ 기타 자세한 사항은 상담사를 통해 안내받으실 수 있습니다.
+                        </p>
+                      </div>
+                      <p style={{ margin: 0, fontSize: '12px', color: '#6b7280', lineHeight: '1.7' }}>
+                        KT 인터넷 상담 신청을 원하시면 반드시 선택해주세요. 상담 후 가입하지 않으셔도 됩니다. KT 인터넷 가입 시 추가 혜택이 제공됩니다. 상담은 영업일 기준 1~2일 이내 진행됩니다.
+                      </p>
+                    </>
+                  )}
+                </div>
+              </section>
+
+              {/* ── 제휴카드 할인 ── */}
+              <section style={{ display: 'grid', gridTemplateColumns: '160px 1fr', gap: '24px', alignItems: 'start' }}>
+                <div>
+                  <label style={{ fontSize: '14px', fontWeight: 600, color: '#111', display: 'block', marginBottom: '2px' }}>제휴카드 할인</label>
+                  <p style={{ fontSize: '12px', color: '#6b7280', margin: '0 0 8px' }}>제휴카드로 통신료 자동이체 시 받을 수 있는 할인 혜택입니다.</p>
+                  <button style={{ padding: '4px 10px', background: '#00B5A5', color: '#fff', borderRadius: '999px', fontSize: '12px', border: 'none', cursor: 'pointer' }}>비교하기</button>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                  {/* 선택 안 함 */}
+                  <button onClick={() => handleCardSelect('none')}
+                    style={{
+                      padding: '10px', borderRadius: '8px',
+                      border: selectedCard === 'none' ? '1px solid #00B5A5' : '1px solid #e5e7eb',
+                      background: selectedCard === 'none' ? '#F0FAF9' : '#fff',
+                      cursor: 'pointer', textAlign: 'left'
+                    }}>
+                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                      <div style={{ width: '40px', height: '40px', background: '#e5e7eb', borderRadius: '4px', flexShrink: 0 }}></div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                          <span style={{ fontWeight: 600, fontSize: '12px' }}>선택 안 함</span>
+                          {selectedCard === 'none' && <span style={{ color: '#00B5A5', fontSize: '14px' }}>✓</span>}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                  {/* 카드 목록 */}
+                  {[
+                    { id: 'kt-samsung', name: 'KT 삼성카드',                  desc: '매월 통신요금 최대 2만 5천원 청구할인' },
+                    { id: 'kt-lotte',   name: 'KT DC PLUS 롯데카드',          desc: '40만원 이상 이용시 2만8천원 할인 / 80만원 이상 이용 시 2만9천원 할인' },
+                    { id: 'kb',         name: 'KB국민 kt M mobile II 카드',   desc: '30만원 이상 이용 시 2만 3천원 할인 / 70만원 이상 이용 시 2만 4천원 할인' },
+                    { id: 'shinhan',    name: '신한카드 알뜰More (알뜰모아)', desc: '매월 최대 20,000원 혜택' },
+                    { id: 'bc',         name: 'KT 마이알뜰폰 BC 바로카드',    desc: '30만원 이상 이용 시 1만2천원 할인 / 70만원 이상 이용 시 1만7천원 할인' }
+                  ].map(card => (
+                    <button key={card.id} onClick={() => handleCardSelect(card.id)}
+                      style={{
+                        padding: '10px', borderRadius: '8px',
+                        border: selectedCard === card.id ? '1px solid #00B5A5' : '1px solid #e5e7eb',
+                        background: selectedCard === card.id ? '#F0FAF9' : '#fff',
+                        cursor: 'pointer', textAlign: 'left'
+                      }}>
+                      <div style={{ display: 'flex', gap: '8px' }}>
+                        <div style={{ width: '40px', height: '40px', background: 'linear-gradient(135deg,#1f2937,#4b5563)', borderRadius: '4px', flexShrink: 0 }}></div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '2px' }}>
+                            <span style={{ fontWeight: 600, fontSize: '12px', lineHeight: '1.4' }}>{card.name}</span>
+                            {selectedCard === card.id && <span style={{ color: '#00B5A5', fontSize: '14px', flexShrink: 0 }}>✓</span>}
+                          </div>
+                          <p style={{ margin: 0, fontSize: '11px', color: '#6b7280', lineHeight: '1.5' }}>{card.desc}</p>
+                        </div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              {/* ── 액션 버튼 ── */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', paddingTop: '24px' }}>
+                <button style={{ width: '44px', height: '44px', border: '1px solid #d1d5db', borderRadius: '8px', background: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="20" height="20" fill="none" stroke="#6b7280" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                </button>
+                <button onClick={() => setShowPrepareModal(true)}
+                  style={{ width: '480px', height: '48px', background: '#E60012', color: '#fff', borderRadius: '8px', fontSize: '16px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                  가입하기
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* ────────────────────────────────────────
+              Modal A: 회원 확인 (페이지 로드 시)
+          ──────────────────────────────────────── */}
+          {showMemberCheckModal && (
+            <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '0 16px' }}>
+              <div style={{ background: '#fff', borderRadius: '16px', maxWidth: '580px', width: '100%', boxShadow: '0 25px 50px rgba(0,0,0,.25)' }}>
+                <div style={{ padding: '32px 32px 24px', textAlign: 'center' }}>
+                  <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#111', marginBottom: '12px', marginTop: 0 }}>kt M모바일 회원이신가요?</h2>
+                  <div style={{ fontSize: '13px', color: '#4b5563', lineHeight: '1.7' }}>
+                    <p style={{ margin: '0 0 4px' }}>로그인 후 진행해주세요.</p>
+                    <p style={{ margin: 0 }}>
+                      등록된 고객정보를 활용한{' '}
+                      <strong style={{ color: '#111' }}>빠른가입</strong>이 가능합니다.
+                    </p>
+                  </div>
+                </div>
+                <div style={{ padding: '0 32px 32px' }}>
+                  <button onClick={handleNonMemberSignup}
+                    style={{ width: '100%', height: '56px', background: '#1a1a1a', color: '#fff', borderRadius: '12px', fontSize: '16px', fontWeight: 700, border: 'none', cursor: 'pointer', marginBottom: '16px' }}>
+                    비회원으로 가입하기
+                  </button>
+                  <button onClick={() => alert('로그인 페이지로 이동합니다.')}
+                    style={{ width: '100%', background: 'none', border: 'none', fontSize: '14px', color: '#333', textDecoration: 'underline', cursor: 'pointer' }}>
+                    로그인 후 가입하기
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ────────────────────────────────────────
+              Modal B: 가입 전 준비사항 안내 (가입하기 클릭)
+          ──────────────────────────────────────── */}
+          {showPrepareModal && (
+            <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '0 16px' }}>
+              <div style={{ background: '#fff', borderRadius: '8px', maxWidth: '560px', width: '100%', padding: '24px', maxHeight: '90vh', overflowY: 'auto' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '16px' }}>
+                  <h2 style={{ fontSize: '20px', fontWeight: 700, color: '#111', margin: 0 }}>가입 전 확인해주세요</h2>
+                  <button onClick={() => setShowPrepareModal(false)}
+                    style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', color: '#9ca3af', fontSize: '20px', cursor: 'pointer' }}>✕</button>
+                </div>
+                <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#111', margin: '0 0 12px' }}>신분증과 계좌/신용카드를 준비해주세요!</h3>
+                <p style={{ fontSize: '14px', color: '#4b5563', marginBottom: '20px', marginTop: 0, lineHeight: '1.6' }}>
+                  비대면 가입신청서 작성 시 본인인증과 납부정보 확인이 진행됩니다.
+                </p>
+                <div style={{ marginBottom: '24px' }}>
+                  <PrepareImage />
+                </div>
+                <button onClick={() => window.location.href = '셀프개통.html'}
+                  style={{ width: '100%', height: '44px', background: '#E60012', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                  확인
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── 제휴카드 모달 ── */}
+          {showCardModal && (
+            <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '0 16px' }}>
+              <div style={{ background: '#fff', borderRadius: '8px', maxWidth: '480px', width: '100%', padding: '24px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 6px' }}>제휴카드 발급 및 할인 적용 유의사항 안내</h2>
+                <p style={{ fontSize: '12px', color: '#6b7280', margin: '0 0 16px' }}>※ 꼭 확인해주세요.</p>
+                <div style={{ fontSize: '14px', color: '#374151', display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px', lineHeight: '1.6' }}>
+                  <p style={{ margin: 0 }}>①제휴카드 발급은 휴대폰 개통 후 각 제휴카드 발급 사이트를 통해 별도로 신청 하셔야 합니다.</p>
+                  <p style={{ margin: 0 }}>②카드 수령 후 납부방법은 자동으로 등록되지 않습니다. 카드 발급 후 마이페이지 {'>'} 요금조회 및 납부 {'>'} 납부방법 변경에서 변경 해주셔야만 할인 적용이 가능합니다.</p>
+                </div>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', cursor: 'pointer', fontSize: '14px' }}>
+                  <input type="checkbox" checked={cardAgreement} onChange={e => setCardAgreement(e.target.checked)}
+                    style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+                  위 사항을 확인하고, 이해하였습니다.
+                </label>
+                <button onClick={handleCardConfirm} disabled={!cardAgreement}
+                  style={{
+                    width: '100%', height: '44px', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: cardAgreement ? 'pointer' : 'not-allowed',
+                    background: cardAgreement ? '#1a1a1a' : '#e5e7eb', color: cardAgreement ? '#fff' : '#9ca3af'
+                  }}>
+                  확인
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── 이미지 가이드 모달 ── */}
+          {showImageGuideModal && (
+            <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '0 16px' }}>
+              <div style={{ background: '#fff', borderRadius: '8px', maxWidth: '640px', width: '100%', padding: '24px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 20px', textAlign: 'center' }}>이미지 가이드</h2>
+                <EsimGuideImage />
+                <button onClick={() => setShowImageGuideModal(false)}
+                  style={{ width: '100%', height: '44px', background: '#1a1a1a', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                  확인
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── 유심 유효성 체크 모달 ── */}
+          {showUsimValidModal && (
+            <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '0 16px' }}>
+              <div style={{ background: '#fff', borderRadius: '8px', maxWidth: '400px', width: '100%', padding: '24px' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 20px', textAlign: 'center' }}>사용 가능한 유심입니다.</h2>
+                <button onClick={() => setShowUsimValidModal(false)}
+                  style={{ width: '100%', height: '44px', background: '#1a1a1a', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                  확인
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ── eSIM 가이드 패널 ── */}
+          {showEsimGuidePanel && (
+            <div onClick={() => setShowEsimGuidePanel(false)}
+              style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.3)', zIndex: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div onClick={e => e.stopPropagation()}
+                style={{ width: '480px', background: '#fff', boxShadow: '0 25px 50px rgba(0,0,0,.2)', borderRadius: '8px', overflow: 'hidden' }}>
+                <div style={{ padding: '24px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+                    <h2 style={{ fontSize: '16px', fontWeight: 700, margin: 0 }}>이미지 업로드 가이드</h2>
+                    <button onClick={() => setShowEsimGuidePanel(false)}
+                      style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', color: '#9ca3af', fontSize: '20px', cursor: 'pointer' }}>✕</button>
+                  </div>
+
+                  <div style={{ background: '#f9fafb', borderRadius: '8px', padding: '16px', marginBottom: '16px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                      {/* Step 1 */}
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#00B5A5', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>1</div>
+                          <p style={{ margin: 0, fontWeight: 600, fontSize: '12px' }}>통화창에 *#06#입력</p>
+                        </div>
+                        <div style={{ background: '#fff', borderRadius: '8px', padding: '12px' }}>
+                          <div style={{ background: '#f3f4f6', borderRadius: '8px', padding: '12px' }}>
+                            <div style={{ background: '#fff', borderRadius: '8px', padding: '8px', marginBottom: '8px', textAlign: 'center' }}>
+                              <div style={{ fontSize: '11px', color: '#9ca3af', marginBottom: '4px' }}>KT 1:51 ⚡ 99%</div>
+                              <div style={{ fontSize: '13px', color: '#4b5563', marginBottom: '8px' }}>전화</div>
+                              <div style={{ fontSize: '22px', fontWeight: 700, marginBottom: '12px' }}>*#06#</div>
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '4px', textAlign: 'center' }}>
+                              {['1','2','3','4','5','6','7','8','9'].map(n => (
+                                <div key={n} style={{ background: '#f9fafb', borderRadius: '4px', padding: '6px 0', fontSize: '15px' }}>{n}</div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Step 2 */}
+                      <div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+                          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: '#00B5A5', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700 }}>2</div>
+                          <p style={{ margin: 0, fontWeight: 600, fontSize: '12px' }}>이미지 캡쳐로 업로드</p>
+                        </div>
+                        <div style={{ background: '#fff', borderRadius: '8px', padding: '12px' }}>
+                          <div style={{ background: '#f3f4f6', borderRadius: '8px', padding: '12px' }}>
+                            <div style={{ background: '#fff', borderRadius: '8px', padding: '8px' }}>
+                              <div style={{ fontSize: '11px', color: '#9ca3af', marginBottom: '4px' }}>KT 1:51 ⚡ 99%</div>
+                              <div style={{ fontSize: '11px', color: '#4b5563', marginBottom: '8px' }}>기기 정보</div>
+                              <div style={{ marginBottom: '8px' }}>
+                                <p style={{ margin: '0 0 2px', fontSize: '11px', color: '#9ca3af' }}>EID</p>
+                                <p style={{ margin: '0 0 4px', fontSize: '10px' }}>89049992144423381333</p>
+                                <div style={{ border: '1px solid #d1d5db', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: '#6b7280' }}>|||||||||||||||</div>
+                              </div>
+                              <div>
+                                <p style={{ margin: '0 0 2px', fontSize: '11px', color: '#9ca3af' }}>IMEI</p>
+                                <p style={{ margin: '0 0 4px', fontSize: '10px' }}>458299331102453</p>
+                                <div style={{ border: '1px solid #d1d5db', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: '#6b7280' }}>|||||||||||||||</div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p style={{ fontSize: '12px', color: '#6b7280', textAlign: 'center', marginBottom: '16px' }}>이미지 업로드 시 각 항목이 자동으로 입력됩니다.</p>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <button onClick={() => setShowEsimGuidePanel(false)}
+                      style={{ width: '160px', height: '40px', background: '#1a1a1a', color: '#fff', borderRadius: '8px', fontSize: '14px', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                      확인
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── eSIM 확인 모달 ── */}
+          {showEsimConfirmModal && (
+            <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: '0 16px' }}>
+              <div style={{ background: '#fff', borderRadius: '8px', maxWidth: '520px', width: '100%', padding: '24px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                  <h2 style={{ fontSize: '18px', fontWeight: 700, margin: 0 }}>eSIM 사용 승인 확인</h2>
+                  <button onClick={() => setShowEsimConfirmModal(false)}
+                    style={{ width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', color: '#9ca3af', fontSize: '20px', cursor: 'pointer' }}>✕</button>
+                </div>
+
+                <div style={{ background: '#fff1f2', border: '1px solid #fecdd3', borderRadius: '8px', padding: '12px', marginBottom: '16px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  {['휴대폰 변경 시 기존 기기에서 반드시 eSIM을 삭제하셔야 합니다.', '이미지 사이즈가 맞지 않을 경우 다시 촬영해주세요.'].map((t, i) => (
+                    <div key={i} style={{ display: 'flex', gap: '8px', fontSize: '12px', color: '#dc2626' }}>
+                      <span>⚠</span><p style={{ margin: 0 }}>{t}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '16px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    {[{ label: '구분', val: 'eSIM' }, { label: '모델명', val: phoneModel }].map(f => (
+                      <div key={f.label} style={{ background: '#f9fafb', borderRadius: '8px', padding: '10px 12px' }}>
+                        <p style={{ margin: '0 0 2px', fontSize: '12px', color: '#9ca3af' }}>{f.label}</p>
+                        <p style={{ margin: 0, fontSize: '14px', fontWeight: 500 }}>{f.val}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 600 }}>EID</p>
+                    <div style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '10px 12px' }}>
+                      <p style={{ margin: 0, fontSize: '14px' }}>{eid}</p>
+                    </div>
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                    {[{ label: 'IMEI1', val: imei1 }, { label: 'IMEI2', val: imei2 }].map(f => (
+                      <div key={f.label}>
+                        <p style={{ margin: '0 0 6px', fontSize: '12px', fontWeight: 600 }}>{f.label}</p>
+                        <div style={{ border: '1px solid #d1d5db', borderRadius: '8px', padding: '10px 12px' }}>
+                          <p style={{ margin: 0, fontSize: '14px' }}>{f.val}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <button onClick={() => { setShowEsimConfirmModal(false); document.getElementById('esim-image-upload')?.click(); }}
+                    style={{ flex: 1, height: '44px', border: '1px solid #d1d5db', color: '#374151', borderRadius: '8px', fontSize: '14px', fontWeight: 600, background: '#fff', cursor: 'pointer' }}>
+                    다시 등록하기
+                  </button>
+                  <button onClick={() => setShowEsimConfirmModal(false)}
+                    style={{ flex: 1, height: '44px', background: '#1a1a1a', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '14px', fontWeight: 600, cursor: 'pointer' }}>
+                    확인
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── 플로팅 버튼 ── */}
+          <div style={{ position: 'fixed', right: '24px', bottom: '80px', display: 'flex', flexDirection: 'column', gap: '10px', zIndex: 40 }}>
+            {showHelp && (
+              <div style={{ position: 'relative' }}>
+                <button onClick={() => setShowHelp(false)}
+                  style={{ position: 'absolute', top: '-4px', left: '-4px', width: '16px', height: '16px', background: '#1f2937', color: '#fff', borderRadius: '50%', fontSize: '11px', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  ×
+                </button>
+                <div style={{ width: '56px', height: '56px', background: '#00B5A5', borderRadius: '50%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff', boxShadow: '0 4px 12px rgba(0,181,165,.4)', cursor: 'pointer' }}>
+                  <div style={{ fontSize: '20px', marginBottom: '2px' }}>💬</div>
+                  <div style={{ fontSize: '11px' }}>HELP</div>
+                </div>
+              </div>
+            )}
+            <button onClick={scrollToTop}
+              style={{ width: '44px', height: '44px', background: '#fff', border: '1px solid #d1d5db', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(0,0,0,.12)', cursor: 'pointer', fontSize: '18px', color: '#4b5563' }}>
+              ↑
+            </button>
+          </div>
+
+          {/* ── 하단 고정 요약 바 ── */}
+          <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#fff', borderTop: '2px solid #E60012', boxShadow: '0 -2px 12px rgba(0,0,0,.1)', zIndex: 30 }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '10px 24px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ width: '36px', height: '36px', background: '#f3f4f6', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>📱</div>
+                  <div>
+                    <span style={{ fontWeight: 600, fontSize: '14px', color: '#111' }}>
+                      {activationType === 'usim-have' && 'USIM'}
+                      {activationType === 'esim' && 'ESIM'}
+                    </span>
+                    <span style={{ fontSize: '12px', color: '#4b5563', marginLeft: '10px' }}>
+                      {subscriptionType === 'transfer' ? '번호이동' : '신규가입'} / 모두다 맘껏 15GB+(PAY쿠폰 5000P)
+                    </span>
+                  </div>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                  <div style={{ fontSize: '12px', color: '#E60012', marginBottom: '2px' }}>월 예상 납부금액</div>
+                  <div>
+                    <span style={{ fontSize: '24px', fontWeight: 700, color: '#E60012' }}>23,700</span>
+                    <span style={{ fontSize: '18px', color: '#111' }}>원</span>
+                  </div>
+                  <div style={{ fontSize: '12px', color: '#9ca3af' }}>가입비 및 유심비 등 기타요금은 별도 청구됩니다</div>
+                </div>
+                <button
+                  onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_next_click',customer_type:customerType,sim_type:activationType,subscription_type:subscriptionType}); window.location.href = '셀프개통.html'; }}
+                  style={{ marginLeft: '24px', padding: '12px 36px', background: '#E60012', color: '#fff', borderRadius: '8px', fontWeight: 700, fontSize: '16px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                  다음 →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Footer ── */}
+          <footer style={{ background: '#2A2A2A', color: '#9ca3af', marginTop: '96px' }}>
+            <div style={{ background: '#3A3A3A', borderBottom: '1px solid #374151' }}>
+              <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px 24px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                  <span style={{ fontSize: '14px' }}>APP 다운로드</span>
+                  {['Google Play', 'App Store'].map(s => (
+                    <button key={s} style={{ padding: '6px 16px', background: '#1f2937', color: '#fff', borderRadius: '999px', fontSize: '12px', border: 'none', cursor: 'pointer' }}>{s}</button>
+                  ))}
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <select style={{ padding: '6px 12px', background: '#1f2937', color: '#fff', borderRadius: '4px', fontSize: '12px', border: '1px solid #374151' }}>
+                    <option>패밀리 사이트 ▾</option>
+                  </select>
+                  <button style={{ padding: '6px 16px', background: '#1f2937', color: '#fff', borderRadius: '4px', fontSize: '12px', border: 'none', cursor: 'pointer' }}>이동</button>
+                </div>
+              </div>
+            </div>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '24px' }}>
+              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', fontSize: '12px', marginBottom: '20px' }}>
+                {['주식회사 케이티엠모바일','개인정보처리방침','이용약관','청소년 보호정책','윤리상담센터','제휴제안','공통자료실','망의도품질자료서비스','서비스커버리지'].map((l, i) => (
+                  <a key={l} href="#" style={{ color: '#9ca3af', textDecoration: 'none', fontWeight: i === 1 ? 600 : 400 }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                    onMouseLeave={e => e.currentTarget.style.color = '#9ca3af'}>{l}</a>
+                ))}
+              </div>
+              <div style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+                <div style={{ fontSize: '14px', fontWeight: 600, color: '#d1d5db' }}>kt M mobile</div>
+                <div style={{ fontSize: '12px', display: 'flex', flexDirection: 'column', gap: '4px', flex: 1, lineHeight: '1.6' }}>
+                  <p style={{ margin: 0 }}>대표이사: 김철수 | 주소: 서울특별시 강남구 테헤란로 123 KT빌딩</p>
+                  <p style={{ margin: 0 }}>사업자등록번호: 123-45-67890 | 통신판매업신고: 제2024-서울강남-12345호</p>
+                  <p style={{ margin: 0 }}>고객센터: 1899-5000 (유료) | 운영시간: 평일 09:00~18:00 (토·일·공휴일 휴무)</p>
+                  <p style={{ margin: 0 }}>Copyright © KT M mobile Corp. All rights reserved.</p>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
+                {[1,2,3,4,5].map(i => (
+                  <div key={i} style={{ width: '40px', height: '40px', background: '#374151', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', color: '#9ca3af' }}>인증</div>
+                ))}
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

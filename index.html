@@ -6,14 +6,22 @@
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-PGSPQPK8');</script>
+  })(window,document,'script','dataLayer','GTM-5JHN9VNR');</script>
   <!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMT2504JR3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EMT2504JR3');
+</script>
   <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wowsjj6lt6");
+    })(window, document, "clarity", "script", "wp9p8g08eg");
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -222,6 +230,10 @@
   </style>
 </head>
 <body class="min-h-screen bg-white">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JHN9VNR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- ===== POPUP ===== -->
 <div id="entry-popup-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;">
@@ -858,6 +870,33 @@ const questions = [
   { id: 2, text: '매월 통화량은 어떻게 되시나요?', options: ['100분 이하', '100~200분', '200~300분', '무제한'] }
 ];
 
+const qaRecommendations = {
+  '6GB 미만': {
+    '100분 이하':  [plans[2], plans[0]],
+    '100~200분':   [plans[2], plans[3]],
+    '200~300분':   [plans[2], plans[1]],
+    '무제한':       [plans[1], plans[2]]
+  },
+  '6~10GB': {
+    '100분 이하':  [plans[0], plans[3]],
+    '100~200분':   [plans[0], plans[3]],
+    '200~300분':   [plans[0], plans[1]],
+    '무제한':       [plans[1], plans[0]]
+  },
+  '10~25GB': {
+    '100분 이하':  [plans[3], plans[4]],
+    '100~200분':   [plans[4], plans[3]],
+    '200~300분':   [plans[1], plans[4]],
+    '무제한':       [plans[1], plans[4]]
+  },
+  '25GB 이상': {
+    '100분 이하':  [plans[4], plans[1]],
+    '100~200분':   [plans[1], plans[4]],
+    '200~300분':   [plans[1], plans[4]],
+    '무제한':       [plans[1], plans[4]]
+  }
+};
+
 const ddBanners = [
   { bgColor: '#FFE8F0', tag: 'KT 인터넷', tagColor: '#E60012', title: '인터넷+TV+모바일을', highlight: '체감가 0원에!', subtitle: '트리플 결합으로 알뜰하게', illust: '💰' },
   { bgColor: '#E8E8FF', tag: '부가서비스', tagColor: '#2E5BFF', title: 'kt M모바일', highlight: '대표 부가서비스', subtitle: '월 1천원 이하로 누리는 통화 편의', illust: '🌸' },
@@ -869,14 +908,14 @@ const menuContent = {
   '가입하기': {
     groups: [
       { title: '요금제 가입하기', links: [
-        { label: '셀프개통', href: '셀프개통.html' }
+        { label: '가입하기', href: '셀프개통.html' }
       ]},
       { title: '유심구매하기', links: ['다이렉트몰 구매하기', '오픈마켓 구매하기', '편의점/마트 구매하기'] }
     ]
   },
   '상품': {
     groups: [
-      { title: '요금제',       links: [{ label: '요금제 소개', href: 'plan-intro.html' }, { label: '요금제 비교', href: 'plan-compare.html' }] },
+      { title: '요금제',       links: [{ label: '요금제 소개', href: 'plan-intro.html' }] },
       { title: '부가서비스',   links: ['전체 부가서비스','해외 로밍'] },
       { title: '추가서비스',   links: ['함께쓰기','데이터쉐어링','휴대폰안심보험'] },
       { title: '휴대폰',       links: ['새 휴대폰','KT휴대폰'] },
@@ -1185,13 +1224,14 @@ function renderQA() {
   if (qaShowResults) {
     title.innerHTML = `고객님께 딱 맞춘<br/><span style="color:#00C896;">요금제</span> 추천합니다`;
     subtitle.textContent = '데이터·통화량에 맞춘 최적의 요금제입니다';
-    const resultPlans = [plans[1], plans[0]];
+    const resultPlans = (qaRecommendations[qaAnswers[1]] && qaRecommendations[qaAnswers[1]][qaAnswers[2]]) || [plans[1], plans[0]];
     body.innerHTML = `
       <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;">
         ${resultPlans.map(plan => `
           <div style="border:1.5px solid #e5e7eb;border-radius:14px;padding:14px;background:#f9fafb;cursor:pointer;transition:border-color 0.18s,box-shadow 0.18s;flex-shrink:0;"
                onmouseover="this.style.borderColor='#00C896';this.style.boxShadow='0 0 0 3px rgba(0,200,150,0.10)'"
-               onmouseout="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'">
+               onmouseout="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'"
+               onclick="(function(){window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'qa_result_click',plan_name:'${plan.name}',rank:${resultPlans.indexOf(plan)+1}});})()">
             <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:3px;line-height:1.35;">${plan.name}</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
               <span style="font-size:10px;color:#9ca3af;text-decoration:line-through;">${plan.originalPrice}</span>
@@ -1239,13 +1279,24 @@ function renderQA() {
 
 function selectQAAnswer(opt) {
   qaAnswers[qaQuestion] = opt;
+  window.dataLayer = window.dataLayer || [];
+  if (qaQuestion === 1) {
+    window.dataLayer.push({ event: 'qa_widget_start', step: 1, answer: opt });
+  } else {
+    window.dataLayer.push({ event: 'qa_widget_step', step: qaQuestion, answer: opt });
+  }
   renderQA();
 }
 
 function nextQAQuestion() {
   if (!qaAnswers[qaQuestion]) return;
   if (qaQuestion < 2) { qaQuestion++; renderQA(); }
-  else { qaShowResults = true; renderQA(); }
+  else {
+    qaShowResults = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'qa_widget_complete', data_answer: qaAnswers[1], call_answer: qaAnswers[2] });
+    renderQA();
+  }
 }
 
 function resetQA() {
