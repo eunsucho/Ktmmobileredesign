@@ -1,17 +1,1556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-PGSPQPK8');</script>
+  <!-- End Google Tag Manager -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wowsjj6lt6");
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>kt M mobile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:     #E60012;
+      --green:   #00C896;
+      --green-lt:#E6F9F4;
+      --teal:    #00BFA5;
+      --teal-lt: #E0F7F4;
+      --blue:    #2E5BFF;
+      --dark:    #111827;
+      --mid:     #374151;
+      --muted:   #6b7280;
+      --border:  #E5E7EB;
+      --surface: #F8FAFC;
+      --white:   #FFFFFF;
+      --shadow-sm:  0 1px 4px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.05);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.06);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.10), 0 24px 64px rgba(0,0,0,0.07);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+    }
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>셀프개통</title>
-      <style>html, body { height: 100%; margin: 0; } #root { height: 100%; }</style>
-      <script type="module" crossorigin src="/assets/index-BsUY1PSU.js"></script>
-      <link rel="stylesheet" crossorigin href="/assets/index-CH-FojZM.css">
-    </head>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <body>
-      <div id="root"></div>
-    </body>
-  </html>
-  
+    body {
+      font-family: 'Noto Sans KR', Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.01em;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; }
+
+    /* ---- Scrollbar hide ---- */
+    .scrollx { overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none; }
+    .scrollx::-webkit-scrollbar { display: none; }
+
+    /* ---- Header refinement ---- */
+    #main-header {
+      backdrop-filter: blur(14px) saturate(180%);
+      -webkit-backdrop-filter: blur(14px) saturate(180%);
+      background: rgba(255,255,255,0.92) !important;
+      border-bottom: 1px solid rgba(0,0,0,0.07) !important;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.04), 0 4px 20px rgba(0,0,0,0.05);
+    }
+    .nav-item a {
+      font-size: 15px !important;
+      font-weight: 500;
+      color: var(--mid) !important;
+      transition: color 0.18s var(--ease);
+      letter-spacing: -0.01em;
+    }
+    .nav-item a:hover { color: var(--dark) !important; }
+    .nav-underline { background: var(--red) !important; height: 2px !important; border-radius: 2px; }
+    #main-header button { transition: all 0.18s var(--ease); }
+    #main-header button:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    /* ---- Promo banner ---- */
+    #promo-banner {
+      background: linear-gradient(90deg, #1c3fd8 0%, #2E5BFF 55%, #5579ff 100%) !important;
+      font-weight: 600; letter-spacing: -0.01em; font-size: 14px;
+    }
+
+    /* ---- Hero Slider ---- */
+    .hero-overflow {
+      overflow: hidden; border-radius: var(--radius-lg);
+      min-height: 300px; position: relative;
+      box-shadow: var(--shadow-md);
+    }
+    .hero-track { display: flex; transition: transform 0.55s var(--ease); }
+    .hero-slide { flex-shrink: 0; width: 100%; min-height: 300px; }
+
+    /* ---- Mega Dropdown ---- */
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .mega-dd {
+      position: absolute; left: 0; right: 0; top: 100%;
+      background: rgba(255,255,255,0.98);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      backdrop-filter: blur(12px);
+      z-index: 40; display: none;
+    }
+    .mega-dd.open { display: block; animation: slideDown 200ms ease-out; }
+
+    /* ---- Accordion ---- */
+    .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.4s var(--ease); }
+    .acc-content.open { max-height: 3500px; }
+    .acc-chevron { transition: transform 0.3s var(--ease); }
+    .acc-chevron.open { transform: rotate(90deg); }
+    #accordion-root button { transition: background 0.15s var(--ease) !important; }
+    #accordion-root button:hover { background: #F8FAFC !important; }
+
+    /* ---- Tabs ---- */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ---- Thumbnail nav ---- */
+    .thumb-btn {
+      flex-shrink: 0; padding: 12px 24px; cursor: pointer;
+      transition: all 0.18s var(--ease); border: none; background: none;
+      font-family: inherit; font-size: 14px; font-weight: 500;
+      border-bottom: 3px solid transparent; color: var(--muted);
+    }
+    .thumb-btn.active { border-bottom: 3px solid var(--dark); font-weight: 700; color: var(--dark); }
+    .thumb-btn:hover:not(.active) { color: var(--mid); }
+
+    /* ---- Q&A option buttons ---- */
+    .qa-option {
+      width: 100%; border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border); padding: 12px 16px;
+      text-align: center; font-size: 14px; font-weight: 500;
+      background: white; transition: all 0.18s var(--ease);
+      cursor: pointer; font-family: inherit; color: var(--mid);
+      box-shadow: var(--shadow-sm);
+    }
+    .qa-option.selected {
+      border-color: var(--green); background: var(--green-lt);
+      color: #047857; font-weight: 600;
+      box-shadow: 0 0 0 3px rgba(0,200,150,0.12);
+    }
+    .qa-option:not(.selected):hover {
+      border-color: #9ca3af; background: var(--surface);
+      transform: translateY(-1px); box-shadow: var(--shadow-md);
+    }
+
+    /* ---- Misc ---- */
+    .line-through-text { text-decoration: line-through; }
+
+    /* ---- Phone slider ---- */
+    .phone-overflow { overflow: hidden; }
+    .phone-track { display: flex; transition: transform 0.45s var(--ease); }
+    .phone-slide { flex-shrink: 0; padding: 0 12px; }
+
+    /* ---- Cat slider ---- */
+    .cat-overflow { overflow: hidden; }
+    .cat-track { display: flex; transition: transform 0.3s var(--ease); }
+    .cat-item { flex-shrink: 0; padding: 0 16px; }
+
+    /* ---- DD Banner ---- */
+    .dd-banner-overflow { overflow: hidden; border-radius: var(--radius-md); height: 100%; }
+    .dd-banner-track { display: flex; transition: transform 0.4s var(--ease); height: 100%; }
+    .dd-banner-slide { flex-shrink: 0; width: 100%; height: 100%; padding: 24px; display: flex; align-items: center; justify-content: space-between; }
+
+    /* ---- Scroll reveal ---- */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal { opacity: 0; }
+    .reveal.visible { animation: fadeUp 0.5s var(--ease) forwards; }
+
+    /* ---- Card hover ---- */
+    .card-lift {
+      transition: box-shadow 0.22s var(--ease), transform 0.22s var(--ease) !important;
+    }
+    .card-lift:hover {
+      box-shadow: var(--shadow-lg) !important;
+      transform: translateY(-3px) !important;
+    }
+
+    /* ---- Reviews ---- */
+    #reviews-grid > div {
+      transition: box-shadow 0.22s var(--ease), transform 0.22s var(--ease) !important;
+      border-radius: 18px !important;
+    }
+    #reviews-grid > div:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.13) !important;
+      transform: translateY(-4px) !important;
+    }
+
+    /* ---- SIM widget ---- */
+    #sim-btn-have, #sim-btn-none { transition: all 0.18s var(--ease); }
+    #sim-btn-have:hover, #sim-btn-none:hover { box-shadow: var(--shadow-sm); }
+    #sim-directmall-btn { transition: all 0.2s var(--ease); }
+    #sim-directmall-btn:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+    /* ---- Footer dark ---- */
+    footer { background: #0F172A !important; }
+    footer p, footer span, footer a { color: rgba(255,255,255,0.45) !important; }
+    footer a:hover { color: rgba(255,255,255,0.9) !important; }
+
+    /* ---- Floating buttons ---- */
+    #help-float > div, button[onclick*="scrollTo"] {
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease) !important;
+    }
+    #help-float > div:hover, button[onclick*="scrollTo"]:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.2) !important;
+    }
+
+    /* ---- Price text ---- */
+    .price-green { color: var(--green); font-weight: 800; letter-spacing: -0.03em; }
+  </style>
+</head>
+<body class="min-h-screen bg-white">
+
+<!-- ===== POPUP ===== -->
+<div id="entry-popup-overlay" style="position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div id="entry-popup" style="
+    border-radius:16px;
+    width:420px;
+    height:420px;
+    box-shadow:0 24px 64px rgba(0,0,0,0.35);
+    position:relative;
+    font-family:inherit;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(220,220,220,0.45) 0%,
+        rgba(255,255,255,0) 38%,
+        rgba(255,255,255,0) 62%,
+        rgba(220,220,220,0.45) 100%
+      ),
+      linear-gradient(
+        125deg,
+        #ffffff 0%,
+        #f5f5f5 40%,
+        #ececec 55%,
+        #f8f8f8 70%,
+        #ffffff 100%
+      );
+  ">
+
+    <!-- 대각선 사선 레이어 -->
+    <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
+      <div style="
+        position:absolute;
+        left:-60%;
+        top:55%;
+        width:220%;
+        height:2px;
+        background:linear-gradient(to right, transparent 0%, rgba(200,200,200,0.6) 30%, rgba(180,180,180,0.8) 50%, rgba(200,200,200,0.6) 70%, transparent 100%);
+        transform:rotate(-18deg);
+        transform-origin:center;
+      "></div>
+      <div style="
+        position:absolute;
+        left:-60%;
+        top:60%;
+        width:220%;
+        height:1px;
+        background:linear-gradient(to right, transparent 0%, rgba(210,210,210,0.4) 30%, rgba(190,190,190,0.5) 50%, rgba(210,210,210,0.4) 70%, transparent 100%);
+        transform:rotate(-18deg);
+        transform-origin:center;
+      "></div>
+    </div>
+
+    <!-- 본문 -->
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 32px 32px;position:relative;z-index:1;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+      <div style="font-size:38px;margin-bottom:16px;">🏆</div>
+      <div style="font-size:22px;font-weight:700;color:#1A1A1A;line-height:1.5;margin-bottom:32px;">
+        누적 가입자<br>
+        <span style="color:#E60012;font-size:28px;font-weight:900;">190만명</span>이 선택한
+      </div>
+      <div style="font-size:15px;font-weight:700;color:#1A1A1A;margin-bottom:12px;letter-spacing:-0.3px;">1등 알뜰폰 통신사</div>
+      <div style="display:flex;align-items:baseline;gap:4px;">
+        <span style="font-weight:700;font-size:32px;color:#1A1A1A;letter-spacing:-0.5px;">kt </span>
+        <span style="font-weight:900;font-size:34px;color:#E60012;letter-spacing:-0.3px;">M mobile</span>
+      </div>
+    </div>
+
+    <!-- 오늘 하루 그만 보기 -->
+    <div style="padding:14px 24px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,0.08);position:relative;z-index:1;font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+      <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:#6b7280;">
+        <input type="checkbox" id="popup-skip" style="accent-color:#E60012;width:15px;height:15px;">
+        오늘 하루 그만 보기
+      </label>
+      <button onclick="closePopup()" style="font-size:13px;color:#6b7280;background:none;border:none;cursor:pointer;" onmouseover="this.style.color='#1A1A1A'" onmouseout="this.style.color='#6b7280'">닫기 ✕</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function closePopup() {
+  if (document.getElementById('popup-skip').checked) {
+    localStorage.setItem('popupSkipDate', new Date().toDateString());
+  }
+  document.getElementById('entry-popup-overlay').style.display = 'none';
+}
+(function() {
+  const skip = localStorage.getItem('popupSkipDate');
+  if (skip === new Date().toDateString()) {
+    document.getElementById('entry-popup-overlay').style.display = 'none';
+  }
+})();
+</script>
+
+<!-- ===== SECTION 1: Promo Banner ===== -->
+<div id="promo-banner" style="width:100%;height:56px;background:#2E5BFF;display:flex;align-items:center;justify-content:center;position:relative;">
+  <div style="display:flex;align-items:center;gap:8px;color:white;">
+    <span>단 4일간만, 쿠팡/N페이 요금제 28만원 페이백+5천원</span>
+    <span style="font-size:24px;">💰</span>
+  </div>
+  <div style="position:absolute;right:32px;display:flex;align-items:center;gap:16px;">
+    <div style="display:flex;gap:8px;">
+      <button style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;color:white;border:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;color:white;border:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <button style="color:white;border:none;background:none;" onclick="document.getElementById('promo-banner').style.display='none'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ===== SECTION 2: Global Header ===== -->
+<header id="main-header" style="width:100%;height:90px;background:white;border-bottom:1px solid #e5e7eb;position:sticky;top:0;z-index:50;">
+  <div style="max-width:1280px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 32px;">
+
+    <!-- Logo + Nav -->
+    <div style="display:flex;align-items:center;gap:48px;">
+      <a href="index.html" style="display:flex;align-items:center;text-decoration:none;">
+        <img src="/assets/ktmmobile_logo-5YnGVWIc.svg" alt="kt M mobile" style="height:30px;width:auto;">
+      </a>
+      <nav style="display:flex;align-items:center;gap:32px;" id="main-nav">
+        <div class="nav-item" data-menu="가입하기" style="position:relative;padding:8px 0;" onmouseenter="openMenu('가입하기')" onmouseleave="startMenuClose()">
+          <a href="#" style="color:#1A1A1A;font-size:17px;">가입하기</a>
+          <div class="nav-underline" id="ul-가입하기" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#1A1A1A;display:none;"></div>
+        </div>
+        <div class="nav-item" data-menu="상품" style="position:relative;padding:8px 0;" onmouseenter="openMenu('상품')" onmouseleave="startMenuClose()">
+          <a href="#" style="color:#1A1A1A;font-size:17px;">상품</a>
+          <div class="nav-underline" id="ul-상품" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#1A1A1A;display:none;"></div>
+        </div>
+        <div class="nav-item" data-menu="혜택" style="position:relative;padding:8px 0;" onmouseenter="openMenu('혜택')" onmouseleave="startMenuClose()">
+          <a href="#" style="color:#1A1A1A;font-size:17px;">혜택</a>
+          <div class="nav-underline" id="ul-혜택" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#1A1A1A;display:none;"></div>
+        </div>
+        <div class="nav-item" data-menu="결합" style="position:relative;padding:8px 0;" onmouseenter="openMenu('결합')" onmouseleave="startMenuClose()">
+          <a href="#" style="color:#1A1A1A;font-size:17px;">결합</a>
+          <div class="nav-underline" id="ul-결합" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#1A1A1A;display:none;"></div>
+        </div>
+        <div class="nav-item" data-menu="고객센터" style="position:relative;padding:8px 0;" onmouseenter="openMenu('고객센터')" onmouseleave="startMenuClose()">
+          <a href="#" style="color:#1A1A1A;font-size:17px;">고객센터</a>
+          <div class="nav-underline" id="ul-고객센터" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#1A1A1A;display:none;"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;padding:4px 12px;border-radius:999px;cursor:pointer;background:#F3F3F5;">
+          <span style="color:#7C3AED;">▼</span>
+          <span style="color:#1A1A1A;">트리플할인</span>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Right side -->
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:#767676;">
+        <a href="#" onmouseover="this.style.color='#1A1A1A'" onmouseout="this.style.color='#767676'">교체 유심 신청</a>
+        <span>|</span>
+        <a href="#" onmouseover="this.style.color='#1A1A1A'" onmouseout="this.style.color='#767676'">신청조회</a>
+        <span>|</span>
+        <a href="#" onmouseover="this.style.color='#1A1A1A'" onmouseout="this.style.color='#767676'">마이페이지</a>
+      </div>
+      <button style="padding:8px 16px;border:1px solid #1A1A1A;border-radius:8px;background:white;font-family:inherit;">로그인</button>
+      <button style="width:40px;height:40px;border-radius:50%;background:#E60012;display:flex;align-items:center;justify-content:center;border:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button style="width:40px;height:40px;border-radius:8px;background:#E60012;display:flex;align-items:center;justify-content:center;border:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mega Dropdown -->
+  <div id="mega-dropdown" class="mega-dd" onmouseenter="onDropdownEnter()" onmouseleave="onDropdownLeave()">
+    <div style="max-width:1280px;margin:0 auto;padding:32px;height:220px;">
+      <div style="display:flex;gap:48px;height:100%;">
+
+        <!-- Left: Menu Links -->
+        <div id="dd-links" style="flex:1;display:flex;gap:64px;"></div>
+
+        <!-- Right: Banner Carousel -->
+        <div style="width:35%;position:relative;">
+          <div class="dd-banner-overflow">
+            <div class="dd-banner-track" id="dd-banner-track">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+          <!-- Banner nav -->
+          <div style="position:absolute;bottom:-32px;right:0;display:flex;align-items:center;gap:8px;">
+            <button onclick="ddBannerPrev()" style="width:28px;height:28px;border-radius:50%;background:#e5e7eb;border:none;display:flex;align-items:center;justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <span id="dd-banner-count" style="font-size:14px;color:#555;">1<span style="font-size:11px;">/4</span></span>
+            <button onclick="ddBannerNext()" style="width:28px;height:28px;border-radius:50%;background:#e5e7eb;border:none;display:flex;align-items:center;justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+            <button id="dd-banner-playbtn" onclick="toggleDdBanner()" style="width:28px;height:28px;border-radius:50%;background:#e5e7eb;border:none;display:flex;align-items:center;justify-content:center;">
+              <svg id="dd-banner-playicon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== SECTION 3 & 4: Hero Slider + Q&A ===== -->
+<div style="width:100%;background:white;padding:24px 0;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:flex;gap:24px;align-items:stretch;">
+
+      <!-- Left 70%: Hero Slider -->
+      <div style="width:70%;display:flex;flex-direction:column;">
+
+        <!-- Hero Slider Container -->
+        <div class="hero-overflow" style="flex:1;position:relative;">
+          <div class="hero-track" id="hero-track"></div>
+
+          <!-- Pagination Controls -->
+          <div style="position:absolute;left:48px;bottom:16px;z-index:10;">
+            <div style="display:inline-flex;align-items:center;gap:16px;padding:0 24px;border-radius:999px;background:rgba(0,0,0,0.4);height:52px;">
+              <button onclick="heroPrev()" style="color:white;border:none;background:none;display:flex;align-items:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <span id="hero-count" style="color:white;font-size:15px;font-weight:500;min-width:60px;text-align:center;">1 / 17</span>
+              <button onclick="heroNext()" style="color:white;border:none;background:none;display:flex;align-items:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+              <div style="width:1px;height:20px;background:rgba(255,255,255,0.3);"></div>
+              <button id="hero-playbtn" onclick="toggleHeroPlay()" style="color:white;border:none;background:none;display:flex;align-items:center;">
+                <svg id="hero-playicon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disclaimer -->
+        <div style="text-align:center;font-size:12px;color:#9ca3af;padding:8px 0;">
+          ※ 본 이벤트는 회사와 제휴사의 사정으로 변경되거나 조기 종료될 수 있습니다.
+        </div>
+
+        <!-- Thumbnail Navigation -->
+        <div style="border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;background:white;margin-top:8px;">
+          <div class="scrollx" style="padding:16px 0;display:flex;align-items:center;gap:16px;" id="thumb-nav">
+            <button class="thumb-btn active" data-idx="0" onclick="goToSlide(0)">초저가 안심 요금제 🟢</button>
+            <button class="thumb-btn" data-idx="1" onclick="goToSlide(1)">통신비 걱정없이 통화맘껏! 📞</button>
+            <button class="thumb-btn" data-idx="2" onclick="goToSlide(2)">초알뜰 혜택 추가! 🔵</button>
+            <button style="flex-shrink:0;width:40px;height:40px;border-radius:50%;border:1px solid #d1d5db;background:white;display:flex;align-items:center;justify-content:center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Icons (5개) - 썸네일 버튼 바로 아래 -->
+        <div style="padding:28px 0 20px;">
+          <div style="display:flex;justify-content:space-around;align-items:center;">
+
+            <!-- 가입하기 -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:transform 0.22s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="width:76px;height:76px;border-radius:20px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(15,23,42,0.08);transition:box-shadow 0.22s;" onmouseover="this.style.boxShadow='0 6px 20px rgba(15,23,42,0.13)'" onmouseout="this.style.boxShadow='0 2px 10px rgba(15,23,42,0.08)'">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="11" y="6" width="16" height="28" rx="4" fill="#CBD5E1"/>
+                  <rect x="13" y="9" width="12" height="20" rx="2" fill="white"/>
+                  <rect x="17" y="31.5" width="6" height="1.5" rx="0.75" fill="#94A3B8"/>
+                  <rect x="16" y="7.5" width="8" height="1.5" rx="0.75" fill="#94A3B8"/>
+                  <circle cx="29" cy="13" r="8" fill="#DC2626"/>
+                  <circle cx="29" cy="13" r="6.5" fill="#EF4444"/>
+                  <polyline points="25.5,13 28,15.5 32.5,10" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </svg>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:#0F172A;letter-spacing:-0.02em;">가입하기</span>
+            </div>
+
+            <!-- 요금제 보기 -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:transform 0.22s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="width:76px;height:76px;border-radius:20px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(15,23,42,0.08);transition:box-shadow 0.22s;" onmouseover="this.style.boxShadow='0 6px 20px rgba(15,23,42,0.13)'" onmouseout="this.style.boxShadow='0 2px 10px rgba(15,23,42,0.08)'">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="9" y="7" width="20" height="26" rx="3.5" fill="white" stroke="#CBD5E1" stroke-width="1.5"/>
+                  <rect x="15" y="4.5" width="10" height="6" rx="3" fill="#94A3B8"/>
+                  <rect x="16" y="5.5" width="8" height="4" rx="2" fill="#CBD5E1"/>
+                  <line x1="13" y1="17" x2="27" y2="17" stroke="#E2E8F0" stroke-width="1.8" stroke-linecap="round"/>
+                  <line x1="13" y1="21" x2="23" y2="21" stroke="#E2E8F0" stroke-width="1.8" stroke-linecap="round"/>
+                  <line x1="13" y1="25" x2="20" y2="25" stroke="#E2E8F0" stroke-width="1.8" stroke-linecap="round"/>
+                  <rect x="20" y="22" width="12" height="9" rx="2.5" fill="#4F46E5"/>
+                  <text x="26" y="28.5" text-anchor="middle" font-size="6" font-weight="800" fill="white" font-family="sans-serif">&#8361;</text>
+                </svg>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:#0F172A;letter-spacing:-0.02em;">요금제 보기</span>
+            </div>
+
+            <!-- 데이터 무제한 -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:transform 0.22s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="width:76px;height:76px;border-radius:20px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(15,23,42,0.08);transition:box-shadow 0.22s;" onmouseover="this.style.boxShadow='0 6px 20px rgba(15,23,42,0.13)'" onmouseout="this.style.boxShadow='0 2px 10px rgba(15,23,42,0.08)'">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 18C12 12.5 16.8 10 21 10C25.2 10 30 12.5 35 18" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                  <path d="M11 22C14.5 18 17.5 16.5 21 16.5C24.5 16.5 27.5 18 31 22" stroke="#6EE7B7" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                  <path d="M15.5 26C17.5 23.5 19.2 22.5 21 22.5C22.8 22.5 24.5 23.5 26.5 26" stroke="#059669" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                  <circle cx="21" cy="31" r="2.8" fill="#059669"/>
+                  <rect x="26" y="7" width="12" height="8" rx="4" fill="#10B981"/>
+                  <path d="M29 11c0-1.1.9-1.7 1.7-1.7.8 0 1.7.7 1.7 1.7s-.9 1.7-1.7 1.7" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                  <path d="M32.4 11c0 1.1-.9 1.7-1.7 1.7-.8 0-1.7-.7-1.7-1.7" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+                  <circle cx="31" cy="11" r="0.9" fill="white"/>
+                </svg>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:#0F172A;letter-spacing:-0.02em;">데이터 무제한</span>
+            </div>
+
+            <!-- 통화 무제한 -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:transform 0.22s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="width:76px;height:76px;border-radius:20px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(15,23,42,0.08);transition:box-shadow 0.22s;" onmouseover="this.style.boxShadow='0 6px 20px rgba(15,23,42,0.13)'" onmouseout="this.style.boxShadow='0 2px 10px rgba(15,23,42,0.08)'">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M14 11c0 0 2.5 1.5 3.5 5s-.5 6-.5 6l-3.5 2c1.5 3.5 5 7 8.5 8.5l2.5-3.5c0 0 2.5-1 6 0s4.5 3.5 4.5 3.5c0 2.5-1.5 4.5-3.5 5.5C22 40 10 28 11 17c1-2.5 3-6 3-6z" fill="#38BDF8" stroke="#0284C7" stroke-width="0.8"/>
+                  <path d="M15 13c.5 1 1.5 3 2 5.5" stroke="white" stroke-width="1.2" stroke-linecap="round" opacity="0.5" fill="none"/>
+                  <rect x="25" y="6" width="13" height="9" rx="4.5" fill="#0284C7"/>
+                  <path d="M28 10.5c0-1.2 1-1.8 1.8-1.8.8 0 1.8.7 1.8 1.8s-1 1.8-1.8 1.8" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+                  <path d="M31.6 10.5c0 1.2-1 1.8-1.8 1.8-.8 0-1.8-.7-1.8-1.8" stroke="white" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+                  <circle cx="29.8" cy="10.5" r="0.9" fill="white"/>
+                </svg>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:#0F172A;letter-spacing:-0.02em;">통화 무제한</span>
+            </div>
+
+            <!-- 인기 요금제 -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;transition:transform 0.22s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+              <div style="width:76px;height:76px;border-radius:20px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(15,23,42,0.08);transition:box-shadow 0.22s;" onmouseover="this.style.boxShadow='0 6px 20px rgba(15,23,42,0.13)'" onmouseout="this.style.boxShadow='0 2px 10px rgba(15,23,42,0.08)'">
+                <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M13 9h16v12a8 8 0 0 1-16 0V9z" fill="#FCD34D"/>
+                  <path d="M15 11h4.5v7a3.5 3.5 0 0 1-4.5-3.5V11z" fill="white" opacity="0.3"/>
+                  <path d="M13 13H9a3.5 3.5 0 0 0 0 7h4" stroke="#F59E0B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                  <path d="M29 13h4a3.5 3.5 0 0 1 0 7h-4" stroke="#F59E0B" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+                  <path d="M13 9h16v12a8 8 0 0 1-16 0V9z" stroke="#F59E0B" stroke-width="1.2" fill="none"/>
+                  <rect x="17" y="28" width="8" height="4" rx="1.5" fill="#F59E0B"/>
+                  <rect x="14" y="32" width="14" height="3.5" rx="2" fill="#F59E0B"/>
+                  <path d="M21 13l1.3 2.6 2.9.4-2.1 2 .5 2.9L21 19.5l-2.6 1.4.5-2.9-2.1-2 2.9-.4z" fill="white" opacity="0.85"/>
+                </svg>
+              </div>
+              <span style="font-size:12px;font-weight:700;color:#0F172A;letter-spacing:-0.02em;">인기 요금제</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right 30%: Q&A Widget -->
+      <div style="width:30%;align-self:flex-start;position:sticky;top:106px;">
+        <div style="background:white;border:1px solid rgba(0,0,0,0.07);border-radius:24px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,0.07);display:flex;flex-direction:column;height:480px;">
+
+          <!-- Q&A Header -->
+          <div style="margin-bottom:20px;position:relative;flex-shrink:0;">
+            <div style="font-size:13px;color:#6b7280;margin-bottom:6px;">내게 맞는 상품찾기</div>
+            <h2 id="qa-title" style="font-size:22px;font-weight:700;margin-bottom:6px;line-height:1.3;">
+              <span style="color:#00C896;">요금제</span> 고민이라면?
+            </h2>
+            <p id="qa-subtitle" style="font-size:13px;color:#4b5563;">고객님 성향에 맞춘 추천 요금제를 확인해보세요</p>
+            <div style="position:absolute;top:0;right:0;font-size:32px;opacity:0.15;">📱✨</div>
+          </div>
+
+          <!-- Q&A Body: flex:1 + overflow:hidden so content never pushes height -->
+          <div id="qa-body" style="flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;">
+            <!-- Injected by JS -->
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 6: SIM / Phone Tabs + Accordion ===== -->
+<div style="width:100%;padding:48px 0;background:white;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="border-radius:24px;padding:48px;background:linear-gradient(160deg,#EEF6FA 0%,#E4F0F8 100%);">
+
+      <!-- Tab Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+        <div style="display:flex;gap:16px;">
+          <button id="tab-sim" onclick="switchTab('sim')" style="padding:14px 44px;border-radius:999px;font-size:16px;font-weight:700;letter-spacing:-0.02em;border:none;background:#1A1A1A;color:white;cursor:pointer;">유심 요금제</button>
+          <button id="tab-phone" onclick="switchTab('phone')" style="padding:14px 44px;border-radius:999px;font-size:16px;font-weight:700;letter-spacing:-0.02em;border:none;background:#d1d5db;color:#1A1A1A;cursor:pointer;">휴대폰 추천</button>
+        </div>
+        <button style="padding:9px 22px;border-radius:999px;border:1.5px solid #d1d5db;background:white;font-size:13px;font-weight:600;color:#374151;cursor:pointer;transition:all 0.18s;">전체보기 →</button>
+      </div>
+
+      <!-- Tab: SIM (Accordion) -->
+      <div id="tab-panel-sim" class="tab-panel active" id="panel-sim">
+        <div id="accordion-root">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Tab: Phone -->
+      <div id="tab-panel-phone" class="tab-panel">
+        <div style="background:white;border-radius:16px;padding:32px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+            <h3 style="font-size:20px;font-weight:700;">신규 단말! 특가판매</h3>
+            <button style="padding:9px 22px;border-radius:999px;border:1.5px solid #d1d5db;background:white;font-size:13px;font-weight:600;color:#374151;cursor:pointer;transition:all 0.18s;">전체보기 →</button>
+          </div>
+          <div style="position:relative;display:flex;align-items:center;gap:8px;">
+            <button onclick="phonePrev()" style="width:40px;height:40px;border-radius:50%;border:1px solid #d1d5db;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="phone-overflow" style="flex:1;">
+              <div class="phone-track" id="phone-track">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+            <button onclick="phoneNext()" style="width:40px;height:40px;border-radius:50%;border:1px solid #d1d5db;background:white;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 8: Reviews ===== -->
+<div style="width:100%;padding:48px 0;background:white;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <h2 style="font-size:30px;font-weight:800;letter-spacing:-0.04em;">사용후기</h2>
+        <span style="font-size:18px;color:#4b5563;">고객님들의 생생한 후기</span>
+        <span style="width:32px;height:32px;border-radius:50%;background:#facc15;display:flex;align-items:center;justify-content:center;font-size:14px;">#</span>
+      </div>
+      <button style="padding:9px 22px;border-radius:999px;border:1.5px solid #d1d5db;background:white;font-size:13px;font-weight:600;color:#374151;cursor:pointer;transition:all 0.18s;">전체보기 →</button>
+    </div>
+    <div id="reviews-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 10: Today's Product Suggestions ===== -->
+<div style="width:100%;padding:48px 0;background:white;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <h2 style="font-size:30px;font-weight:800;letter-spacing:-0.04em;">시선집중! 오늘의 상품제안</h2>
+        <span style="padding:4px 12px;border-radius:999px;font-size:14px;font-weight:700;color:white;background:#00C896;">HOT</span>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button style="width:40px;height:40px;border-radius:50%;border:1px solid #d1d5db;background:white;display:flex;align-items:center;justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button style="width:40px;height:40px;border-radius:50%;border:1px solid #d1d5db;background:white;display:flex;align-items:center;justify-content:center;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+      <div style="border-radius:16px;padding:32px;background:#2E5BFF;display:flex;align-items:center;justify-content:space-between;">
+        <div style="color:white;">
+          <h3 style="font-size:22px;font-weight:700;margin-bottom:4px;">단 4일간만,</h3>
+          <h3 style="font-size:22px;font-weight:700;margin-bottom:4px;">쿠팡/N페이 요금제 타임딜</h3>
+          <h3 style="font-size:26px;font-weight:700;margin-bottom:16px;">28만원 페이백</h3>
+          <button style="padding:12px 24px;background:white;color:#2E5BFF;border-radius:999px;font-weight:700;border:none;cursor:pointer;">자세히보기</button>
+        </div>
+        <div style="font-size:64px;">💰</div>
+      </div>
+      <div style="border-radius:16px;padding:32px;border:2px solid #e5e7eb;background:white;display:flex;align-items:center;justify-content:space-between;">
+        <div>
+          <h3 style="font-size:20px;margin-bottom:4px;">캐시 받아 쇼핑하고,</h3>
+          <h3 style="font-size:20px;margin-bottom:4px;">적립 받아 할인받고!</h3>
+          <h3 style="font-size:22px;font-weight:700;margin-bottom:4px;">쿠팡 할수록</h3>
+          <h3 style="font-size:22px;font-weight:700;color:#E60012;margin-bottom:16px;">내려가는 통신비</h3>
+          <button style="padding:12px 24px;background:white;border:2px solid #d1d5db;border-radius:999px;font-weight:700;cursor:pointer;">자세히보기</button>
+        </div>
+        <div style="font-size:64px;">🛍️</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 11: Customer Center ===== -->
+<div style="width:100%;padding:48px 0;background:white;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e5e7eb;">
+      <div style="background:white;padding:48px;display:flex;flex-direction:column;align-items:center;gap:24px;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+        <div style="width:80px;height:80px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:36px;">📱</div>
+        <button style="padding:12px 24px;border:2px solid #d1d5db;border-radius:999px;background:white;cursor:pointer;font-family:inherit;">이용량 조회 →</button>
+      </div>
+      <div style="background:white;padding:48px;display:flex;flex-direction:column;align-items:center;gap:24px;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+        <div style="width:80px;height:80px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:36px;">💬</div>
+        <button style="padding:12px 24px;border:2px solid #d1d5db;border-radius:999px;background:white;cursor:pointer;font-family:inherit;">1:1 문의내역 →</button>
+      </div>
+      <div style="background:white;padding:48px;display:flex;flex-direction:column;align-items:center;gap:24px;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+        <div style="width:80px;height:80px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:36px;">📖</div>
+        <button style="padding:12px 24px;border:2px solid #d1d5db;border-radius:999px;background:white;cursor:pointer;font-family:inherit;">이용안내 →</button>
+      </div>
+      <div style="background:white;padding:48px;display:flex;flex-direction:column;align-items:center;gap:24px;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+        <div style="width:80px;height:80px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:36px;">❓</div>
+        <button style="padding:12px 24px;border:2px solid #d1d5db;border-radius:999px;background:white;cursor:pointer;font-family:inherit;">자주묻는 질문 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SECTION 12: Notice ===== -->
+<div style="width:100%;padding:48px 0;background:white;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="border:1px solid #d1d5db;border-radius:999px;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span style="font-weight:700;">공지</span>
+        <span style="font-weight:700;">시스템 점검에 따른 서비스 이용 안내</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;color:#4b5563;">
+        <span style="font-size:14px;">안녕하세요 kt M모바일 서비스를 이용해 주시는 고객님들께 깊은 감사의 말씀을 드리며, 시스템 정기 점검으…</span>
+        <span style="font-size:14px;white-space:nowrap;">2026.04.24</span>
+        <span style="font-size:14px;white-space:nowrap;cursor:pointer;" onmouseover="this.style.color='#E60012'" onmouseout="this.style.color='#4b5563'">더보기 →</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer style="width:100%;padding:48px 0;background:#f3f4f6;">
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
+    <div style="font-size:14px;color:#4b5563;">
+      <p style="margin-bottom:8px;">© kt M mobile. All rights reserved.</p>
+      <div style="display:flex;gap:16px;">
+        <a href="#" onmouseover="this.style.color='#E60012'" onmouseout="this.style.color='#4b5563'">이용약관</a>
+        <a href="#" onmouseover="this.style.color='#E60012'" onmouseout="this.style.color='#4b5563'">개인정보처리방침</a>
+        <a href="#" onmouseover="this.style.color='#E60012'" onmouseout="this.style.color='#4b5563'">고객센터</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Floating Elements ===== -->
+<div style="position:fixed;bottom:32px;right:32px;display:flex;flex-direction:column;align-items:flex-end;gap:16px;z-index:50;">
+  <div id="help-float" style="position:relative;">
+    <div style="width:64px;height:64px;border-radius:50%;background:white;box-shadow:0 4px 12px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E60012" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
+    <div style="position:absolute;top:-8px;right:-8px;background:#facc15;font-size:11px;font-weight:700;padding:2px 6px;border-radius:999px;">HELP</div>
+    <button onclick="document.getElementById('help-float').style.display='none'" style="position:absolute;top:-4px;right:-4px;width:24px;height:24px;border-radius:50%;background:#1A1A1A;color:white;border:none;display:flex;align-items:center;justify-content:center;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})" style="width:64px;height:64px;border-radius:50%;background:white;border:1px solid #e5e7eb;box-shadow:0 4px 12px rgba(0,0,0,0.1);display:flex;align-items:center;justify-content:center;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+  </button>
+</div>
+
+<!-- ===== JavaScript ===== -->
+<script>
+
+// ============================================================
+// DATA
+// ============================================================
+const TOTAL_SLIDES = 17;
+
+const heroSlides = [
+  {
+    bg: '#000000',
+    lines: [
+      { text: '초과금 없는 월 ', highlight: false, lineBreak: false },
+      { text: '6천원대', highlight: true, lineBreak: true },
+      { text: '초저가 맘껏 안심 요금제', highlight: false, lineBreak: false }
+    ],
+    description: '5분 셀프개통으로 데이터×통화×문자 모두다 안심+',
+    characterBg: '#00C896',
+    illustrationIdx: 0
+  },
+  {
+    bg: '#2E5BFF',
+    lines: [
+      { text: '5월 한정 0원 이벤트!', highlight: false, lineBreak: true },
+      { text: '오직 15일까지만,', highlight: false, lineBreak: true },
+      { text: '3만원 증정', highlight: true, lineBreak: false }
+    ],
+    description: '월 2천원대 요금제로 똑똑하게 알뜰하게!',
+    characterBg: '#FFD700',
+    illustrationIdx: 1
+  },
+  {
+    bg: '#00C896',
+    lines: [
+      { text: '맘껏 요금제로 가입하면', highlight: false, lineBreak: true },
+      { text: '2배', highlight: true, lineBreak: false },
+      { text: ' 최대 5천원', highlight: false, lineBreak: false }
+    ],
+    description: '매월 알뜰하게 더 풍성하게!',
+    characterBg: '#FF6B6B',
+    illustrationIdx: 2
+  }
+];
+
+const categories = [
+  { icon: '📱', label: '셀프개통', color: '#E60012' },
+  { icon: '⚡', label: '5G', color: '#7C3AED' },
+  { icon: '📞', label: '통화 맘껏', color: '#00C896' },
+  { icon: '✨', label: '모맘 안심+', color: '#1A1A1A' },
+  { icon: '👶', label: '키즈', color: '#FF6B00' },
+  { icon: '🛍️', label: 'M쇼핑할인', color: '#1A1A1A' },
+  { icon: '🎯', label: 'KT트리플할인', color: '#2E5BFF' }
+];
+
+const accordionItems = [
+  { id: 'millie',    icon: '📚', title: '밀리의 서재 평생 구독 0원',       subtitle: '무제한 데이터로 즐기는 독서생활',     color: '#7C3AED' },
+  { id: 'coupang',  icon: '🎁', title: '매월 쿠팡캐시 5,000P 증정',        subtitle: '쿠팡할수록 더 내려가는 통신비!',        color: '#E60012' },
+  { id: 'cu',       icon: '☕', title: 'CU 결제할 때마다 20% 할인',         subtitle: '매월 최대 5,000원 할인+갓커피 무료!',  color: '#00C896' },
+  { id: 'call',     icon: '📱', title: '통화 맘껏 요금제',                  subtitle: '데이터+통화 걱정 없이',                 color: '#00C896' },
+  { id: 'unlimited',icon: '🌟', title: '모두다 맘껏 안심 요금제',           subtitle: '데이터+통화 초과 과금없이 모두다 안심', color: '#00C896' }
+];
+
+const plans = [
+  { name: '모두다 맘껏 7GB+(쿠팡캐시 5000원)', description: '데이터, 통화, 문자 모두 안심하고 사용하는 요금제', data: '최대 22GB무제한', dataDetail: '7GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공 +영상/부가통화 300분', sms: '기본제공', originalPrice: '35,200원', price: '18,500원', badge: 'BEST' },
+  { name: '통화 맘껏 20GB',                      description: '음성과 문자는 맘껏! 실속있는 데이터를 제공하는 요금제', data: '최대 35GB무제한', dataDetail: '20GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '음성통화 무제한', sms: '기본제공', originalPrice: '41,800원', price: '22,000원', badge: 'NEW' },
+  { name: '모두다 맘껏 5GB',                      description: '기본적인 사용에 최적화', data: '최대 20GB무제한', dataDetail: '5GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공 +영상/부가통화 300분', sms: '기본제공', originalPrice: '29,700원', price: '16,900원', badge: null },
+  { name: 'N페이 요금제 10GB',                    description: '네이버페이 포인트 25만원 증정', data: '최대 25GB무제한', dataDetail: '10GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공', sms: '기본제공', originalPrice: '38,500원', price: '19,800원', badge: 'HOT' },
+  { name: '쿠팡캐시 요금제 12GB',                 description: '쿠팡캐시 25만원 증정', data: '최대 27GB무제한', dataDetail: '12GB+최대1Mbps / +5GB(아무나 SOLO 결합)+데이터 추가제공 10GB(24개월)', call: '기본제공', sms: '기본제공', originalPrice: '40,700원', price: '21,500원', badge: 'HOT' }
+];
+
+const phones = [
+  { name: '갤럭시 A36',       data: '5G단말 (2GB/200분)',             devicePrice: '0원', planPrice: '21,000원', totalPrice: '21,000원', colors: ['#E8E3FF','#B8A9FF'],  colorType: 'purple' },
+  { name: '갤럭시 A17 LTE',   data: 'LTE 데이터 알뜰 500MB/30분',    devicePrice: '0원', planPrice: '18,700원', totalPrice: '18,700원', colors: ['#3A3A3A','#1A1A1A'],  colorType: 'black' },
+  { name: 'A1 Pro',            data: 'LTE 데이터 알뜰 200MB/30분',    devicePrice: '0원', planPrice: '14,190원', totalPrice: '14,190원', colors: ['#4A4A4A','#2A2A2A'],  colorType: 'back' }
+];
+
+const reviews = [
+  { category: '모두다 맘껏 7GB+(쿠팡캐시 5000원)', text: '아이폰에서 사용하다 갤럭시로 기기변경을 하면서 요금제도 새로 개통했어요~ 저는 셀프개통으로 했는데요! 집에서 혼자서도 5분만에 너무 쉽게 개통했답니다~!', tags: ['갤럭시A26 5G','2030세대','셀프개통'], author: '홍**', date: '2026.01.15', phoneColor: 'purple', phoneModel: '갤럭시A26 5G' },
+  { category: '통화 맘껏 20GB', text: '데이터도 충분히 쓸 수 있고 통화도 많이 하는데 가격도 저렴해서 너무 좋아요! 처음 개통한거라 긴장했는데 셀프개통 정말 간편하네요~', tags: ['데이터 충분히','셀프개통','가성비'], author: '김**', date: '2026.01.12', phoneColor: 'black', phoneModel: '갤럭시A17 LTE' },
+  { category: 'N페이 요금제 10GB', text: '여러 통신사 알아보다가 kt M모바일로 가입했는데 정말 만족스러워요! 속도도 빠르고 요금제 혜택도 많아서 추천합니다', tags: ['5G 빠른속도','2,900원 상당','추천'], author: '이**', date: '2026.01.08', phoneColor: 'blue', phoneModel: 'A1 Pro' }
+];
+
+const questions = [
+  { id: 1, text: '매월 데이터 사용량은 어떻게 되나요?', options: ['6GB 미만', '6~10GB', '10~25GB', '25GB 이상'] },
+  { id: 2, text: '매월 통화량은 어떻게 되시나요?', options: ['100분 이하', '100~200분', '200~300분', '무제한'] }
+];
+
+const ddBanners = [
+  { bgColor: '#FFE8F0', tag: 'KT 인터넷', tagColor: '#E60012', title: '인터넷+TV+모바일을', highlight: '체감가 0원에!', subtitle: '트리플 결합으로 알뜰하게', illust: '💰' },
+  { bgColor: '#E8E8FF', tag: '부가서비스', tagColor: '#2E5BFF', title: 'kt M모바일', highlight: '대표 부가서비스', subtitle: '월 1천원 이하로 누리는 통화 편의', illust: '🌸' },
+  { bgColor: '#F5F5F0', tag: '데이터쉐어링', tagColor: '#2E5BFF', title: '무제한 요금제 고객에겐', highlight: '데이터쉐어링 무료', subtitle: '2nd휴대폰, 태블릿PC 등 무료 서비스', illust: '📱' },
+  { bgColor: '#E8F8F5', tag: '이벤트', tagColor: '#00C896', title: '5월 한정 특가', highlight: '최대 28만원 혜택', subtitle: '신규/번호이동 고객 대상', illust: '🎁' }
+];
+
+const menuContent = {
+  '가입하기': {
+    groups: [
+      { title: '요금제 가입하기', links: [
+        { label: '셀프개통', href: '셀프개통.html' }
+      ]},
+      { title: '유심구매하기', links: ['다이렉트몰 구매하기', '오픈마켓 구매하기', '편의점/마트 구매하기'] }
+    ]
+  },
+  '상품': {
+    groups: [
+      { title: '요금제',       links: [{ label: '요금제 소개', href: 'plan-intro.html' }, { label: '요금제 비교', href: 'plan-compare.html' }] },
+      { title: '부가서비스',   links: ['전체 부가서비스','해외 로밍'] },
+      { title: '추가서비스',   links: ['함께쓰기','데이터쉐어링','휴대폰안심보험'] },
+      { title: '휴대폰',       links: ['새 휴대폰','KT휴대폰'] },
+      { title: '워치',         links: [] }
+    ]
+  },
+  '혜택': {
+    groups: [
+      { title: '할인 혜택',  label: '통신비 할인', links: ['M쇼핑할인','제휴카드'] },
+      { title: '생활 혜택',  links: ['M 쿠폰','M 마켓'] },
+      { title: '이벤트',     links: ['이번달 이벤트','당첨자 확인'] },
+      { title: '참여 혜택',  links: ['친구 초대','가입 리뷰 작성'] }
+    ]
+  },
+  '결합': {
+    groups: [
+      { title: null, flat: true, links: ['아무나 SOLO 결합','아무나 가족 결합+','KT인터넷 트리플할인'] }
+    ]
+  },
+  '고객센터': {
+    groups: [
+      { title: '이용/공지',      links: ['공지사항','고객센터 안내', { label: 'SIM 활성화 가이드', href: 'sim-guide.html' }, '단말기A/S 안내'] },
+      { title: 'FAQ/고객문의',   links: ['상담 예약','고객센터 챗봇','1:1 상담문의','자주 묻는 질문'] },
+      { title: '셀프서비스',     links: ['서비스 조회/변경','요금조회 및 납부','서비스 퀵 가이드','가입번호 조회'] },
+      { title: '고객보호',       links: ['이용자 피해 예방가이드','명의도용 방지','신청서식'] }
+    ]
+  }
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let currentHeroSlide = 0;
+let heroPlaying = true;
+let heroInterval = null;
+
+let qaQuestion = 1;
+let qaAnswers = {};
+let qaShowResults = false;
+
+let expandedAccordion = 'coupang';
+
+let currentPhoneSlide = 0;
+let currentCatSlide = 0;
+
+let activeMenuKey = null;
+let menuCloseTimer = null;
+let ddHovered = false;
+
+let ddBannerIdx = 0;
+let ddBannerPlaying = true;
+let ddBannerInterval = null;
+
+// ============================================================
+// HERO SLIDER
+// ============================================================
+function buildHeroSlides() {
+  const track = document.getElementById('hero-track');
+  track.innerHTML = heroSlides.map((slide, idx) => `
+    <div class="hero-slide" style="background:${slide.bg};">
+      <div style="padding:0 24px;display:flex;align-items:center;justify-content:space-between;min-height:280px;">
+        <div style="color:white;flex:1;padding-left:32px;">
+          <div style="font-size:24px;font-weight:700;line-height:1.4;">
+            ${slide.lines.map(l => `<span style="color:${l.highlight ? slide.characterBg : 'white'}">${l.text}</span>${l.lineBreak ? '<br/>' : ''}`).join('')}
+          </div>
+          ${slide.description ? `<p style="font-size:14px;opacity:0.9;margin-top:8px;">${slide.description}</p>` : ''}
+        </div>
+        <div style="width:200px;height:220px;position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          ${renderIllustration(slide, idx)}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderIllustration(slide, idx) {
+  if (idx === 0) {
+    return `
+      <div style="position:absolute;top:32px;left:16px;width:48px;height:48px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;">💬</div>
+      <div style="position:absolute;top:48px;right:32px;width:48px;height:48px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;">⭐</div>
+      <div style="position:absolute;top:50%;transform:translateY(-50%);left:0;width:48px;height:48px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.72h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div style="position:absolute;top:50%;transform:translateY(-50%);right:0;width:48px;height:48px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;">❤️</div>
+      <div style="position:absolute;bottom:80px;left:32px;width:48px;height:48px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);">
+        <div style="display:flex;flex-direction:column;align-items:center;font-size:12px;color:#3b82f6;"><span>↑</span><span>↓</span></div>
+      </div>
+      <div style="position:absolute;bottom:64px;right:48px;width:48px;height:48px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;">💭</div>
+      <div style="position:relative;z-index:10;">
+        <div style="width:160px;height:160px;border-radius:50%;background:#00C896;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px rgba(0,0,0,0.3);">
+          <div style="text-align:center;color:white;">
+            <div style="font-size:44px;margin-bottom:4px;">😊</div>
+            <div style="font-size:14px;font-weight:700;">모두다</div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:white;padding:8px 20px;border-radius:999px;white-space:nowrap;font-size:13px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,0.3);">모두다 안심해</div>
+      </div>
+    `;
+  }
+  if (idx === 1) {
+    return `
+      <div style="position:absolute;top:16px;left:16px;width:80px;height:80px;border-radius:50%;background:#7C3AED;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.2);">
+        <div style="color:white;text-align:center;">
+          <div style="font-size:10px;font-weight:700;line-height:1.2;">unlimited</div>
+          <div style="font-size:20px;margin-top:2px;">∞</div>
+        </div>
+      </div>
+      <div style="position:absolute;top:24px;right:24px;width:70px;height:70px;border-radius:50%;background:#2E5BFF;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,0.2);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="margin-bottom:2px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.72h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <div style="color:white;font-size:9px;font-weight:700;">Phone Call</div>
+      </div>
+      <div style="position:absolute;bottom:32px;left:8px;width:40px;height:40px;border-radius:50%;background:#FFD700;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 10px rgba(0,0,0,0.15);">😀</div>
+      <div style="position:absolute;bottom:52px;left:56px;width:36px;height:36px;border-radius:50%;background:#FF6B6B;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 10px rgba(0,0,0,0.15);">🤗</div>
+      <div style="position:absolute;bottom:16px;right:40px;width:40px;height:40px;border-radius:50%;background:#00C896;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 10px rgba(0,0,0,0.15);">😊</div>
+      <div style="position:absolute;bottom:44px;right:8px;width:36px;height:36px;border-radius:50%;background:#E8E8FF;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 4px 10px rgba(0,0,0,0.15);">😄</div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;opacity:0.8;">⭐</div>
+    `;
+  }
+  // idx === 2
+  return `
+    <div style="position:relative;">
+      <div style="width:130px;height:210px;border-radius:18px;background:#1A1A1A;border:3px solid #333;padding:14px;box-shadow:0 12px 28px rgba(0,0,0,0.3);">
+        <div style="background:white;border-radius:10px;padding:10px;margin-bottom:10px;height:60px;">
+          <div style="text-align:right;">
+            <div style="font-size:10px;color:#9ca3af;margin-bottom:2px;">월 요금</div>
+            <div style="font-size:24px;font-weight:700;color:#00C896;">2,900</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;">
+          ${['7','8','9','4','5','6','1','2','3'].map(n=>`<div style="background:#374151;border-radius:6px;padding:7px 0;text-align:center;color:white;font-weight:700;font-size:12px;">${n}</div>`).join('')}
+          <div style="background:#2E5BFF;border-radius:6px;padding:7px 0;text-align:center;color:white;font-weight:700;font-size:12px;">C</div>
+          <div style="background:#374151;border-radius:6px;padding:7px 0;text-align:center;color:white;font-weight:700;font-size:12px;">0</div>
+          <div style="background:#00C896;border-radius:6px;padding:7px 0;text-align:center;color:white;font-weight:700;font-size:12px;">=</div>
+        </div>
+      </div>
+      <div style="position:absolute;top:-10px;right:-20px;background:linear-gradient(135deg,#facc15,#f97316);border-radius:10px;padding:8px 14px;box-shadow:0 6px 16px rgba(0,0,0,0.2);transform:rotate(12deg);">
+        <div style="color:white;text-align:center;">
+          <div style="font-size:10px;font-weight:700;">캐시백</div>
+          <div style="font-size:18px;font-weight:700;">3만원</div>
+        </div>
+      </div>
+      <div style="position:absolute;bottom:-10px;left:-10px;font-size:24px;">💰</div>
+      <div style="position:absolute;top:20px;left:-20px;font-size:18px;">⭐</div>
+      <div style="position:absolute;bottom:30px;right:-14px;font-size:16px;">✨</div>
+    </div>
+  `;
+}
+
+function updateHeroSlider() {
+  const track = document.getElementById('hero-track');
+  track.style.transform = `translateX(-${currentHeroSlide * 100}%)`;
+  document.getElementById('hero-count').textContent = `${currentHeroSlide + 1} / ${TOTAL_SLIDES}`;
+  document.querySelectorAll('.thumb-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === currentHeroSlide);
+  });
+}
+
+function heroPrev() {
+  currentHeroSlide = (currentHeroSlide - 1 + heroSlides.length) % heroSlides.length;
+  updateHeroSlider();
+  resetHeroAutoplay();
+}
+
+function heroNext() {
+  currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+  updateHeroSlider();
+  resetHeroAutoplay();
+}
+
+function goToSlide(idx) {
+  currentHeroSlide = idx;
+  updateHeroSlider();
+  resetHeroAutoplay();
+}
+
+function resetHeroAutoplay() {
+  if (heroInterval) clearInterval(heroInterval);
+  if (heroPlaying) heroInterval = setInterval(() => { currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length; updateHeroSlider(); }, 5000);
+}
+
+function toggleHeroPlay() {
+  heroPlaying = !heroPlaying;
+  const icon = document.getElementById('hero-playicon');
+  if (heroPlaying) {
+    icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    heroInterval = setInterval(() => { currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length; updateHeroSlider(); }, 5000);
+  } else {
+    icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+    clearInterval(heroInterval);
+  }
+}
+
+// ============================================================
+// MEGA DROPDOWN
+// ============================================================
+function openMenu(key) {
+  if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
+  if (activeMenuKey !== key) {
+    // hide old underline
+    if (activeMenuKey) { const el = document.getElementById('ul-' + activeMenuKey); if (el) el.style.display = 'none'; }
+    activeMenuKey = key;
+    const ul = document.getElementById('ul-' + key);
+    if (ul) ul.style.display = 'block';
+    renderDropdown(key);
+    document.getElementById('mega-dropdown').classList.add('open');
+  }
+}
+
+function startMenuClose() {
+  if (!ddHovered) {
+    menuCloseTimer = setTimeout(closeMenu, 150);
+  }
+}
+
+function onDropdownEnter() {
+  if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
+  ddHovered = true;
+}
+
+function onDropdownLeave() {
+  ddHovered = false;
+  menuCloseTimer = setTimeout(closeMenu, 150);
+}
+
+function closeMenu() {
+  if (activeMenuKey) {
+    const ul = document.getElementById('ul-' + activeMenuKey);
+    if (ul) ul.style.display = 'none';
+  }
+  activeMenuKey = null;
+  document.getElementById('mega-dropdown').classList.remove('open');
+}
+
+function resolveLink(l) {
+  return typeof l === 'string' ? { label: l, href: '#' } : l;
+}
+
+function renderDropdown(key) {
+  const content = menuContent[key];
+  if (!content) return;
+  const linksEl = document.getElementById('dd-links');
+  linksEl.innerHTML = content.groups.map(g => {
+    if (g.flat) {
+      return `<div style="flex-shrink:0;display:flex;gap:32px;">${g.links.map(l=>{const r=resolveLink(l);return`<a href="${r.href}" style="color:#1A1A1A;font-size:16px;font-weight:700;" onmouseover="this.style.color='#E60012'" onmouseout="this.style.color='#1A1A1A'">${r.label}</a>`;}).join('')}</div>`;
+    }
+    return `
+      <div style="flex-shrink:0;">
+        ${g.title ? `
+          <div style="margin-bottom:12px;">
+            ${g.label ? `<div style="display:inline-block;padding:2px 8px;border-radius:999px;background:#E60012;color:white;font-size:11px;font-weight:700;margin-bottom:8px;">${g.label}</div>` : ''}
+            <h3 style="color:#1A1A1A;font-size:17px;font-weight:700;">${g.title}</h3>
+          </div>
+        ` : ''}
+        ${g.links.length > 0 ? `<ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;">${g.links.map(l=>{const r=resolveLink(l);return`<li><a href="${r.href}" style="color:#555;font-size:15px;" onmouseover="this.style.color='#E60012'" onmouseout="this.style.color='#555'">${r.label}</a></li>`;}).join('')}</ul>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================
+// DD BANNER CAROUSEL
+// ============================================================
+function buildDdBanners() {
+  const track = document.getElementById('dd-banner-track');
+  track.innerHTML = ddBanners.map(b => `
+    <div class="dd-banner-slide" style="background:${b.bgColor};">
+      <div style="flex:1;">
+        <div style="display:inline-block;padding:4px 12px;border-radius:999px;background:${b.tagColor};color:white;font-size:12px;font-weight:700;margin-bottom:12px;">${b.tag}</div>
+        <h3 style="color:#1A1A1A;font-size:18px;font-weight:700;margin-bottom:4px;">${b.title}</h3>
+        <h3 style="font-size:18px;font-weight:700;color:${b.tagColor};margin-bottom:8px;">${b.highlight}</h3>
+        <p style="color:#767676;font-size:13px;">${b.subtitle}</p>
+      </div>
+      <div style="font-size:56px;">${b.illust}</div>
+    </div>
+  `).join('');
+}
+
+function updateDdBanner() {
+  document.getElementById('dd-banner-track').style.transform = `translateX(-${ddBannerIdx * 100}%)`;
+  document.getElementById('dd-banner-count').innerHTML = `${ddBannerIdx + 1}<span style="font-size:11px;">/${ddBanners.length}</span>`;
+}
+
+function ddBannerPrev() { ddBannerIdx = (ddBannerIdx - 1 + ddBanners.length) % ddBanners.length; updateDdBanner(); }
+function ddBannerNext() { ddBannerIdx = (ddBannerIdx + 1) % ddBanners.length; updateDdBanner(); }
+
+function toggleDdBanner() {
+  ddBannerPlaying = !ddBannerPlaying;
+  const icon = document.getElementById('dd-banner-playicon');
+  if (ddBannerPlaying) {
+    icon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+    ddBannerInterval = setInterval(() => { ddBannerIdx = (ddBannerIdx + 1) % ddBanners.length; updateDdBanner(); }, 5000);
+  } else {
+    icon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"/>';
+    clearInterval(ddBannerInterval);
+  }
+}
+
+// ============================================================
+// Q&A WIDGET
+// ============================================================
+function renderQA() {
+  const body = document.getElementById('qa-body');
+  const title = document.getElementById('qa-title');
+  const subtitle = document.getElementById('qa-subtitle');
+
+  if (qaShowResults) {
+    title.innerHTML = `고객님께 딱 맞춘<br/><span style="color:#00C896;">요금제</span> 추천합니다`;
+    subtitle.textContent = '데이터·통화량에 맞춘 최적의 요금제입니다';
+    const resultPlans = [plans[1], plans[0]];
+    body.innerHTML = `
+      <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;margin-bottom:12px;padding-right:2px;">
+        ${resultPlans.map(plan => `
+          <div style="border:1.5px solid #e5e7eb;border-radius:14px;padding:14px;background:#f9fafb;cursor:pointer;transition:border-color 0.18s,box-shadow 0.18s;flex-shrink:0;"
+               onmouseover="this.style.borderColor='#00C896';this.style.boxShadow='0 0 0 3px rgba(0,200,150,0.10)'"
+               onmouseout="this.style.borderColor='#e5e7eb';this.style.boxShadow='none'">
+            <div style="font-size:13px;font-weight:700;color:#111827;margin-bottom:3px;line-height:1.35;">${plan.name}</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <span style="font-size:10px;color:#9ca3af;text-decoration:line-through;">${plan.originalPrice}</span>
+              <span style="font-size:20px;font-weight:800;color:#00C896;letter-spacing:-0.03em;">월 ${plan.price}</span>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+              <span style="font-size:10px;background:#E6F9F4;color:#047857;padding:2px 8px;border-radius:999px;font-weight:600;">📊 ${plan.data}</span>
+              <span style="font-size:10px;background:#EFF6FF;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-weight:600;">📞 ${plan.call}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div style="display:flex;gap:8px;flex-shrink:0;">
+        <button onclick="resetQA()" style="flex:1;padding:10px 0;border-radius:999px;border:1.5px solid #d1d5db;background:white;font-size:12px;font-weight:700;color:#374151;cursor:pointer;font-family:inherit;transition:all 0.15s;" onmouseover="this.style.borderColor='#374151'" onmouseout="this.style.borderColor='#d1d5db'">다시하기</button>
+        <a href="plan-intro.html" style="flex:1;padding:10px 0;border-radius:999px;border:none;background:#111827;font-size:12px;font-weight:700;color:white;cursor:pointer;font-family:inherit;transition:opacity 0.15s;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">더보기 →</a>
+      </div>
+    `;
+  } else {
+    const q = questions[qaQuestion - 1];
+    title.innerHTML = `<span style="color:#00C896;">요금제</span> 고민이라면?`;
+    subtitle.textContent = '고객님 성향에 맞춘 추천 요금제를 확인해보세요';
+    const hasAnswer = !!qaAnswers[qaQuestion];
+    body.innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:14px;flex:1;min-height:0;justify-content:center;">
+        <div style="font-size:15px;font-weight:700;color:#1A1A1A;flex-shrink:0;">Q${qaQuestion}. ${q.text}</div>
+        <div style="display:flex;flex-direction:column;gap:8px;flex-shrink:0;">
+          ${q.options.map(opt => `
+            <button class="qa-option ${qaAnswers[qaQuestion] === opt ? 'selected' : ''}" onclick="selectQAAnswer('${opt.replace(/'/g,"\\'")}')">
+              ${opt}
+            </button>
+          `).join('')}
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding-top:8px;flex-shrink:0;">
+          <div style="display:flex;gap:8px;">
+            ${questions.map((_, i) => `<div style="width:8px;height:8px;border-radius:50%;background:${i+1===qaQuestion?'#00C896':'#d1d5db'};transition:background 0.2s;"></div>`).join('')}
+          </div>
+          <button onclick="nextQAQuestion()" ${!hasAnswer ? 'disabled' : ''} style="width:44px;height:44px;border-radius:50%;background:${hasAnswer?'#00C896':'#B5E8D8'};border:none;display:flex;align-items:center;justify-content:center;cursor:${hasAnswer?'pointer':'not-allowed'};opacity:${hasAnswer?'1':'0.4'};transition:all 0.2s;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function selectQAAnswer(opt) {
+  qaAnswers[qaQuestion] = opt;
+  renderQA();
+}
+
+function nextQAQuestion() {
+  if (!qaAnswers[qaQuestion]) return;
+  if (qaQuestion < 2) { qaQuestion++; renderQA(); }
+  else { qaShowResults = true; renderQA(); }
+}
+
+function resetQA() {
+  qaQuestion = 1; qaAnswers = {}; qaShowResults = false;
+  renderQA();
+}
+
+// ============================================================
+// CATEGORY SLIDER
+// ============================================================
+function buildCategories() {
+  const track = document.getElementById('cat-track');
+  track.innerHTML = categories.map(cat => `
+    <div class="cat-item" style="width:calc(100%/7);">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px;cursor:pointer;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+        <div style="width:112px;height:112px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;background:${cat.color}18;border:2px solid ${cat.color};">${cat.icon}</div>
+        <span style="font-size:14px;font-weight:500;text-align:center;">${cat.label}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function catPrev() { if (currentCatSlide > 0) { currentCatSlide--; document.getElementById('cat-track').style.transform = `translateX(-${currentCatSlide * (100/categories.length)}%)`; } }
+function catNext() { if (currentCatSlide < categories.length - 7) { currentCatSlide++; document.getElementById('cat-track').style.transform = `translateX(-${currentCatSlide * (100/categories.length)}%)`; } }
+
+// ============================================================
+// TABS
+// ============================================================
+function switchTab(tab) {
+  document.getElementById('tab-panel-sim').classList.toggle('active', tab === 'sim');
+  document.getElementById('tab-panel-phone').classList.toggle('active', tab === 'phone');
+  document.getElementById('tab-sim').style.background = tab === 'sim' ? '#1A1A1A' : '#d1d5db';
+  document.getElementById('tab-sim').style.color = tab === 'sim' ? 'white' : '#1A1A1A';
+  document.getElementById('tab-phone').style.background = tab === 'phone' ? '#1A1A1A' : '#d1d5db';
+  document.getElementById('tab-phone').style.color = tab === 'phone' ? 'white' : '#1A1A1A';
+}
+
+// ============================================================
+// ACCORDION
+// ============================================================
+function buildAccordion() {
+  const root = document.getElementById('accordion-root');
+  root.innerHTML = accordionItems.map(item => `
+    <div style="margin-bottom:16px;">
+      <button onclick="toggleAccordion('${item.id}')" style="width:100%;background:white;border-radius:16px;padding:24px;display:flex;align-items:center;justify-content:space-between;border:none;cursor:pointer;font-family:inherit;text-align:left;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:${item.color}20;display:flex;align-items:center;justify-content:center;font-size:24px;">${item.icon}</div>
+          <div>
+            <div style="font-weight:700;font-size:18px;">${item.title}</div>
+            <div style="font-size:14px;color:#4b5563;">${item.subtitle}</div>
+          </div>
+        </div>
+        <svg id="chevron-${item.id}" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2" class="acc-chevron ${item.id === expandedAccordion ? 'open' : ''}"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div id="acc-${item.id}" class="acc-content ${item.id === expandedAccordion ? 'open' : ''}" style="background:white;border-radius:16px;margin-top:8px;">
+        <div style="padding:24px;">
+          ${plans.map(plan => `
+            <div style="display:grid;grid-template-columns:3fr 3fr 2fr 2fr 2fr;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid #f3f4f6;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                ${plan.badge ? `<span style="padding:4px 8px;border-radius:4px;font-size:12px;font-weight:700;color:white;background:${plan.badge==='BEST'?'#E60012':plan.badge==='NEW'?'#00C896':'#FF6B00'};flex-shrink:0;">${plan.badge}</span>` : ''}
+                <div>
+                  <div style="font-weight:700;font-size:14px;">${plan.name}</div>
+                  <div style="font-size:12px;color:#6b7280;">${plan.description}</div>
+                </div>
+              </div>
+              <div>
+                <div style="display:inline-block;padding:4px 8px;background:#dcfce7;color:#166534;font-size:12px;border-radius:4px;margin-bottom:4px;">${plan.data}</div>
+                <div style="font-size:12px;color:#4b5563;">${plan.dataDetail}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:12px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.5a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.72h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                <span>${plan.call}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;font-size:12px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span>${plan.sms}</span>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:12px;color:#9ca3af;text-decoration:line-through;">${plan.originalPrice}</div>
+                <div style="font-size:22px;font-weight:800;color:#00C896;letter-spacing:-0.03em;">월 ${plan.price}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleAccordion(id) {
+  if (expandedAccordion === id) {
+    expandedAccordion = null;
+  } else {
+    if (expandedAccordion) {
+      document.getElementById('acc-' + expandedAccordion).classList.remove('open');
+      const ch = document.getElementById('chevron-' + expandedAccordion);
+      if (ch) ch.classList.remove('open');
+    }
+    expandedAccordion = id;
+  }
+  const content = document.getElementById('acc-' + id);
+  const chevron = document.getElementById('chevron-' + id);
+  content.classList.toggle('open', expandedAccordion === id);
+  if (chevron) chevron.classList.toggle('open', expandedAccordion === id);
+}
+
+// ============================================================
+// PHONE SLIDER
+// ============================================================
+function buildPhones() {
+  const track = document.getElementById('phone-track');
+  track.innerHTML = phones.map((phone, idx) => `
+    <div class="phone-slide" style="width:33.333%;">
+      <div style="background:white;border:1px solid #e5e7eb;border-radius:16px;padding:24px;transition:box-shadow 0.2s;cursor:pointer;" onmouseover="this.style.boxShadow='0 10px 25px rgba(0,0,0,0.15)'" onmouseout="this.style.boxShadow='none'">
+        <div style="height:256px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+          ${renderPhoneMockup(phone, idx)}
+        </div>
+        <div style="font-size:20px;font-weight:700;margin-bottom:8px;">${phone.name}</div>
+        <div style="font-size:14px;color:#4b5563;margin-bottom:16px;">${phone.data}</div>
+        <div style="display:flex;flex-direction:column;gap:4px;font-size:14px;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;"><span style="color:#4b5563;">월 단말요금</span><span>${phone.devicePrice}</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:#4b5563;">월 통신요금</span><span>${phone.planPrice}</span></div>
+        </div>
+        <div style="font-size:28px;font-weight:800;color:#00C896;letter-spacing:-0.04em;">월 ${phone.totalPrice}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderPhoneMockup(phone, idx) {
+  if (idx === 0) {
+    return `
+      <div style="position:relative;width:140px;height:240px;">
+        <div style="position:absolute;inset:0;border-radius:24px;background:linear-gradient(135deg,${phone.colors[0]} 0%,${phone.colors[1]} 100%);border:8px solid #2A2A2A;box-shadow:0 10px 20px rgba(0,0,0,0.2);">
+          <div style="position:absolute;inset:8px;border-radius:16px;background:linear-gradient(180deg,#C8B5FF 0%,#E8F5E0 50%,#FFE8C8 100%);"></div>
+          <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:48px;height:12px;background:rgba(0,0,0,0.8);border-radius:999px;"></div>
+        </div>
+        <div style="position:absolute;left:-8px;top:32px;display:flex;flex-direction:column;gap:8px;">
+          <div style="width:24px;height:24px;border-radius:50%;background:#1f2937;border:2px solid #4b5563;"></div>
+          <div style="width:24px;height:24px;border-radius:50%;background:#1f2937;border:2px solid #4b5563;"></div>
+        </div>
+      </div>
+    `;
+  }
+  if (idx === 1) {
+    return `
+      <div style="position:relative;width:140px;height:240px;">
+        <div style="position:absolute;inset:0;border-radius:24px;background:${phone.colors[1]};border:8px solid #1A1A1A;box-shadow:0 10px 20px rgba(0,0,0,0.3);">
+          <div style="position:absolute;inset:8px;border-radius:16px;background:linear-gradient(180deg,#A8D8F0 0%,#C8E8FF 100%);"></div>
+          <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:48px;height:12px;background:rgba(0,0,0,0.8);border-radius:999px;"></div>
+        </div>
+        <div style="position:absolute;left:-8px;top:32px;display:flex;flex-direction:column;gap:8px;">
+          <div style="width:24px;height:24px;border-radius:50%;background:#111827;border:2px solid #374151;"></div>
+          <div style="width:24px;height:24px;border-radius:50%;background:#111827;border:2px solid #374151;"></div>
+        </div>
+      </div>
+    `;
+  }
+  return `
+    <div style="position:relative;width:140px;height:240px;">
+      <div style="position:absolute;inset:0;border-radius:24px;background:${phone.colors[1]};border:8px solid #1A1A1A;box-shadow:0 10px 20px rgba(0,0,0,0.3);">
+        <div style="position:absolute;top:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:8px;align-items:center;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#111827;border:2px solid #374151;display:flex;align-items:center;justify-content:center;">
+            <div style="width:24px;height:24px;border-radius:50%;background:#1e3a5f;"></div>
+          </div>
+          <div style="width:24px;height:24px;border-radius:50%;background:#111827;border:2px solid #374151;"></div>
+        </div>
+        <div style="position:absolute;bottom:64px;left:50%;transform:translateX(-50%);color:#9ca3af;font-size:12px;font-weight:700;white-space:nowrap;">코튼켓</div>
+      </div>
+    </div>
+  `;
+}
+
+function phonePrev() {
+  if (currentPhoneSlide > 0) {
+    currentPhoneSlide--;
+    document.getElementById('phone-track').style.transform = `translateX(-${currentPhoneSlide * (100/3)}%)`;
+  }
+}
+
+function phoneNext() {
+  if (currentPhoneSlide < phones.length - 3) {
+    currentPhoneSlide++;
+    document.getElementById('phone-track').style.transform = `translateX(-${currentPhoneSlide * (100/3)}%)`;
+  }
+}
+
+// ============================================================
+// REVIEWS
+// ============================================================
+function buildReviews() {
+  const grid = document.getElementById('reviews-grid');
+  grid.innerHTML = reviews.map(review => {
+    const screenGrad = review.phoneColor === 'purple'
+      ? 'linear-gradient(180deg,#C8B5FF 0%,#E8F5E0 50%,#FFE8C8 100%)'
+      : review.phoneColor === 'black'
+      ? 'linear-gradient(180deg,#A8D8F0 0%,#C8E8FF 100%)'
+      : 'linear-gradient(180deg,#B5D8FF 0%,#E8F5FF 100%)';
+    const bgGrad = review.phoneColor === 'purple'
+      ? 'linear-gradient(135deg,#E8E3FF 0%,#C8B5FF 100%)'
+      : review.phoneColor === 'black'
+      ? 'linear-gradient(135deg,#3A3A3A 0%,#1A1A1A 100%)'
+      : 'linear-gradient(135deg,#E8F5FF 0%,#B5D8FF 100%)';
+    const phoneBg = review.phoneColor === 'purple'
+      ? 'linear-gradient(135deg,#E8E3FF 0%,#B8A9FF 100%)'
+      : review.phoneColor === 'black' ? '#1A1A1A' : '#E8F5FF';
+
+    return `
+      <div style="background:white;border:1px solid #e5e7eb;border-radius:16px;padding:24px;cursor:pointer;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 10px 25px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow='none'">
+        <div style="font-size:14px;color:#6b7280;margin-bottom:12px;">${review.category}</div>
+        <p style="font-size:16px;margin-bottom:16px;line-height:1.6;color:#1f2937;min-height:72px;">${review.text}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+          ${review.tags.map(t=>`<span style="padding:4px 12px;border-radius:999px;font-size:12px;background:#f3f4f6;color:#374151;">${t}</span>`).join('')}
+        </div>
+        <div style="margin-bottom:16px;border-radius:12px;overflow:hidden;background:#f3f4f6;padding:16px;">
+          <div style="background:white;border-radius:8px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+              <div style="width:32px;height:32px;border-radius:50%;background:#e5e7eb;"></div>
+              <div>
+                <div style="font-size:12px;font-weight:700;">kt M mobile</div>
+                <div style="font-size:12px;color:#6b7280;">kt M mobile입니다</div>
+              </div>
+            </div>
+            <div style="font-size:14px;color:#4b5563;margin-bottom:8px;">${review.phoneModel} 단말 사진 📱</div>
+            <div style="border-radius:8px;padding:24px;display:flex;align-items:center;justify-content:center;background:${bgGrad};min-height:140px;">
+              <div style="position:relative;width:80px;height:120px;">
+                <div style="position:absolute;inset:0;border-radius:16px;background:${phoneBg};border:4px solid #2A2A2A;box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+                  <div style="position:absolute;inset:4px;border-radius:12px;background:${screenGrad};"></div>
+                  <div style="position:absolute;top:4px;left:50%;transform:translateX(-50%);width:24px;height:6px;background:rgba(0,0,0,0.8);border-radius:999px;"></div>
+                </div>
+                <div style="position:absolute;left:-4px;top:16px;display:flex;flex-direction:column;gap:4px;">
+                  <div style="width:16px;height:16px;border-radius:50%;background:#1f2937;border:1px solid #4b5563;"></div>
+                  <div style="width:16px;height:16px;border-radius:50%;background:#1f2937;border:1px solid #4b5563;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:8px;">
+            <button style="font-size:12px;color:#4b5563;background:none;border:none;cursor:pointer;" onmouseover="this.style.color='#1A1A1A'" onmouseout="this.style.color='#4b5563'">더보기</button>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:14px;">
+          <span style="color:#9ca3af;">${review.author} | ${review.date}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+(function init() {
+  buildHeroSlides();
+  updateHeroSlider();
+  heroInterval = setInterval(() => {
+    currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+    updateHeroSlider();
+  }, 5000);
+
+  buildDdBanners();
+  updateDdBanner();
+  ddBannerInterval = setInterval(() => {
+    ddBannerIdx = (ddBannerIdx + 1) % ddBanners.length;
+    updateDdBanner();
+  }, 5000);
+
+  renderQA();
+  buildAccordion();
+  buildPhones();
+  buildReviews();
+})();
+
+</script>
+</body>
+</html>
+<script>
+// ---- Scroll Reveal ----
+(function() {
+  // Add reveal class to key sections
+  var sections = document.querySelectorAll(
+    '#reviews-grid > div, #accordion-root > div, .phone-slide > div'
+  );
+  sections.forEach(function(el, i) {
+    el.classList.add('reveal');
+    el.dataset.delay = (i % 4) * 80;
+  });
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.style.animationDelay = (e.target.dataset.delay || 0) + 'ms';
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    io.observe(el);
+  });
+})();
+
+// ---- Card lift class on phone cards ----
+document.querySelectorAll('.phone-slide > div > div').forEach(function(el) {
+  el.classList.add('card-lift');
+});
+</script>
