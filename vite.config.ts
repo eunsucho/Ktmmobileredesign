@@ -30,6 +30,7 @@ function copyStaticFiles() {
     'ktm_mobile_plans.json',
     'default_shadcn_theme.css',
   ]
+  const staticDirs = ['data']
   return {
     name: 'copy-static-files',
     closeBundle() {
@@ -38,6 +39,12 @@ function copyStaticFiles() {
         const src = path.resolve(__dirname, file)
         if (fs.existsSync(src)) {
           fs.copyFileSync(src, path.join(outDir, file))
+        }
+      }
+      for (const dir of staticDirs) {
+        const src = path.resolve(__dirname, dir)
+        if (fs.existsSync(src)) {
+          fs.cpSync(src, path.join(outDir, dir), { recursive: true })
         }
       }
     },
