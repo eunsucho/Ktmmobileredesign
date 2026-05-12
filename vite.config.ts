@@ -21,6 +21,7 @@ function copyStaticFiles() {
   const staticFiles = [
     'index.html',
     'plan-intro.html',
+    'plan-intro-renewal.html',
     'plan-compare.html',
     'sim-guide.html',
     'precheck.html',
