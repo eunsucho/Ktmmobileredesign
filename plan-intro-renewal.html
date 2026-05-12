@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>요금제 | kt M mobile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5JHN9VNR');</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EMT2504JR3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EMT2504JR3');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "wp9p8g08eg");
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<style>
+/* ==========================================
+   BASE RESET & TOKENS (Modernized)
+   ========================================== */
+* { box-sizing: border-box; }
+:root {
+  --kt-red: #E60012;
+  --kt-red-hover: #CC0010;
+  --kt-red-light: #FFF0F1;
+  --kt-cyan: #00C7B5;
+  --kt-cyan-hover: #00B0A0;
+  
+  --text-main: #191919;
+  --text-sub: #666666;
+  --text-muted: #999999;
+  
+  --border-light: #E5E8EB;
+  --border-strong: #D1D6DB;
+  
+  --bg-main: #FFFFFF;
+  --bg-soft: #F7F9FA;
+  --bg-hover: #F2F4F6;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.08);
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  color: var(--text-main);
+  background: var(--bg-main);
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  letter-spacing: -0.015em;
+  line-height: 1.5;
+}
+button { font-family: inherit; cursor: pointer; border: none; background: none; padding: 0; color: inherit; outline: none; }
+
+/* ==========================================
+   LAYOUT & PAGE TITLE
+   ========================================== */
+.kt-page-title-wrap { max-width: 1280px; margin: 0 auto; padding: 48px 20px 24px; }
+.kt-bcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.kt-bcrumb .cur { color: var(--text-sub); font-weight: 600; }
+.kt-page-title { font-size: 32px; font-weight: 700; margin: 0 0 8px; color: var(--text-main); letter-spacing: -0.02em; }
+.kt-page-sub { font-size: 15px; color: var(--text-sub); margin: 0; }
+
+.kt-layout {
+  max-width: 1280px; margin: 0 auto; padding: 24px 20px 100px;
+  display: flex; gap: 40px; align-items: flex-start;
+}
+.kt-main { flex: 1; min-width: 0; }
+.kt-side { width: 340px; flex-shrink: 0; position: sticky; top: 100px; }
+
+/* ==========================================
+   TABS & FILTERS
+   ========================================== */
+.network-tabs {
+  display: flex; justify-content: center; gap: 32px;
+  border-bottom: 1px solid var(--border-light); margin-bottom: 24px;
+}
+.network-tab {
+  padding: 12px 4px; font-size: 18px; font-weight: 600; color: var(--text-muted);
+  border-bottom: 3px solid transparent; transition: all 0.2s ease;
+  position: relative; top: 1px;
+}
+.network-tab:hover { color: var(--text-sub); }
+.network-tab.active { color: var(--text-main); border-bottom-color: var(--text-main); font-weight: 700; }
+
+.segment-filter-wrap { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.segment-pill {
+  padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  background: var(--bg-soft); color: var(--text-sub); border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+.segment-pill:hover { background: var(--border-light); }
+.segment-pill.active { background: var(--kt-red-light); color: var(--kt-red); border-color: rgba(230,0,18,0.2); }
+
+.view-mode-bar { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+.view-mode-toggle { display: inline-flex; background: var(--bg-soft); border-radius: var(--radius-md); padding: 4px; border: 1px solid var(--border-light); }
+.view-mode-btn { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text-sub); transition: all 0.2s ease; }
+.view-mode-btn:hover { color: var(--text-main); }
+.view-mode-btn.active { background: var(--bg-main); color: var(--text-main); box-shadow: var(--shadow-sm); font-weight: 700; }
+
+.usage-filter-wrap {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: stretch; height: 56px;
+  margin: 0 0 16px 0;
+}
+.usage-chip {
+  flex: 1; height: 56px; border-radius: 0;
+  font-size: 14px; font-weight: 600;
+  background: transparent; border: none;
+  color: var(--text-sub); transition: all 0.2s ease;
+  position: relative;
+}
+.usage-chip::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--kt-red); transform: scaleX(0); transition: transform 0.2s ease;
+}
+.usage-chip:hover { color: var(--text-main); }
+.usage-chip.active { color: var(--kt-red); font-weight: 700; }
+.usage-chip.active::after { transform: scaleX(1); }
+
+/* ==========================================
+   PLAN GROUPS (ACCORDION)
+   ========================================== */
+.plan-group { border-bottom: 1px solid var(--border-light); }
+.plan-group:last-child { border-bottom: none; }
+
+.pg-header-row {
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; padding: 32px 0;
+  gap: 16px;
+}
+.pg-header-left { display: flex; align-items: center; gap: 12px; }
+.pg-title { font-size: 20px; font-weight: 700; margin: 0; color: var(--text-main); }
+.pg-count-badge {
+  display: inline-flex; align-items: center;
+  background: var(--bg-soft); color: var(--text-sub);
+  font-size: 13px; font-weight: 600;
+  padding: 4px 10px; border-radius: 999px;
+}
+.pg-chevron { color: var(--text-muted); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+.pg-header-row:hover .pg-chevron { color: var(--text-main); }
+
+.pg-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+.pg-tab {
+  padding: 8px 16px; border-radius: 999px;
+  background: var(--bg-main); color: var(--text-sub); border: 1px solid var(--border-strong);
+  font-size: 13px; font-weight: 600;
+  transition: all 0.2s ease;
+}
+.pg-tab:hover { background: var(--bg-soft); color: var(--text-main); }
+.pg-tab.active { background: var(--text-main); color: #fff; border-color: var(--text-main); }
+
+/* ==========================================
+   PLAN GRID
+   ========================================== */
+.plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+
+/* ==========================================
+   FAMILY PLAN CARD (Improved Intro)
+   ========================================== */
+.fpc-card {
+  background: var(--bg-main); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); position: relative;
+  display: flex; flex-direction: column; transition: all 0.2s ease;
+}
+.fpc-card.has-reco { border-color: var(--text-main); box-shadow: var(--shadow-md); border-width: 1px;}
+.fpc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); }
+.fpc-card.has-reco:hover { border-color: var(--text-main); }
+
+.fpc-header {
+  padding: 28px 24px 24px; cursor: pointer;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-main); transition: background 0.2s ease;
+}
+.fpc-header:hover { background: var(--bg-soft); }
+
+.fpc-title { font-size: 16px; font-weight: 700; color: var(--text-sub); line-height: 1.4; margin-bottom: 16px; word-break: keep-all; }
+
+.fpc-data-huge { font-size: 36px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.02em; line-height: 1; }
+.fpc-data-huge .plus { font-size: 24px; font-weight: 700; margin-left: 2px; color: var(--kt-red); vertical-align: super;}
+
+.fpc-data-detail { font-size: 15px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+.fpc-speed-note { font-weight: 500; color: var(--text-sub); }
+.fpc-promo-highlight { color: #0F6E56; font-weight: 700; background: #EAF3DE; padding: 2px 6px; border-radius: 4px; font-size: 13px; margin-left: 4px; vertical-align: middle;}
+
+.fpc-voice-sms { 
+  font-size: 14px; font-weight: 600; color: var(--text-sub); 
+  display: flex; align-items: center; gap: 8px; margin-top: 16px; 
+  background: var(--bg-soft); padding: 10px 14px; border-radius: 8px; width: fit-content; 
+}
+.fpc-voice-sms .divider { color: var(--border-strong); }
+
+.fpc-price-list { display: flex; flex-direction: column; }
+.fpc-price-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 24px; border-bottom: 1px solid var(--border-light);
+  transition: background 0.15s; background: var(--bg-main);
+}
+.fpc-price-row:last-child { border-bottom: none; }
+.fpc-price-row:hover { background: var(--bg-soft); }
+.fpc-price-row.is-reco { background: var(--bg-soft); }
+.fpc-logo-wrap {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(0,0,0,0.04); background: #fff;
+}
+.fpc-logo-wrap img { width: 22px; height: 22px; object-fit: contain; }
+.fpc-benefit-label { font-size: 14px; font-weight: 700; color: var(--text-main); flex: 1; line-height: 1.3; }
+.fpc-price-val { font-size: 18px; font-weight: 800; color: var(--kt-red); white-space: nowrap; letter-spacing: -0.02em;}
+.fpc-price-val span { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-left: 2px; }
+.fpc-add-btn {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); flex-shrink: 0;
+  font-size: 20px; font-weight: 400; line-height: 1;
+  border: 1px solid var(--border-strong); color: var(--text-sub); background: var(--bg-main);
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+}
+.fpc-add-btn:hover { background: var(--bg-hover); color: var(--text-main); border-color: var(--text-sub); }
+.fpc-add-btn.added { background: var(--kt-red); color: #fff; border-color: var(--kt-red); font-size: 14px; font-weight: 700; }
+
+.pc-reco-badge {
+  position: absolute; top: -14px; right: 24px;
+  background: var(--text-main);
+  color: #fff; font-size: 12px; font-weight: 700;
+  padding: 6px 16px; border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: none; z-index: 10;
+  display: flex; align-items: center; gap: 4px;
+}
+
+/* ==========================================
+   PLAN CARD UI (Standard - Non Family)
+   ========================================== */
+.plan-card {
+  background: var(--bg-main); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column;
+  position: relative; transition: all 0.2s ease; box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.plan-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.plan-card.added { border: 2px solid var(--kt-red); }
+
+.pc-top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.pc-data-huge { font-size: 26px; font-weight: 700; color: var(--text-main); line-height: 1.2; }
+.pc-data-huge span { font-size: 14px; font-weight: 600; margin-left: 2px; }
+.pc-price-huge { font-size: 18px; font-weight: 700; color: var(--kt-red); text-align: right; }
+.pc-price-huge span { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-left: 2px; }
+
+.pc-base-data-note { font-size: 12px; color: var(--kt-cyan); font-weight: 600; margin-bottom: 8px; }
+
+.pg-data-group { margin-bottom: 32px; }
+.pg-data-group:last-child { margin-bottom: 8px; }
+.pg-data-label {
+  font-size: 16px; font-weight: 700; color: var(--text-main);
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--text-main);
+}
+.pg-data-count { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+
+.pc-title-row { margin-bottom: 16px; flex: 1; }
+.pc-title { font-size: 15px; font-weight: 600; color: var(--text-main); line-height: 1.4; margin: 0 0 6px; word-break: keep-all; }
+.pc-speed-txt { font-size: 13px; font-weight: 500; color: var(--text-sub); }
+.pc-speed-txt.alert { color: var(--kt-red); }
+
+.pc-divider { height: 1px; background: var(--border-light); margin: 0 0 16px; }
+
+.pc-partner-logos { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; margin-top: 4px; }
+.pc-partner-logo-sq {
+  width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  border: 1px solid rgba(0,0,0,0.04); background: #fff;
+}
+
+.pc-add-btn {
+  width: 100%; padding: 12px; border-radius: var(--radius-sm); margin-top: auto;
+  font-size: 14px; font-weight: 600; text-align: center; transition: all 0.2s ease;
+  border: 1px solid var(--border-strong); color: var(--text-main); background: var(--bg-main);
+}
+.pc-add-btn:hover { background: var(--bg-hover); }
+.pc-add-btn.added { background: var(--kt-red-light); color: var(--kt-red); border-color: var(--kt-red-light); }
+.pc-add-btn.added:hover { background: #FFE5E5; }
+
+/* ==========================================
+   COMPARE BOARD (Sidebar) - Compact Stack Layout
+   ========================================== */
+.comp-board { background: var(--bg-main); border: 1px solid var(--border-light); border-radius: var(--radius-xl); overflow: hidden; position: sticky; top: 24px; box-shadow: var(--shadow-md); }
+.comp-header { padding: 20px 24px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; background: var(--bg-soft); }
+.comp-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
+.comp-diff-subtitle { font-size: 12px; font-weight: 500; color: var(--text-sub); margin-top: 4px; }
+.comp-count { font-size: 14px; color: var(--text-sub); font-weight: 600; background: var(--bg-main); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--border-light); }
+
+.comp-cart-list { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-bottom: 1px solid var(--border-light); }
+.comp-cart-item {
+  background: var(--bg-main); border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md); padding: 16px; position: relative;
+  box-shadow: var(--shadow-sm); transition: 0.2s;
+}
+.comp-cart-item:hover { border-color: var(--kt-red); }
+.comp-cart-del {
+  position: absolute; top: 12px; right: 12px; width: 26px; height: 26px;
+  background: var(--bg-soft); border-radius: 50%; display: grid; place-items: center;
+  color: var(--text-muted); cursor: pointer; border: none; transition: 0.2s;
+}
+.comp-cart-del:hover { background: var(--border-light); color: var(--text-main); }
+.comp-cart-del svg { width: 14px; height: 14px; }
+
+.comp-cart-name { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; padding-right: 28px; word-break: keep-all; line-height: 1.3;}
+.comp-cart-specs { display: flex; justify-content: space-between; align-items: flex-end; }
+.comp-cart-data { font-size: 16px; font-weight: 800; color: var(--kt-cyan); }
+.comp-cart-price { font-size: 18px; font-weight: 800; color: var(--kt-red); }
+.comp-cart-price span { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-left: 2px;}
+
+.comp-cart-empty { padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 14px; background: var(--bg-soft); border-radius: var(--radius-md); border: 1px dashed var(--border-strong); margin: 20px; }
+.comp-empty-icon { width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--border-strong); margin: 0 auto 12px; }
+
+.comp-action { padding: 20px; background: var(--bg-soft); }
+.btn-open-compare { width: 100%; padding: 16px; background: var(--kt-red); color: white; font-size: 16px; font-weight: 700; border-radius: var(--radius-md); border: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(230,0,18,0.2); cursor: pointer;}
+.btn-open-compare:hover { background: var(--kt-red-hover); transform: translateY(-2px); }
+.btn-open-compare:disabled { background: var(--border-strong); color: #fff; cursor: not-allowed; box-shadow: none; transform: none; }
+
+
+/* ==========================================
+   COMPARE FULL MODAL (The Table)
+   ========================================== */
+.cmp-modal-wrap { max-width: 1000px; width: 100%; background: #fff; border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; box-shadow: 0 24px 48px rgba(0,0,0,0.2); position: relative; animation: kt-pop .3s cubic-bezier(0.16, 1, 0.3, 1); }
+.cmp-header { padding: 32px 40px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; background: #fff;}
+.cmp-title { font-size: 24px; font-weight: 700; color: var(--text-main); margin:0; letter-spacing: -0.02em;}
+.cmp-content { padding: 40px; overflow-y: auto; background: var(--bg-soft); }
+
+.cmp-table-container { background: var(--border-light); border-radius: var(--radius-lg); border: 1px solid var(--border-strong); overflow: hidden; box-shadow: var(--shadow-sm); }
+.cmp-table { display: grid; gap: 1px; }
+
+.cmp-cell { padding: 24px 20px; background: #fff; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.cmp-cell.row-header { background: #F9FAFB; font-weight: 600; color: var(--text-sub); text-align: left; align-items: flex-start; justify-content: center; font-size: 15px; }
+
+/* Table Elements */
+.cmp-head-plan { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 16px; word-break: keep-all; line-height: 1.4;}
+.cmp-btn-signup { background: var(--text-main); color: white; padding: 12px 28px; border-radius: 999px; font-weight: 700; font-size: 15px; transition: 0.2s; border: none; cursor: pointer; width: 100%; max-width: 180px;}
+.cmp-btn-signup:hover { background: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);}
+
+.cmp-val-price { font-size: 28px; font-weight: 800; color: var(--text-main); letter-spacing: -0.02em;}
+.cmp-val-price.best { color: var(--kt-red); }
+.cmp-val-data { font-size: 24px; font-weight: 800; color: var(--text-main); }
+.cmp-val-data.best { color: #0F6E56; }
+
+.cs-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; line-height: 1.2; display: inline-block; }
+.cs-badge.price { background: var(--kt-red-light); color: var(--kt-red); }
+.cs-badge.data { background: #EAF3DE; color: #0F6E56; }
+
+/* ==========================================
+   SEARCH / GENERAL
+   ========================================== */
+.comp-search-wrap { display: flex; flex-direction: column; gap: 8px; }
+.comp-search-input-box { display: flex; align-items: center; background: var(--bg-main); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 0 16px; overflow: hidden; transition: 0.2s; box-shadow: var(--shadow-sm); }
+.comp-search-input-box:focus-within { border-color: var(--kt-red); box-shadow: 0 0 0 3px rgba(230,0,18,0.1); }
+.comp-search-input { width: 100%; padding: 14px 0; font-size: 14px; border: none; outline: none; background: transparent; color: var(--text-main); }
+.comp-search-input::placeholder { color: var(--text-muted); }
+.comp-search-btn { font-size: 16px; color: var(--text-sub); padding: 8px; transition: color 0.2s; }
+.comp-search-btn:hover { color: var(--kt-red); }
+.comp-search-result { background: var(--bg-soft); border-radius: var(--radius-md); padding: 16px; font-size: 13px; color: var(--text-main); line-height: 1.5; word-break: keep-all; border: 1px solid var(--border-light); }
+
+/* ==========================================
+   MODAL (General)
+   ========================================== */
+.kt-modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+  z-index: 1000; display: grid; place-items: center;
+  padding: 20px; animation: kt-fade-bg .2s ease;
+}
+@keyframes kt-fade-bg { from{opacity:0} to{opacity:1} }
+.kt-modal {
+  background: var(--bg-main); width: min(840px, 100%); max-height: 90vh;
+  border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column;
+  animation: kt-pop .3s cubic-bezier(0.16, 1, 0.3, 1); position: relative;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+}
+@keyframes kt-pop {
+  from{opacity:0;transform:translateY(20px) scale(.98)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.kt-modal-header {
+  padding: 32px 40px 24px; display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0;
+}
+.kt-modal-title { font-size: 24px; font-weight: 700; margin: 0; letter-spacing: -0.02em; color: var(--text-main); }
+.kt-modal-close {
+  width: 36px; height: 36px; display: grid; place-items: center;
+  color: var(--text-sub); cursor: pointer; transition: 0.2s; border-radius: 50%;
+  background: var(--bg-soft); border: none;
+}
+.kt-modal-close:hover { background: var(--border-light); color: var(--text-main); }
+.kt-modal-scroll { overflow-y: auto; flex: 1; padding-bottom: 40px; }
+
+/* Welcome Modal */
+.wm-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+  z-index: 2000; display: grid; place-items: center; padding: 20px;
+  animation: kt-fade-bg .2s ease;
+}
+.wm-box {
+  background: var(--bg-main); border-radius: var(--radius-xl); padding: 40px 32px 32px;
+  width: min(420px, 100%); display: flex; flex-direction: column; gap: 24px;
+  animation: kt-pop .3s cubic-bezier(0.16, 1, 0.3, 1); position: relative;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+}
+.wm-title { font-size: 20px; font-weight: 700; color: var(--text-main); line-height: 1.4; text-align: center; }
+.wm-sub { font-size: 14px; color: var(--text-sub); margin-top: 8px; text-align: center; }
+.wm-fields { display: flex; flex-direction: column; gap: 16px; }
+.wm-field { display: flex; flex-direction: column; gap: 8px; }
+.wm-label { font-size: 13px; font-weight: 600; color: var(--text-sub); }
+.wm-input-wrap { display: flex; align-items: center; border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 0 16px; transition: .2s; background: var(--bg-main); }
+.wm-input-wrap:focus-within { border-color: var(--kt-red); box-shadow: 0 0 0 3px rgba(230,0,18,0.1); }
+.wm-input { flex: 1; border: none; outline: none; font-size: 16px; font-weight: 500; padding: 14px 0; background: transparent; color: var(--text-main); }
+.wm-input::placeholder { color: var(--text-muted); }
+.wm-unit { font-size: 14px; color: var(--text-sub); font-weight: 500; flex-shrink: 0; }
+.wm-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.wm-btn-primary {
+  width: 100%; padding: 16px; border-radius: var(--radius-md);
+  background: var(--kt-red); color: #fff; font-size: 16px; font-weight: 700;
+  border: none; cursor: pointer; transition: .2s ease;
+}
+.wm-btn-primary:hover { background: var(--kt-red-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(230,0,18,0.2); }
+.wm-btn-skip {
+  width: 100%; padding: 12px; border-radius: var(--radius-md); border: none;
+  background: transparent; color: var(--text-muted); font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: .2s ease; text-decoration: underline; text-underline-offset: 4px;
+}
+.wm-btn-skip:hover { color: var(--text-sub); background: var(--bg-soft); text-decoration: none; }
+
+/* Modal Summary Box */
+.kt-mdl-sumbox {
+  margin: 0 40px 32px; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-main);
+  box-shadow: var(--shadow-sm);
+}
+.kt-mdl-icons {
+  display: grid; grid-template-columns: repeat(4, 1fr); padding: 24px 0; border-bottom: 1px solid var(--border-light); background: var(--bg-main);
+}
+.kt-mdl-icon-item {
+  display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative;
+}
+.kt-mdl-icon-item:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 15%; height: 70%; width: 1px; background: var(--border-light);
+}
+.kt-mdl-icon-svg { margin-bottom: 16px; color: var(--text-muted); }
+.kt-mdl-val { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; line-height: 1.3; }
+.kt-mdl-val-badge { display: inline-block; background: var(--kt-cyan); color: #fff; font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; margin-bottom: 8px; }
+.kt-mdl-sub { font-size: 12px; color: var(--text-sub); line-height: 1.4; word-break: keep-all; }
+
+/* Modal Pricing Row */
+.kt-mdl-price-row {
+  display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; background: var(--bg-soft);
+}
+.kt-mdl-price-left { display: flex; align-items: center; gap: 12px; }
+.kt-mdl-price-lbl { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+.kt-mdl-price-strike { font-size: 15px; color: var(--text-muted); text-decoration: line-through; }
+.kt-mdl-price-right { display: flex; align-items: baseline; gap: 16px; }
+.kt-mdl-price-pro-lbl { font-size: 15px; font-weight: 700; color: var(--text-main); }
+.kt-mdl-price-pro-val { font-size: 28px; font-weight: 700; color: var(--kt-red); }
+.kt-mdl-price-pro-val span { font-size: 16px; margin-left: 4px; font-weight: 600; }
+
+/* Modal Action Buttons */
+.kt-mdl-btns { display: flex; gap: 16px; margin: 0 40px 40px; }
+.kt-mdl-btn {
+  flex: 1; padding: 20px; border-radius: var(--radius-lg); font-size: 18px; font-weight: 700;
+  text-align: center; color: #fff; background: var(--kt-cyan); border: none;
+  transition: all 0.2s ease; box-shadow: 0 8px 24px rgba(0, 199, 181, 0.25); cursor: pointer;
+}
+.kt-mdl-btn:hover { background: var(--kt-cyan-hover); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 199, 181, 0.35); }
+
+/* Modal Tabs */
+.kt-mdl-tabs { display: flex; border-bottom: 1px solid var(--border-strong); margin: 0 40px 32px; }
+.kt-mdl-tab {
+  flex: 1; text-align: center; padding: 16px; font-size: 16px; font-weight: 600;
+  color: var(--text-muted); border-bottom: 3px solid transparent; cursor: pointer; transition: 0.2s;
+}
+.kt-mdl-tab:hover { color: var(--text-sub); }
+.kt-mdl-tab.active { color: var(--text-main); border-bottom-color: var(--text-main); font-weight: 700; }
+
+/* Modal Content Area */
+.kt-mdl-content { padding: 0 40px; }
+.kt-mdl-sec-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 20px; }
+
+/* 4-Column Graphic Cards (Additional Services) */
+.kt-svc-4grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+.kt-svc-card {
+  background: var(--bg-main); border: 1px solid var(--border-light); border-radius: var(--radius-md);
+  padding: 24px 20px; text-align: center; display: flex; flex-direction: column;
+  align-items: center; transition: 0.2s ease; box-shadow: var(--shadow-sm);
+}
+.kt-svc-card:hover { border-color: var(--border-strong); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+.kt-svc-icon-wrap {
+  width: 56px; height: 56px; border-radius: 50%; background: var(--bg-soft);
+  display: grid; place-items: center; margin-bottom: 16px; font-size: 24px; color: var(--text-main);
+}
+.kt-svc-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; word-break: keep-all; line-height: 1.4; }
+.kt-svc-title.red { color: var(--kt-red); }
+.kt-svc-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; word-break: keep-all; }
+.kt-svc-desc.red { color: var(--kt-red); font-weight: 500; }
+.kt-svc-link { font-size: 13px; color: var(--kt-cyan); font-weight: 600; margin-top: 12px; text-decoration: underline; cursor: pointer; }
+
+/* Accordion Component */
+.kt-acc-wrap { border-top: 2px solid var(--text-main); }
+.kt-acc-item { border-bottom: 1px solid var(--border-light); }
+.kt-acc-head {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 24px 0; font-size: 16px; font-weight: 600; color: var(--text-main); cursor: pointer; background: transparent;
+}
+.kt-acc-chevron { transition: transform 0.3s ease; color: var(--text-muted); }
+.kt-acc-head:hover .kt-acc-chevron { color: var(--text-main); }
+.kt-acc-head[aria-expanded="true"] .kt-acc-chevron { transform: rotate(180deg); color: var(--text-main); }
+.kt-acc-body { padding: 0 0 32px 0; font-size: 14px; color: var(--text-sub); line-height: 1.6; display: none; }
+.kt-acc-head[aria-expanded="true"] + .kt-acc-body { display: block; animation: kt-fade-bg 0.3s ease; }
+.kt-acc-box { background: var(--bg-soft); padding: 24px; border-radius: var(--radius-md); margin-bottom: 16px; }
+.kt-acc-list { margin: 0; padding-left: 20px; list-style-type: disc; }
+.kt-acc-list li { margin-bottom: 8px; }
+
+@media (max-width: 1024px) {
+  .kt-layout { flex-direction: column; }
+  .kt-side { width: 100%; position: static; }
+  .plan-grid { grid-template-columns: repeat(1, 1fr); }
+  .kt-svc-4grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .kt-mdl-icons { grid-template-columns: repeat(2, 1fr); gap: 24px 0; padding: 24px 0; }
+  .kt-mdl-icon-item:nth-child(2)::after { display: none; }
+  .kt-mdl-price-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .kt-mdl-btns, .kt-mdl-tabs, .kt-mdl-content { margin-left: 24px; margin-right: 24px; }
+  .kt-mdl-sumbox { margin: 0 24px 32px; }
+  .kt-modal-header { padding: 24px; }
+  .cmp-content { padding: 24px; }
+  .cmp-header { padding: 24px; }
+}
+</style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5JHN9VNR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script>window.KMNAV_ACTIVE = '상품';</script>
+<script src="shared-nav.js"></script>
+<div id="nav-mount"></div>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState, useMemo, useEffect } = React;
+
+/* =============================================
+   1. RAW DATA & NORMALIZATION CONSTANTS
+   ============================================= */
+const RAW_PLANS = [
+  { "familyName": "모두다 맘껏 7GB+", "price": 18500, "dataRaw": "7GB+최대1Mbps", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL2635398", "benefitLabel": "쿠팡캐시 5000원", "giftTotalValue": 280000}, {"planCode": "PL238P571", "benefitLabel": "PAY쿠폰 5000P", "giftTotalValue": 280000}] },
+  { "familyName": "모두다 맘껏 10GB+", "price": 21200, "dataRaw": "10GB+최대1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL2635399", "benefitLabel": "쿠팡캐시 5000원", "giftTotalValue": 280000}, {"planCode": "PL2543169", "benefitLabel": "PAY 쿠폰 5000P", "giftTotalValue": 280000}] },
+  { "familyName": "모두다 맘껏 15GB+", "price": 23700, "dataRaw": "15GB+최대1Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL2635400", "benefitLabel": "쿠팡캐시 5000원", "giftTotalValue": 280000}, {"planCode": "PL2543170", "benefitLabel": "PAY쿠폰 5000P", "giftTotalValue": 280000}] },
+  { "familyName": "모두다 맘껏 7GB+", "price": 16300, "dataRaw": "7GB+최대1Mbps", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL235Q981", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 10GB+", "price": 19000, "dataRaw": "10GB+최대1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL236M153", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 7GB+", "price": 15900, "dataRaw": "7GB+최대1Mbps", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL253A831", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "모두다 맘껏 15GB+", "price": 20900, "dataRaw": "15GB+최대1Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL234L649", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 10GB+", "price": 18400, "dataRaw": "10GB+최대1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL21CM690", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 10GB+", "price": 21700, "dataRaw": "10GB+최대1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL2552581", "benefitLabel": "지니뮤직 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 15GB+", "price": 21400, "dataRaw": "15GB+최대1Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL259C341", "benefitLabel": "모아진 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 10GB+", "price": 18900, "dataRaw": "10GB+최대1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL259C340", "benefitLabel": "모아진 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 7GB+", "price": 16200, "dataRaw": "7GB+최대1Mbps", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL259C339", "benefitLabel": "모아진 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 100GB+", "price": 41700, "dataRaw": "100GB+최대5Mbps", "dataVolume": 100.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL2595298", "benefitLabel": "지니뮤직 FREE", "giftTotalValue": 210000}, {"planCode": "PL2543167", "benefitLabel": "올리브영 5000P", "giftTotalValue": 210000}, {"planCode": "PL2543168", "benefitLabel": "다이소 5000P", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 11GB+", "price": 35600, "dataRaw": "11GB+일2GB+최대3Mbps", "dataVolume": 11.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL2543174", "benefitLabel": "올리브영 5000P", "giftTotalValue": 210000}, {"planCode": "PL2543175", "benefitLabel": "다이소 5000P", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 11GB+", "price": 33000, "dataRaw": "11GB+일2GB+최대3Mbps", "dataVolume": 11.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL2565746", "benefitLabel": "모아진 FREE", "giftTotalValue": 210000}, {"planCode": "PL244N953", "benefitLabel": "CU 20%할인", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 100GB+", "price": 38200, "dataRaw": "100GB+최대5Mbps", "dataVolume": 100.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL2565747", "benefitLabel": "모아진 FREE", "giftTotalValue": 210000}, {"planCode": "PL244N950", "benefitLabel": "CU 20%할인", "giftTotalValue": 210000}] },
+  { "familyName": "더블팩 15GB", "price": 22200, "dataRaw": "15GB+최대1Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL259Q389", "benefitLabel": "밀리+후후", "giftTotalValue": 210000}] },
+  { "familyName": "더블팩 10GB", "price": 19700, "dataRaw": "10GB+최대1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL259Q388", "benefitLabel": "밀리+후후", "giftTotalValue": 210000}] },
+  { "familyName": "더블팩 7GB", "price": 17000, "dataRaw": "7GB+최대1Mbps", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL259Q386", "benefitLabel": "밀리+후후", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 7GB+", "price": 16700, "dataRaw": "7GB+최대1Mbps", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL2634385", "benefitLabel": "CU 20%할인", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 11GB+", "price": 33100, "dataRaw": "11GB+일2GB+최대3Mbps", "dataVolume": 11.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL233R494", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 15GB+", "price": 21500, "dataRaw": "15GB+최대1Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL236M150", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 100GB+", "price": 38300, "dataRaw": "100GB+최대5Mbps", "dataVolume": 100.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL235Q972", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 10GB+", "price": 19400, "dataRaw": "10GB+최대1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL247U554", "benefitLabel": "CU 20%할인", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 15GB+", "price": 21900, "dataRaw": "15GB+최대1Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL245O249", "benefitLabel": "CU 20%할인", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 일 5GB+", "price": 38200, "dataRaw": "일5GB+최대5Mbps", "dataVolume": 0.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL242G635", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 안심+", "price": 6400, "dataRaw": "0GB+최대400Kbps", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": true, "variants": [{"planCode": "PL208J931", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "모두다 맘껏 안심 1.5GB+", "price": 6900, "dataRaw": "1.5GB+최대400Kbps", "dataVolume": 1.5, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL202B816", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "모두다 맘껏 안심 2.5GB+", "price": 7900, "dataRaw": "2.5GB+최대400Kbps", "dataVolume": 2.5, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL208J932", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "모두다 맘껏 안심 4.5GB+", "price": 8900, "dataRaw": "4.5GB+최대400Kbps", "dataVolume": 4.5, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL208J933", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "모두다 맘껏 안심 6GB+", "price": 10900, "dataRaw": "6GB+최대400Kbps", "dataVolume": 6.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL222N233", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "모두다 맘껏 안심 8GB+", "price": 11900, "dataRaw": "8GB+최대400Kbps", "dataVolume": 8.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL222N234", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "모두다 맘껏 안심 10GB+", "price": 12900, "dataRaw": "10GB+최대400Kbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL222N235", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "모두다 맘껏 안심 15GB+", "price": 15900, "dataRaw": "15GB+최대400Kbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL227J333", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "모두다 맘껏 안심 20GB+", "price": 18900, "dataRaw": "20GB+최대400Kbps", "dataVolume": 20.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL227J334", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 실속 7GB+", "price": 15900, "dataRaw": "7GB+최대 1Mbps", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL256N805", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "모두다 맘껏 실속 10GB+", "price": 18400, "dataRaw": "10GB+최대 1Mbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL256N806", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 실속 15GB+", "price": 20900, "dataRaw": "15GB+최대1Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL2574880", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "모두다 맘껏 실속 5GB+", "price": 14400, "dataRaw": "5GB+최대 1Mbps", "dataVolume": 5.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL2543138", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "모두다 맘껏 실속 3GB+", "price": 13400, "dataRaw": "3GB+최대 1Mbps", "dataVolume": 3.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL2543137", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "통화 맘껏 1.5GB", "price": 5400, "dataRaw": "1.5GB", "dataVolume": 1.5, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "LTEVCFL15", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "통화 맘껏 2.5GB", "price": 5900, "dataRaw": "2.5GB", "dataVolume": 2.5, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "LTEVCFL25", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "통화 맘껏 4.5GB", "price": 6900, "dataRaw": "4.5GB", "dataVolume": 4.5, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "LTEVCFL45", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "통화 맘껏 6.5GB", "price": 8900, "dataRaw": "6.5GB", "dataVolume": 6.5, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "PL207R824", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "통화 맘껏 10GB", "price": 11900, "dataRaw": "10GB", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "PL21CL644", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "통화 맘껏 15GB", "price": 13900, "dataRaw": "15GB", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL21CL645", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "통화 맘껏 20GB", "price": 16900, "dataRaw": "20GB", "dataVolume": 20.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL21CL646", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "초알뜰 1GB/100분", "price": 2900, "dataRaw": "1GB", "dataVolume": 1.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL212H918", "benefitLabel": "기본형", "giftTotalValue": 30000}] },
+  { "familyName": "초알뜰 2GB/100분", "price": 3900, "dataRaw": "2GB", "dataVolume": 2.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL241F509", "benefitLabel": "기본형", "giftTotalValue": 30000}] },
+  { "familyName": "초알뜰 3GB/100분", "price": 4900, "dataRaw": "3GB", "dataVolume": 3.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL241F510", "benefitLabel": "기본형", "giftTotalValue": 30000}] },
+  { "familyName": "시니어 안심 2GB+", "price": 5900, "dataRaw": "2GB+최대400Kbps", "dataVolume": 2.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL203D127", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "시니어 안심 4GB+", "price": 6900, "dataRaw": "4GB+최대400Kbps", "dataVolume": 4.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL203D126", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "시니어 모두다 맘껏 4GB+", "price": 7900, "dataRaw": "4GB+최대1Mbps", "dataVolume": 4.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL21CM684", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "시니어 모두다 맘껏 8GB+", "price": 11900, "dataRaw": "8GB+최대1Mbps", "dataVolume": 8.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL21CM685", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "시니어 안심 2GB+", "price": 6500, "dataRaw": "2GB+최대400Kbps", "dataVolume": 2.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL225K720", "benefitLabel": "후후", "giftTotalValue": 120000}] },
+  { "familyName": "시니어 안심 4GB+", "price": 7500, "dataRaw": "4GB+최대 400Kbps", "dataVolume": 4.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL22BP533", "benefitLabel": "후후", "giftTotalValue": 120000}] },
+  { "familyName": "시니어 모두다 맘껏 4GB+", "price": 8500, "dataRaw": "4GB+최대1Mbps", "dataVolume": 4.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL225K721", "benefitLabel": "후후", "giftTotalValue": 120000}] },
+  { "familyName": "시니어 모두다 맘껏 8GB+", "price": 12500, "dataRaw": "8GB+최대1Mbps", "dataVolume": 8.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL22BP534", "benefitLabel": "후후", "giftTotalValue": 140000}] },
+  { "familyName": "키즈 안심 2GB+", "price": 5900, "dataRaw": "2GB+최대400Kbps", "dataVolume": 2.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL221L933", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "키즈 안심 4GB+", "price": 6900, "dataRaw": "4GB+최대400Kbps", "dataVolume": 4.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL221L934", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "키즈 안심 8GB+", "price": 10900, "dataRaw": "8GB+최대400Kbps", "dataVolume": 8.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL221L935", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "키즈 안심 10GB+", "price": 11900, "dataRaw": "10GB+최대400Kbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL221L936", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "데이터 충분 6GB/100분", "price": 6900, "dataRaw": "6GB", "dataVolume": 6.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL247N504", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "데이터 충분 8GB/100분", "price": 7900, "dataRaw": "8GB", "dataVolume": 8.0, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "PL247N506", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "데이터 충분 10GB/100분", "price": 8900, "dataRaw": "10GB", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "PL247N507", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "데이터 충분 15GB/100분", "price": 12900, "dataRaw": "15GB", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL247N508", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "데이터 충분 20GB/100분", "price": 15900, "dataRaw": "20GB", "dataVolume": 20.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL248N666", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "데이터 맘껏 15GB+/100분", "price": 25400, "dataRaw": "15GB+최대3Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL236N158", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "데이터 맘껏 15GB+/100분", "price": 25300, "dataRaw": "15GB+최대3Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL244N957", "benefitLabel": "CU 20%할인", "giftTotalValue": 210000}] },
+  { "familyName": "데이터 맘껏 15GB+/300분", "price": 27500, "dataRaw": "15GB+최대3Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL245O253", "benefitLabel": "CU 20%할인", "giftTotalValue": 210000}, {"planCode": "PL213Q207", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "데이터 맘껏 15GB+/100분", "price": 27600, "dataRaw": "15GB+최대3Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL2543166", "benefitLabel": "다이소 5000P", "giftTotalValue": 210000}, {"planCode": "PL2543165", "benefitLabel": "올리브영 5000P", "giftTotalValue": 210000}] },
+  { "familyName": "데이터 맘껏 15GB+/300분", "price": 29800, "dataRaw": "15GB+최대3Mbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL2543139", "benefitLabel": "올리브영 5000P", "giftTotalValue": 210000}, {"planCode": "PL2543136", "benefitLabel": "다이소 5000P", "giftTotalValue": 210000}] },
+  { "familyName": "청소년 모두다 맘껏 안심+", "price": 5900, "dataRaw": "0GB + 최대 400Kbps", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": true, "variants": [{"planCode": "PL24BR138", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "청소년 데이터 맘껏 1GB+/300분", "price": 14300, "dataRaw": "1GB+최대1Mbps", "dataVolume": 1.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL215K412", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "데이터 년9GB", "price": 29700, "dataRaw": "9GB(1년 사용)", "dataVolume": 9.0, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "KISOC9GBB", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "데이터전용 10GB+", "price": 10800, "dataRaw": "10GB+최대200Kbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "KISSDV10G", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "데이터전용 20GB+", "price": 14100, "dataRaw": "20GB+최대200Kbps", "dataVolume": 20.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "KISSDV20G", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "데이터쉐어링 전용요금제", "price": 0, "dataRaw": "0MB(쉐어링 사용)", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KISOPMDSB", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "복지 안심 7GB+", "price": 9500, "dataRaw": "7GB", "dataVolume": 7.0, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "PL2595308", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "복지 안심 5GB+", "price": 8500, "dataRaw": "5GB", "dataVolume": 5.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL2595307", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "복지 안심 3GB+", "price": 6500, "dataRaw": "3GB", "dataVolume": 3.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL2595306", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "복지 안심 1GB+", "price": 5500, "dataRaw": "1GB", "dataVolume": 1.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL2594280", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "5G 데이터 충분 3GB/200분", "price": 6900, "dataRaw": "3GB", "dataVolume": 3.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL227J328", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "5G 데이터 충분 6GB/200분", "price": 7900, "dataRaw": "6GB", "dataVolume": 6.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL222N230", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "5G 데이터 충분 10GB/200분", "price": 9900, "dataRaw": "10GB", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "PL222N231", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "5G 데이터 충분 15GB/200분", "price": 13900, "dataRaw": "15GB", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL228Q703", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "5G 데이터 충분 20GB/200분", "price": 16900, "dataRaw": "20GB", "dataVolume": 20.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL22BP536", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "LTE 스마트 워치", "price": 7700, "dataRaw": "250MB+최대 200Kbps", "dataVolume": 0.244140625, "rangeId": "BELOW_1GB", "isUnlimited": true, "variants": [{"planCode": "PL215K418", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "LTE 데이터 알뜰 0MB/30분", "price": 8800, "dataRaw": "0MB", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KISUSEV14", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "LTE 데이터 알뜰 200MB/30분", "price": 21890, "dataRaw": "200MB", "dataVolume": 0.1953125, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KISLTEM19", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "LTE 데이터 알뜰 500MB/30분", "price": 18700, "dataRaw": "500MB", "dataVolume": 0.48828125, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KISLTEU18", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "LTE 데이터 알뜰 500MB/60분", "price": 19800, "dataRaw": "500MB", "dataVolume": 0.48828125, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "PL209L163", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "LTE 데이터 실속 3GB/100분", "price": 21000, "dataRaw": "3GB", "dataVolume": 3.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL243I822", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "LTE 데이터 실속 5GB/100분", "price": 25000, "dataRaw": "5GB", "dataVolume": 5.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL243I826", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "LTE 데이터 맘껏 5GB+/100분", "price": 33000, "dataRaw": "5GB+최대 1Mbps", "dataVolume": 5.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL227J318", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "LTE 모두다 맘껏 11GB+", "price": 59950, "dataRaw": "11GB+일2GB+최대3Mbps", "dataVolume": 11.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "KISMFR545", "benefitLabel": "기본형", "giftTotalValue": 80000}] },
+  { "familyName": "5G 모두다 맘껏 14GB+", "price": 32000, "dataRaw": "14GB+최대1Mbps", "dataVolume": 14.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "M5GSLIMPP", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 30GB+", "price": 36700, "dataRaw": "30GB+최대1Mbps", "dataVolume": 30.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL231V999", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 50GB+", "price": 37900, "dataRaw": "50GB+최대1Mbps", "dataVolume": 50.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL234L658", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 70GB+", "price": 39100, "dataRaw": "70GB+최대1Mbps", "dataVolume": 70.0, "rangeId": "RANGE_51_99", "isUnlimited": true, "variants": [{"planCode": "PL238P570", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 90GB+", "price": 40300, "dataRaw": "90GB+최대1Mbps", "dataVolume": 90.0, "rangeId": "RANGE_51_99", "isUnlimited": true, "variants": [{"planCode": "PL238P564", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 110GB+", "price": 41500, "dataRaw": "110GB+최대5Mbps", "dataVolume": 110.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL238P559", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 200GB+", "price": 47700, "dataRaw": "200GB+최대10Mbps", "dataVolume": 200.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL238P555", "benefitLabel": "밀리의 서재 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 110GB+", "price": 44200, "dataRaw": "110GB+최대5Mbps", "dataVolume": 110.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL228Q684", "benefitLabel": "지니뮤직 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 200GB+", "price": 50400, "dataRaw": "200GB+최대10Mbps", "dataVolume": 200.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL228Q688", "benefitLabel": "지니뮤직 FREE", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 70GB+", "price": 40900, "dataRaw": "70GB+최대1Mbps", "dataVolume": 70.0, "rangeId": "RANGE_51_99", "isUnlimited": true, "variants": [{"planCode": "PL25C4809", "benefitLabel": "올리브영 5000P", "giftTotalValue": 210000}, {"planCode": "PL25C4808", "benefitLabel": "다이소 5000P", "giftTotalValue": 210000}, {"planCode": "PL25C4807", "benefitLabel": "Pay쿠폰 5000P", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 90GB+", "price": 41900, "dataRaw": "90GB+최대1Mbps", "dataVolume": 90.0, "rangeId": "RANGE_51_99", "isUnlimited": true, "variants": [{"planCode": "PL25C4812", "benefitLabel": "올리브영 5000P", "giftTotalValue": 210000}, {"planCode": "PL25C4811", "benefitLabel": "다이소 5000P", "giftTotalValue": 210000}, {"planCode": "PL25C4810", "benefitLabel": "Pay쿠폰 5000P", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 안심 6GB+", "price": 11900, "dataRaw": "6GB+최대 400Kbps", "dataVolume": 6.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL219G979", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "5G 모두다 맘껏 안심 8GB+", "price": 12900, "dataRaw": "8GB+최대 400Kbps", "dataVolume": 8.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL219G980", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "5G 모두다 맘껏 안심 10GB+", "price": 13900, "dataRaw": "10GB+최대 400Kbps", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": true, "variants": [{"planCode": "PL22BP539", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "5G 모두다 맘껏 안심 15GB+", "price": 16900, "dataRaw": "15GB+최대 400Kbps", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL22BP542", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "5G 모두다 맘껏 안심 20GB+", "price": 19900, "dataRaw": "20GB+최대 400Kbps", "dataVolume": 20.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL22BP541", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "복지 50분/0MB", "price": 8800, "dataRaw": "0MB", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "PL21AT392", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "3G 알뜰 30분/0MB", "price": 18700, "dataRaw": "0MB", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KIS3GSV18", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "3G 알뜰 100분/30MB", "price": 20900, "dataRaw": "30MB", "dataVolume": 0.029296875, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KTIS3GM19", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "3G 알뜰 180분/30MB", "price": 26400, "dataRaw": "30MB", "dataVolume": 0.029296875, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "PL209L178", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "3G 알뜰 통화맘껏/30MB", "price": 34100, "dataRaw": "30MB", "dataVolume": 0.029296875, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "PL209L179", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "3G 복지 50분/0MB", "price": 8800, "dataRaw": "0MB", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KISWLF008", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "3G 청소년 안심 10,000", "price": 13200, "dataRaw": null, "dataVolume": 0.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "KISBIGI3G", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "3G 청소년 80분/500건", "price": 17600, "dataRaw": "0MB", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "KIS3GFRPS", "benefitLabel": "기본형", "giftTotalValue": 0}] },
+  { "familyName": "5G 단말", "price": 21000, "dataRaw": "2GB", "dataVolume": 2.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL21BN496", "benefitLabel": "2GB/200분", "giftTotalValue": 80000}] },
+  { "familyName": "5G 단말", "price": 25000, "dataRaw": "2GB", "dataVolume": 2.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL218I823", "benefitLabel": "2GB/통화맘껏", "giftTotalValue": 80000}] },
+  { "familyName": "5G 단말", "price": 33000, "dataRaw": "6GB", "dataVolume": 6.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL218I825", "benefitLabel": "6GB/통화맘껏", "giftTotalValue": 80000}] },
+  { "familyName": "5G 단말", "price": 19000, "dataRaw": "1GB", "dataVolume": 1.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL21BN495", "benefitLabel": "1GB/100분", "giftTotalValue": 80000}] },
+  { "familyName": "5G 단말", "price": 27000, "dataRaw": "5GB", "dataVolume": 5.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL21BN497", "benefitLabel": "5GB/200분", "giftTotalValue": 80000}] },
+  { "familyName": "5G 단말", "price": 29000, "dataRaw": "4GB", "dataVolume": 4.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL218I824", "benefitLabel": "4GB/통화맘껏", "giftTotalValue": 80000}] },
+  { "familyName": "5G 단말", "price": 50000, "dataRaw": "14GB+최대1Mbps", "dataVolume": 14.0, "rangeId": "RANGE_11_50", "isUnlimited": true, "variants": [{"planCode": "PL21AI302", "benefitLabel": "14GB+/통화맘껏", "giftTotalValue": 80000}] },
+  { "familyName": "5G 단말", "price": 69000, "dataRaw": "110GB+최대5Mbps", "dataVolume": 110.0, "rangeId": "RANGE_100_PLUS", "isUnlimited": true, "variants": [{"planCode": "PL21AI303", "benefitLabel": "110GB+/통화맘껏", "giftTotalValue": 80000}] },
+  { "familyName": "5G 통화 맘껏 3GB", "price": 6900, "dataRaw": "3GB", "dataVolume": 3.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL226S984", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "5G 통화 맘껏 6GB", "price": 9900, "dataRaw": "6GB", "dataVolume": 6.0, "rangeId": "RANGE_1_6", "isUnlimited": false, "variants": [{"planCode": "PL221L939", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "5G 통화 맘껏 10GB", "price": 12900, "dataRaw": "10GB", "dataVolume": 10.0, "rangeId": "RANGE_7_10", "isUnlimited": false, "variants": [{"planCode": "PL221L940", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "5G 통화 맘껏 15GB", "price": 14900, "dataRaw": "15GB", "dataVolume": 15.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL226S993", "benefitLabel": "기본형", "giftTotalValue": 140000}] },
+  { "familyName": "5G 통화 맘껏 20GB", "price": 17900, "dataRaw": "20GB", "dataVolume": 20.0, "rangeId": "RANGE_11_50", "isUnlimited": false, "variants": [{"planCode": "PL22BP535", "benefitLabel": "기본형", "giftTotalValue": 210000}] },
+  { "familyName": "e 5G 통화 150분", "price": 3300, "dataRaw": "0MB", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "PL228Q716", "benefitLabel": "기본형", "giftTotalValue": 30000}] },
+  { "familyName": "e 5G 통화 300분", "price": 6600, "dataRaw": "0MB", "dataVolume": 0.0, "rangeId": "BELOW_1GB", "isUnlimited": false, "variants": [{"planCode": "PL228Q724", "benefitLabel": "기본형", "giftTotalValue": 120000}] },
+  { "familyName": "LTE 시니어 안심 2GB+", "price": 28000, "dataRaw": "2GB+최대400Kbps", "dataVolume": 2.0, "rangeId": "RANGE_1_6", "isUnlimited": true, "variants": [{"planCode": "PL227J316", "benefitLabel": "기본형", "giftTotalValue": 80000}] }
+];
+
+const BENEFIT_NORMALIZE = {
+  "PAY쿠폰 5000P": "네이버페이 5,000P",
+  "PAY 쿠폰 5000P": "네이버페이 5,000P",
+  "Pay쿠폰 5000P": "네이버페이 5,000P",
+  "네이버페이 5000P": "네이버페이 5,000P",
+  "쿠팡캐시 5000원": "쿠팡캐시 5,000원",
+  "올리브영 5000P": "올리브영 5,000P",
+  "다이소 5000P": "다이소 5,000P",
+  "밀리의 서재 FREE": "밀리의 서재",
+  "밀리+후후": "밀리의 서재 + 후후",
+  "지니뮤직 FREE": "지니뮤직",
+  "모아진 FREE": "모아진",
+  "CU 20%할인": "CU 20% 할인",
+  "후후": "후후",
+  "기본형": null
+};
+
+const BENEFIT_COLOR = {
+  "쿠팡캐시": { bg: "#EAF3DE", img: "./data/coupang.png" },
+  "네이버페이": { bg: "#E6F1FB", img: "./data/naverpay.png" },
+  "올리브영": { bg: "#FAEEDA", img: "./data/oliveyoung.png" },
+  "다이소": { bg: "#FAEEDA", img: "./data/daiso.png" },
+  "밀리": { bg: "#FFF2CC", img: "./data/millie.png" },
+  "지니뮤직": { bg: "#E6E6FA", img: "./data/genie.png" },
+  "모아진": { bg: "#E6F1FB", img: "./data/moazine.png" },
+  "CU": { bg: "#EAF3DE", img: "./data/cu.jpg" },
+  "후후": { bg: "#E6F1FB", img: "./data/whowho.png" },
+  "default": { bg: "#F2F4F6", img: null }
+};
+
+/* ─── 파싱 및 정규화 함수 ─── */
+function parseDataRaw(dataRaw) {
+  if (!dataRaw) return { speedAfter: null, isDaily: false };
+  const isDaily = dataRaw.includes("일");
+  const parts = dataRaw.split("+");
+  let speedAfter = parts.length > 1 ? parts.slice(1).join(" + ") : null;
+  if (speedAfter && speedAfter.includes("최대")) {
+    speedAfter = speedAfter.replace("최대", "").trim();
+  }
+  return { speedAfter, isDaily };
+}
+
+function calculatePromoGB(name, vol) {
+  if (name.includes("7GB") && vol === 7) return 15;
+  if (name.includes("10GB") && vol === 10) return 20;
+  if (name.includes("15GB") && vol === 15) return 20;
+  if (name.includes("11GB") && vol === 11) return 71;
+  return 0;
+}
+
+function parseCallBasic(name) {
+  if (name.includes('100분')) return '100분';
+  if (name.includes('200분')) return '200분';
+  if (name.includes('300분')) return '300분';
+  if (name.includes('50분')) return '50분';
+  return '무제한';
+}
+
+function getBenefitConfig(label) {
+  const match = Object.keys(BENEFIT_COLOR).find(k => label.includes(k));
+  return BENEFIT_COLOR[match] || BENEFIT_COLOR["default"];
+}
+
+// 불필요한 괄호 제거
+function cleanPlanName(name) {
+  return name.replace(/\s*\(.*?\)\s*/g, '').trim();
+}
+
+/* =============================================
+   COMPONENTS: EXTRAS
+   ============================================= */
+function SvgIcon({ type }) {
+  const b = { width:28, height:28, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor', strokeWidth:1.5 };
+  switch(type) {
+    case 'data': return <svg {...b}><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/></svg>;
+    case 'call': return <svg {...b}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>;
+    case 'msg': return <svg {...b}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>;
+    case 'gift': return <svg {...b}><rect x="3" y="8" width="18" height="12" rx="1"/><path d="M12 8v12M19 8c0-2.21-1.79-4-4-4-1.25 0-2.37.57-3 1.47C11.37 4.57 10.25 4 9 4 6.79 4 5 5.79 5 8"/></svg>;
+    case 'wifi': return <svg {...b}><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>;
+    case 'add': return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>;
+    case 'link': return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>;
+    case 'share': return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>;
+    case 'give': return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>;
+    default: return null;
+  }
+}
+
+function Accordion({ title, children, defaultOpen = false }) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
+  return (
+    <div className="kt-acc-item">
+      <button className="kt-acc-head" aria-expanded={isOpen} onClick={() => setIsOpen(!isOpen)}>
+        {title}
+        <svg className="kt-acc-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <div className="kt-acc-body">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+/* =============================================
+   COMPARE FULL MODAL (The Table)
+   ============================================= */
+function CompareTableModal({ plans, onClose, stats, removePlan }) {
+  const colCount = plans.length + 1;
+  const gridStyle = { gridTemplateColumns: `120px repeat(${plans.length}, minmax(180px, 1fr))` };
+
+  return (
+    <div className="kt-modal-overlay" onClick={onClose} style={{zIndex: 3000}}>
+      <div className="cmp-modal-wrap" onClick={e=>e.stopPropagation()}>
+        <div className="cmp-header">
+          <h2 className="cmp-title">요금제 한눈에 비교</h2>
+          <button className="kt-modal-close" onClick={onClose}>✕</button>
+        </div>
+        <div className="cmp-content">
+          <div className="cmp-table-container">
+            <div className="cmp-table" style={gridStyle}>
+              {/* Header Row */}
+              <div className="cmp-cell row-header" style={{background: '#fff'}}></div>
+              {plans.map((p, i) => (
+                <div key={i} className="cmp-cell" style={{background: '#fff', paddingTop: '32px', position: 'relative'}}>
+                  <button className="comp-cart-del" style={{top: '12px', right: '12px'}} onClick={() => removePlan(p)}>✕</button>
+                  <div className="cmp-head-plan">{cleanPlanName(p.familyName)}</div>
+                  {p.familyName !== '현재 내 요금제' && (
+                    <button className="cmp-btn-signup" onClick={() => window.location.href = `precheck.html?plan=${encodeURIComponent(p.familyName)}&price=${p.price}`}>
+                      가입하기
+                    </button>
+                  )}
+                </div>
+              ))}
+
+              {/* Price Row */}
+              <div className="cmp-cell row-header">월 납부액</div>
+              {plans.map((p, i) => {
+                const isBest = p.price === stats.minPrice && plans.length > 1;
+                return (
+                  <div key={i} className="cmp-cell">
+                    <div className={`cmp-val-price ${isBest ? 'best' : ''}`}>
+                      {p.price.toLocaleString()}<span style={{fontSize:'15px', fontWeight:600, color:'var(--text-sub)'}}>원</span>
+                    </div>
+                    {isBest && <span className="cs-badge price" style={{marginTop:'8px'}}>최저가</span>}
+                  </div>
+                )
+              })}
+
+              {/* Data Row */}
+              <div className="cmp-cell row-header">데이터</div>
+              {plans.map((p, i) => {
+                const promoGB = calculatePromoGB(p.familyName, p.dataVolume);
+                const totalGB = p.dataVolume + promoGB;
+                const { speedAfter } = parseDataRaw(p.dataRaw);
+                const isBest = totalGB === stats.maxData && plans.length > 1;
+                return (
+                  <div key={i} className="cmp-cell">
+                    <div className={`cmp-val-data ${isBest ? 'best' : ''}`}>{totalGB}GB{p.isUnlimited ? '+' : ''}</div>
+                    {speedAfter && <div style={{fontSize:'13px', color:'var(--text-sub)', marginTop:'6px'}}>소진 시 {speedAfter}</div>}
+                    {isBest && <span className="cs-badge data" style={{marginTop:'8px'}}>데이터 최다</span>}
+                  </div>
+                )
+              })}
+
+              {/* Voice/SMS */}
+              <div className="cmp-cell row-header">음성/문자</div>
+              {plans.map((p, i) => (
+                <div key={i} className="cmp-cell">
+                  <div style={{fontWeight:700, fontSize:'15px'}}>{parseCallBasic(p.familyName)}</div>
+                  <div style={{fontSize:'13px', color:'var(--text-sub)', marginTop:'6px'}}>문자 기본제공</div>
+                </div>
+              ))}
+
+              {/* Benefits */}
+              <div className="cmp-cell row-header">제휴 혜택</div>
+              {plans.map((p, i) => {
+                const benefits = [...new Set(p.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean))];
+                return (
+                  <div key={i} className="cmp-cell">
+                    {benefits.length > 0 ? (
+                      <div className="cs-benefit-icons" style={{justifyContent:'center', gap:'8px'}}>
+                        {benefits.map((b, idx) => {
+                          const cfg = getBenefitConfig(b);
+                          return (
+                            <div key={idx} className="cs-benefit-logo-sq" style={{background: cfg.bg, width:'36px', height:'36px', borderRadius:'8px'}} title={b}>
+                              {cfg.img ? <img src={cfg.img} alt={b} style={{width:'22px', height:'22px', objectFit:'contain'}} /> : <span style={{fontSize:'12px'}}>{b.slice(0,2)}</span>}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    ) : <span style={{color:'var(--text-muted)'}}>-</span>}
+                  </div>
+                )
+              })}
+
+              {/* Extra */}
+              <div className="cmp-cell row-header">추가 혜택</div>
+              {plans.map((p, i) => (
+                <div key={i} className="cmp-cell">
+                  {p.familyName !== '현재 내 요금제' ? (
+                    <div style={{display:'flex', flexDirection:'column', gap:'8px', textAlign:'left'}}>
+                       <div style={{fontSize:'13px', color:'var(--text-main)', display:'flex', gap:'6px'}}><span style={{color:'var(--kt-cyan)', fontWeight:'bold'}}>✓</span> 가족결합 추가 할인</div>
+                       <div style={{fontSize:'13px', color:'var(--text-main)', display:'flex', gap:'6px'}}><span style={{color:'var(--kt-cyan)', fontWeight:'bold'}}>✓</span> {p.isUnlimited ? '데이터 쉐어링 가능' : '데이터 쉐어링 불가'}</div>
+                    </div>
+                  ) : <span style={{color:'var(--text-muted)'}}>-</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =============================================
+   PLAN MODAL (상세 페이지)
+   ============================================= */
+function PlanModal({ plan, onClose }) {
+  const [activeTab, setActiveTab] = useState('detail');
+  if (!plan) return null;
+
+  const { speedAfter } = parseDataRaw(plan.dataRaw);
+  const promoData = calculatePromoGB(plan.familyName, plan.dataVolume);
+  const totalData = plan.dataVolume + promoData;
+  const isUnlimited = plan.isUnlimited;
+
+  const basePrice = plan.price + 18900; 
+  
+  const benefitLabels = plan.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean);
+  const benefitText = benefitLabels.length > 0 ? benefitLabels.join(', ') + ' 제공' : '기본제공';
+  const benefitIcon = benefitLabels.length > 0 ? 'gift' : 'wifi';
+
+  return (
+    <div className="kt-modal-overlay" onClick={onClose}>
+      <div className="kt-modal" onClick={e=>e.stopPropagation()}>
+        
+        <div className="kt-modal-header">
+          <h2 className="kt-modal-title">{cleanPlanName(plan.familyName)}</h2>
+          <button className="kt-modal-close" onClick={onClose} aria-label="닫기">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <div className="kt-modal-scroll">
+          
+          <div className="kt-mdl-sumbox">
+            <div className="kt-mdl-icons">
+              <div className="kt-mdl-icon-item">
+                <div className="kt-mdl-icon-svg"><SvgIcon type="data"/></div>
+                {isUnlimited && <span className="kt-mdl-val-badge">최대 {totalData}GB무제한</span>}
+                <div className="kt-mdl-val">{plan.dataVolume}GB{isUnlimited && speedAfter ? '+'+speedAfter : ''}</div>
+                {promoData > 0 && <div className="kt-mdl-sub">매월 모두에게 {promoData}GB 추가제공</div>}
+              </div>
+              <div className="kt-mdl-icon-item">
+                <div className="kt-mdl-icon-svg"><SvgIcon type="call"/></div>
+                <div className="kt-mdl-val">기본제공</div>
+                <div className="kt-mdl-sub">+영상/부가통화 300분</div>
+              </div>
+              <div className="kt-mdl-icon-item">
+                <div className="kt-mdl-icon-svg"><SvgIcon type="msg"/></div>
+                <div className="kt-mdl-val">기본제공</div>
+              </div>
+              <div className="kt-mdl-icon-item">
+                <div className="kt-mdl-icon-svg"><SvgIcon type={benefitIcon}/></div>
+                <div className="kt-mdl-val">{benefitLabels.length > 0 ? benefitLabels[0] : '무료제공'}</div>
+                <div className="kt-mdl-sub">{benefitText}</div>
+              </div>
+            </div>
+
+            <div className="kt-mdl-price-row">
+              <div className="kt-mdl-price-left">
+                <span className="kt-mdl-price-lbl">월 기본료(VAT 포함)</span>
+                <span className="kt-mdl-price-strike">{basePrice.toLocaleString()}원</span>
+              </div>
+              <div className="kt-mdl-price-right">
+                <span className="kt-mdl-price-pro-lbl">평생 할인가 (VAT 포함)</span>
+                <span className="kt-mdl-price-pro-val">{plan.price.toLocaleString()}<span>원</span></span>
+              </div>
+            </div>
+          </div>
+
+          <div className="kt-mdl-btns">
+            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:plan.familyName,price:plan.price}); window.location.href = `precheck.html?plan=${encodeURIComponent(plan.familyName)}&price=${plan.price}`; }}>
+              가입하기
+            </button>
+          </div>
+
+          <div className="kt-mdl-tabs">
+            <div className={`kt-mdl-tab ${activeTab==='detail'?'active':''}`} onClick={()=>setActiveTab('detail')}>상세 안내</div>
+            <div className={`kt-mdl-tab ${activeTab==='review'?'active':''}`} onClick={()=>setActiveTab('review')}>사용 후기</div>
+          </div>
+
+          {activeTab === 'detail' && (
+            <div className="kt-mdl-content">
+              
+              <div className="kt-mdl-sec-title">요금제 이용 시 추가 이용가능 서비스</div>
+              
+              <div className="kt-svc-4grid">
+                <div className="kt-svc-card">
+                  <div className="kt-svc-icon-wrap" style={{color: 'var(--kt-red)'}}><SvgIcon type="add"/></div>
+                  <div className="kt-svc-title red">LTE 데이터 추가제공</div>
+                  <div className="kt-svc-desc red">24개월 동안 매월 LTE 데이터 10GB 추가 제공</div>
+                </div>
+                <div className="kt-svc-card">
+                  <div className="kt-svc-icon-wrap"><SvgIcon type="link"/></div>
+                  <div className="kt-svc-title">아무나 SOLO 결합</div>
+                  <div className="kt-svc-desc">가입 후 아무나 SOLO 결합 시 매월 평생 데이터 5GB(LTE)를 추가 제공하는 특별 혜택입니다.</div>
+                  <div className="kt-svc-link">자세히보기</div>
+                </div>
+                <div className="kt-svc-card">
+                  <div className="kt-svc-icon-wrap"><SvgIcon type="share"/></div>
+                  <div className="kt-svc-title">데이터 쉐어링</div>
+                  <div className="kt-svc-desc">요금제의 기본제공 데이터를 태블릿 등 다른 기기(1회선)와 추가 요금 없이 무료로 나눠 쓸 수 있습니다.</div>
+                  <div className="kt-svc-link">자세히보기</div>
+                </div>
+                <div className="kt-svc-card">
+                  <div className="kt-svc-icon-wrap"><SvgIcon type="give"/></div>
+                  <div className="kt-svc-title">함께쓰기</div>
+                  <div className="kt-svc-desc">결합되어 있는 상대방에게 매월 2GB를 줄 수 있는 서비스</div>
+                  <div className="kt-svc-link">자세히보기</div>
+                </div>
+              </div>
+
+              <div className="kt-acc-wrap">
+                <Accordion title="요금제 혜택" defaultOpen={true}>
+                  <div className="kt-acc-box">
+                    <strong>{benefitLabels.length > 0 ? benefitLabels.join(', ') : '기본 혜택'} 제공</strong>
+                    <ul className="kt-acc-list" style={{marginTop: '10px'}}>
+                      <li>혜택 소개: 해당 제휴사의 정기구독 혜택이나 포인트를 매월 제공합니다.</li>
+                      <li>혜택 제공 조건: 요금제 가입일(신규/변경)부터 제공되며 정지/해지 시 제공이 중단됩니다.</li>
+                      <li>외국인 및 법인 고객님은 일부 제휴 혜택 이용이 불가할 수 있습니다.</li>
+                    </ul>
+                  </div>
+                </Accordion>
+                <Accordion title="고객 보답 프로그램 데이터 50GB 무료제공 안내">
+                  <ul className="kt-acc-list">
+                    <li>제공일정: 특정 프로모션 기간 한정</li>
+                    <li>제공내역: 매월 데이터 50GB 6개월간 무료 제공</li>
+                    <li>제공된 데이터는 테더링, 데이터쉐어링으로 이용 가능합니다.</li>
+                  </ul>
+                </Accordion>
+                <Accordion title="데이터">
+                  <div className="kt-acc-box">
+                    <strong>데이터 기본 {plan.dataVolume}GB 소진시 {speedAfter ? speedAfter : '해당 속도'}로 데이터 이용 가능</strong>
+                    <ul className="kt-acc-list" style={{marginTop: '10px'}}>
+                      <li>1Mbps: 웹사이트 이용 및 SNS 메신저 등 텍스트 전송에 큰 불편함이 없는 속도</li>
+                      <li>데이터 소진 순서: 충전 데이터 &gt; 쿠폰 데이터 &gt; 요금제 기본 제공량 &gt; QoS</li>
+                      <li>8,800원 상당의 KT WiFi 무료 제공</li>
+                    </ul>
+                  </div>
+                </Accordion>
+                <Accordion title="음성">
+                  <div className="kt-acc-box">
+                    <strong>망내외 유무선 통화 기본제공</strong>
+                    <ul className="kt-acc-list" style={{marginTop: '10px'}}>
+                      <li>불법적, 상업적 발신 행위 억제를 위해 기준 초과 시 정상 요금 부과 혹은 차단할 수 있습니다.</li>
+                      <li>영상/부가 통화 300분 별도 제공 (전국 대표번호 등)</li>
+                    </ul>
+                  </div>
+                </Accordion>
+                <Accordion title="문자">
+                   <ul className="kt-acc-list">
+                      <li>문자메시지 기본제공(SMS, LMS, MMS 모두 포함)</li>
+                      <li>1일 150건 초과 발송 시 제한될 수 있습니다.</li>
+                    </ul>
+                </Accordion>
+                <Accordion title="유의사항">
+                   <ul className="kt-acc-list">
+                      <li>데이터 테더링 및 파일공유형 P2P 서비스는 기본제공량 내에서만 이용 가능합니다.</li>
+                      <li>요금제의 월정액은 실제 개통 시점의 판매가로 적용되며, 당사 정책에 의해 변경 될 수 있습니다.</li>
+                    </ul>
+                </Accordion>
+              </div>
+
+            </div>
+          )}
+          
+          {activeTab === 'review' && (
+             <div className="kt-mdl-content" style={{textAlign:'center', padding: '80px 20px', color: 'var(--text-muted)'}}>
+               등록된 사용 후기가 없습니다.
+             </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =============================================
+   COMPONENTS: PLAN CARD & APP
+   ============================================= */
+
+function FamilyPlanCard({ family, compareList, toggleCompare, onOpen, recoId }) {
+  const promoGB = calculatePromoGB(family.familyName, family.dataVolume);
+  const totalGB = family.dataVolume + promoGB;
+  const { speedAfter } = parseDataRaw(family.dataRaw);
+  const callBasic = parseCallBasic(family.familyName);
+
+  const hasReco = family.priceOptions.some(o => `${family.familyName}_${o.price}` === recoId);
+
+  return (
+    <div className={`fpc-card ${hasReco ? 'has-reco' : ''}`}>
+      {hasReco && <div className="pc-reco-badge">인기</div>}
+      <div className="fpc-header" onClick={() => onOpen({ ...family, price: family.priceOptions[0].price, variants: family.priceOptions[0].variants })}>
+        <div className="fpc-title">{cleanPlanName(family.familyName)}</div>
+
+        <div className="fpc-data-huge">
+          {totalGB === 0 ? "데이터 없음" : `${totalGB}GB`}{family.isUnlimited ? <span className="plus">+</span> : ''}
+        </div>
+
+        <div className="fpc-data-detail">
+          {family.dataVolume > 0 ? `${family.dataVolume}GB` : '0GB'}
+          {speedAfter && <span className="fpc-speed-note"> + 소진 시 {speedAfter}</span>}
+          {promoGB > 0 && <span className="fpc-promo-highlight"> (매월 모두에게 {promoGB}GB 추가제공)</span>}
+        </div>
+
+        <div className="fpc-voice-sms">
+          통화 {callBasic} <span className="divider">|</span> 문자 기본제공
+        </div>
+      </div>
+      <div className="fpc-price-list">
+        {family.priceOptions.map((opt, i) => {
+          const isAdded = compareList.some(c => c.familyName === family.familyName && c.price === opt.price);
+          const isReco = `${family.familyName}_${opt.price}` === recoId;
+          const benefitKey = opt.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean)[0];
+          const cfg = benefitKey ? getBenefitConfig(benefitKey) : null;
+          const displayLabel = benefitKey || '실속';
+          return (
+            <div key={i} className={`fpc-price-row ${isReco ? 'is-reco' : ''}`}>
+              <div className="fpc-logo-wrap" style={{ background: cfg ? cfg.bg : '#F2F4F6' }}>
+                {cfg?.img
+                  ? <img src={cfg.img} alt={displayLabel} />
+                  : <span style={{fontSize:'11px', fontWeight:700, color:'#888'}}>실속</span>}
+              </div>
+              <span className="fpc-benefit-label">{displayLabel}</span>
+              <span className="fpc-price-val">{opt.price.toLocaleString()}<span>원/월</span></span>
+              <button
+                className={`fpc-add-btn ${isAdded ? 'added' : ''}`}
+                onClick={(e) => { e.stopPropagation(); toggleCompare({ ...family, price: opt.price, variants: opt.variants }); }}
+                title={isAdded ? '비교함에서 제거' : '비교함에 추가'}
+              >{isAdded ? '✓' : '+'}</button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
+  const promoGB = calculatePromoGB(plan.familyName, plan.dataVolume);
+  const totalGB = plan.dataVolume + promoGB;
+  const { speedAfter } = parseDataRaw(plan.dataRaw);
+
+  let speedText = speedAfter ? `${speedAfter} 무제한` : (plan.isUnlimited ? "무제한" : "소진 시 차단");
+  
+  const benefits = plan.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean);
+  const uniqueBenefits = [...new Set(benefits)];
+
+  return (
+    <div className={`plan-card ${isAdded ? 'added' : ''}`} onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_card_open',plan_name:plan.familyName,price:plan.price}); onOpen(plan); }}>
+      {isRecommended && <div className="pc-reco-badge">인기</div>}
+      
+      <div className="pc-top-row">
+        <div>
+          <div className="pc-data-huge">
+            {totalGB === 0 ? "없음" : <>{totalGB}<span>GB{plan.isUnlimited ? '+' : ''}</span></>}
+          </div>
+          {promoGB > 0 && <div className="pc-base-data-note">매월 모두에게 {promoGB}GB 추가제공</div>}
+        </div>
+        <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'8px'}}>
+          <div className="pc-price-huge">
+            {plan.price.toLocaleString()}<span>원</span>
+          </div>
+          {uniqueBenefits.length > 0 && (
+            <div className="pc-partner-logos">
+              {uniqueBenefits.map((b, i) => {
+                const cfg = getBenefitConfig(b);
+                return (
+                  <div key={i} className="pc-partner-logo-sq" style={{background: cfg.bg}} title={b}>
+                    {cfg.img
+                      ? <img src={cfg.img} alt={b} style={{width:'16px', height:'16px', objectFit:'contain'}} />
+                      : <span>{b.slice(0,2)}</span>}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="pc-title-row">
+        <h3 className="pc-title">{cleanPlanName(plan.familyName)}</h3>
+        <div className={`pc-speed-txt ${!plan.isUnlimited ? 'alert' : ''}`}>
+          소진 후 {speedText}
+        </div>
+      </div>
+
+      <div className="pc-divider" />
+
+      <button className={`pc-add-btn ${isAdded ? 'added' : ''}`} onClick={(e) => { e.stopPropagation(); onToggle(plan); }}>
+        {isAdded ? '✓ 비교함에 추가됨' : '+ 비교함에 추가'}
+      </button>
+    </div>
+  );
+}
+
+function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, familyMode = false }) {
+  const [filter, setFilter] = useState('all');
+
+  const filtered = useMemo(() => {
+    let list = plans;
+    if (filter === 'unlimit') list = list.filter(p => p.isUnlimited);
+    if (filter === 'limit')   list = list.filter(p => !p.isUnlimited);
+    return list;
+  }, [plans, filter]);
+
+  const groupRecoId = useMemo(() => {
+    const validPlans = filtered.filter(p => p.isUnlimited);
+    const targetPlans = validPlans.length > 0 ? validPlans : filtered;
+    if (targetPlans.length === 0) return null;
+
+    let best = targetPlans[0];
+    let maxVal = -1;
+
+    targetPlans.forEach(p => {
+       const val = familyMode
+          ? Math.max(...p.priceOptions.flatMap(o => o.variants.map(v => v.giftTotalValue || 0)))
+          : Math.max(...p.variants.map(v => v.giftTotalValue || 0));
+
+       if (val > maxVal) {
+          best = p;
+          maxVal = val;
+       } else if (val === maxVal) {
+          const bestPrice = familyMode ? best.priceOptions[0].price : best.price;
+          const pPrice = familyMode ? p.priceOptions[0].price : p.price;
+          if (pPrice < bestPrice) {
+             best = p;
+             maxVal = val;
+          }
+       }
+    });
+
+    if (!best) return null;
+    return familyMode ? `${best.familyName}_${best.priceOptions[0].price}` : `${best.familyName}_${best.price}`;
+  }, [filtered, familyMode]);
+
+
+  const dataGroups = useMemo(() => {
+    const map = new Map();
+    filtered.forEach(p => {
+      const tgb = p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
+      if (!map.has(tgb)) map.set(tgb, []);
+      map.get(tgb).push(p);
+    });
+    
+    // Sort plans within each group
+    Array.from(map.values()).forEach(group => {
+      group.sort((a, b) => {
+        const aReco = familyMode
+          ? (a.priceOptions.some(o => `${a.familyName}_${o.price}` === groupRecoId) ? 0 : 1)
+          : (`${a.familyName}_${a.price}` === groupRecoId ? 0 : 1);
+        const bReco = familyMode
+          ? (b.priceOptions.some(o => `${b.familyName}_${o.price}` === groupRecoId) ? 0 : 1)
+          : (`${b.familyName}_${b.price}` === groupRecoId ? 0 : 1);
+        if (aReco !== bReco) return aReco - bReco;
+        const aP = familyMode ? a.priceOptions[0].price : a.price;
+        const bP = familyMode ? b.priceOptions[0].price : b.price;
+        return aP - bP;
+      });
+    });
+
+    return Array.from(map.entries())
+      .sort(([a], [b]) => b - a)
+      .map(([tgb, groupPlans]) => ({ tgb, groupPlans }));
+  }, [filtered, groupRecoId, familyMode]);
+
+  if (plans.length === 0) return null;
+
+  return (
+    <div className="plan-group" ref={groupRef}>
+      <div className="pg-header-row" onClick={onToggle}>
+        <div className="pg-header-left">
+          <h2 className="pg-title">{title}</h2>
+          <span className="pg-count-badge">{plans.length}개</span>
+        </div>
+        <svg className="pg-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" strokeWidth="2"
+          style={{transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)'}}>
+          <path d="m6 9 6 6 6-6"/>
+        </svg>
+      </div>
+      {isOpen && (
+        <div className="pg-content">
+          <div className="pg-tabs">
+            <button className={`pg-tab ${filter==='all'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('all');}}>전체</button>
+            <button className={`pg-tab ${filter==='unlimit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('unlimit');}}>데이터 무제한</button>
+            <button className={`pg-tab ${filter==='limit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('limit');}}>용량 제한</button>
+          </div>
+          {filtered.length === 0
+            ? <div style={{padding:'60px 0',color:'var(--text-muted)',fontSize:15, textAlign:'center'}}>해당 조건의 요금제가 없습니다.</div>
+            : dataGroups.map(({ tgb, groupPlans }) => (
+              <div key={tgb} className="pg-data-group">
+                <div className="pg-data-label">
+                  {tgb}GB{groupPlans[0]?.isUnlimited ? '+' : ''}
+                  <span className="pg-data-count">{groupPlans.length}개</span>
+                </div>
+                <div className="plan-grid">
+                  {familyMode
+                    ? groupPlans.map(f => (
+                        <FamilyPlanCard key={f.familyName} family={f}
+                          compareList={compareList} toggleCompare={toggleCompare}
+                          onOpen={onOpen} recoId={groupRecoId} />
+                      ))
+                    : groupPlans.map(p => (
+                        <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
+                          isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
+                          onToggle={() => toggleCompare(p)}
+                          isRecommended={`${p.familyName}_${p.price}` === groupRecoId}
+                          onOpen={onOpen} />
+                      ))
+                  }
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      )}
+    </div>
+  );
+}
+
+function App() {
+  const pageEntryTime = React.useRef(Date.now());
+  const [network, setNetwork] = useState('lte');
+  const [viewMode, setViewMode] = useState('data'); // 'data' | 'price'
+  const [openGroups, setOpenGroups] = useState({ '11~29GB': true });
+  
+  const refDataA = React.useRef(null);
+  const refDataB = React.useRef(null);
+  const refDataC = React.useRef(null);
+  const refDataD = React.useRef(null);
+  const refDataE = React.useRef(null);
+  
+  const refPriceA = React.useRef(null);
+  const refPriceB = React.useRef(null);
+  const refPriceC = React.useRef(null);
+  const refPriceD = React.useRef(null);
+  const refPriceE = React.useRef(null);
+
+  const groupRefsData = { '10GB 이하': refDataA, '11~29GB': refDataB, '30GB': refDataC, '31~99GB': refDataD, '100GB+': refDataE };
+  const groupRefsPrice = { '1만원 미만': refPriceA, '1만원대': refPriceB, '2만원대': refPriceC, '3만원대': refPriceD, '4만원 이상': refPriceE };
+  
+  const [compareList, setCompareList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResult, setSearchResult] = useState('');
+  const [modalPlan, setModalPlan] = useState(null);
+  const [showWelcome, setShowWelcome] = useState(true);
+  const [showCompareModal, setShowCompareModal] = useState(false);
+  const [myPrice, setMyPrice] = useState('');
+  const [myData, setMyData] = useState('');
+  const [segment, setSegment] = useState('일반');
+
+  useEffect(() => {
+    if (modalPlan || showCompareModal || showWelcome) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = 'unset';
+    return () => { document.body.style.overflow = 'unset'; }
+  }, [modalPlan, showCompareModal, showWelcome]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const q = searchQuery.trim().replace(/\s+/g, '');
+    if (q.includes('아무나solo결합') || q.includes('아무나솔로결합')) {
+      setSearchResult('아무나 SOLO결합은 혼자서도 결합가능한 kt m 모바일의 결합할인 상품입니다.');
+    } else if (q.length > 0) {
+      setSearchResult('현재는 "아무나 SOLO 결합"에 대한 답변만 준비되어 있습니다.');
+    } else {
+      setSearchResult('');
+    }
+  };
+
+  // '실속' 중복 요금제 삭제 전처리
+  const filteredRawPlans = useMemo(() => {
+    return RAW_PLANS.filter(p => !p.familyName.includes('실속'));
+  }, []);
+
+  const familyNormalizedPlans = useMemo(() => {
+    const map = new Map();
+    filteredRawPlans.forEach(p => {
+      if (!map.has(p.familyName)) {
+        map.set(p.familyName, {
+          familyName: p.familyName, dataVolume: p.dataVolume,
+          dataRaw: p.dataRaw, rangeId: p.rangeId, isUnlimited: p.isUnlimited,
+          priceMap: new Map()
+        });
+      }
+      const entry = map.get(p.familyName);
+      if (!entry.priceMap.has(p.price)) entry.priceMap.set(p.price, { price: p.price, variants: [] });
+      entry.priceMap.get(p.price).variants.push(...p.variants);
+    });
+    return Array.from(map.values()).map(({ priceMap, ...rest }) => ({
+      ...rest,
+      priceOptions: Array.from(priceMap.values()).sort((a, b) => a.price - b.price)
+    }));
+  }, [filteredRawPlans]);
+
+  const { familyAllPlans } = useMemo(() => {
+    let list = familyNormalizedPlans;
+    list = list.filter(f => network === '5g' ? f.familyName.includes('5G') : !f.familyName.includes('5G'));
+    
+    if (segment === '일반') {
+      list = list.filter(f => !f.familyName.includes('시니어') && !f.familyName.includes('복지') && !f.familyName.includes('키즈') && !f.familyName.includes('청소년') && !f.familyName.includes('워치') && !f.familyName.includes('세컨드') && !f.familyName.includes('2nd') && !f.familyName.includes('쉐어'));
+    } else if (segment === '청소년') {
+      list = list.filter(f => f.familyName.includes('청소년'));
+    } else if (segment === '시니어') {
+      list = list.filter(f => f.familyName.includes('시니어'));
+    } else if (segment === '키즈') {
+      list = list.filter(f => f.familyName.includes('키즈'));
+    } else if (segment === '2nd기기') {
+      list = list.filter(f => f.familyName.includes('세컨드') || f.familyName.includes('2nd') || f.familyName.includes('쉐어'));
+    } else if (segment === '복지') {
+      list = list.filter(f => f.familyName.includes('복지'));
+    } else if (segment === '스마트워치') {
+      list = list.filter(f => f.familyName.includes('워치'));
+    }
+
+    return { familyAllPlans: list };
+  }, [familyNormalizedPlans, network, segment]);
+
+  const famTGB = (f) => f.dataVolume + calculatePromoGB(f.familyName, f.dataVolume);
+  const famGroupA = familyAllPlans.filter(f => famTGB(f) <= 10);
+  const famGroupB = familyAllPlans.filter(f => { const t = famTGB(f); return t >= 11 && t <= 29; });
+  const famGroupC = familyAllPlans.filter(f => famTGB(f) === 30);
+  const famGroupD = familyAllPlans.filter(f => { const t = famTGB(f); return t >= 31 && t <= 99; });
+  const famGroupE = familyAllPlans.filter(f => famTGB(f) >= 100);
+
+  const famPriceGroupA = familyAllPlans.filter(f => f.priceOptions[0].price < 10000);
+  const famPriceGroupB = familyAllPlans.filter(f => f.priceOptions[0].price >= 10000 && f.priceOptions[0].price < 20000);
+  const famPriceGroupC = familyAllPlans.filter(f => f.priceOptions[0].price >= 20000 && f.priceOptions[0].price < 30000);
+  const famPriceGroupD = familyAllPlans.filter(f => f.priceOptions[0].price >= 30000 && f.priceOptions[0].price < 40000);
+  const famPriceGroupE = familyAllPlans.filter(f => f.priceOptions[0].price >= 40000);
+
+  function handleNavClick(key) {
+    const currentRefs = viewMode === 'data' ? groupRefsData : groupRefsPrice;
+    setOpenGroups(prev => {
+      const isCurrentlyOpen = prev[key];
+      if (!isCurrentlyOpen) {
+        setTimeout(() => { 
+          const element = currentRefs[key]?.current;
+          if(element) {
+            const offset = 80;
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }, 80);
+      }
+      return { ...prev, [key]: !isCurrentlyOpen };
+    });
+  }
+
+  const toggleCompare = (plan) => {
+    setCompareList(prev => {
+      const exists = prev.find(p => p.familyName === plan.familyName && p.price === plan.price);
+      if (exists) { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_compare_remove',plan_name:plan.familyName,price:plan.price}); return prev.filter(p => !(p.familyName === plan.familyName && p.price === plan.price)); }
+      
+      if (prev.length >= 3) {
+        alert('비교함은 최대 3개까지만 담을 수 있습니다.');
+        return prev;
+      }
+      window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_compare_add',plan_name:plan.familyName,price:plan.price}); return [...prev, plan];
+    });
+  };
+
+  const removeComparePlan = (plan) => {
+    setCompareList(prev => {
+      const updated = prev.filter(p => !(p.familyName === plan.familyName && p.price === plan.price));
+      if(updated.length === 0) setShowCompareModal(false); 
+      return updated;
+    });
+  };
+
+  const compareStats = useMemo(() => {
+    if (compareList.length < 2) return { minPrice: null, maxData: null };
+    const prices = compareList.map(p => p.price);
+    const datas = compareList.map(p => p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume));
+    return { minPrice: Math.min(...prices), maxData: Math.max(...datas) };
+  }, [compareList]);
+
+  return (
+    <div className="app-container">
+      <header className="kt-page-title-wrap">
+        <div className="kt-bcrumb"><span>홈</span> › <span>요금제</span> › <span className="cur">비교</span></div>
+        <h1 className="kt-page-title">요금제 한눈에 비교하기</h1>
+        <p className="kt-page-sub">나에게 딱 맞는 데이터와 혜택을 찾아보세요.</p>
+      </header>
+
+      <div className="kt-layout">
+        <main className="kt-main">
+          {/* 상단 탭 */}
+          <div className="network-tabs">
+            <button className={`network-tab ${network === 'lte' ? 'active' : ''}`} onClick={() => setNetwork('lte')}>LTE 요금제</button>
+            <button className={`network-tab ${network === '5g' ? 'active' : ''}`} onClick={() => setNetwork('5g')}>5G 요금제</button>
+          </div>
+
+          {/* 대상 세그먼트 필터 */}
+          <div className="segment-filter-wrap">
+            {['일반', '청소년', '시니어', '키즈', '2nd기기', '복지', '스마트워치'].map(seg => (
+              <button key={seg} className={`segment-pill ${segment === seg ? 'active' : ''}`}
+                onClick={() => setSegment(seg)}>{seg}</button>
+            ))}
+          </div>
+
+          {/* 데이터/가격 기준 보기 토글 */}
+          <div className="view-mode-bar">
+            <div className="view-mode-toggle">
+              <button className={`view-mode-btn ${viewMode === 'data' ? 'active' : ''}`} 
+                onClick={() => { setViewMode('data'); setOpenGroups({'11~29GB': true}); }}>데이터 기준으로 보기</button>
+              <button className={`view-mode-btn ${viewMode === 'price' ? 'active' : ''}`} 
+                onClick={() => { setViewMode('price'); setOpenGroups({'1만원대': true}); }}>가격을 기준으로 보기</button>
+            </div>
+          </div>
+
+          {/* 구간 빠른 이동 */}
+          <div className="usage-filter-wrap">
+            {(viewMode === 'data' ? ['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'] : ['1만원 미만', '1만원대', '2만원대', '3만원대', '4만원 이상']).map(key => (
+              <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
+                onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
+                {key}
+              </button>
+            ))}
+          </div>
+
+          {/* 아코디언 그룹 */}
+          <div>
+            {viewMode === 'data' ? (
+              <>
+                <PlanGroup title="10GB 이하" plans={famGroupA} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['10GB 이하']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '10GB 이하': !prev['10GB 이하']}))}
+                  groupRef={refDataA} sortDesc={true} familyMode={true} />
+                <PlanGroup title="11~29GB" plans={famGroupB} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['11~29GB']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '11~29GB': !prev['11~29GB']}))}
+                  groupRef={refDataB} familyMode={true} />
+                <PlanGroup title="30GB" plans={famGroupC} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['30GB']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '30GB': !prev['30GB']}))}
+                  groupRef={refDataC} familyMode={true} />
+                <PlanGroup title="31~99GB" plans={famGroupD} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '31~99GB': !prev['31~99GB']}))}
+                  groupRef={refDataD} familyMode={true} />
+                <PlanGroup title="100GB+" plans={famGroupE} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['100GB+']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '100GB+': !prev['100GB+']}))}
+                  groupRef={refDataE} familyMode={true} />
+              </>
+            ) : (
+              <>
+                <PlanGroup title="1만원 미만" plans={famPriceGroupA} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['1만원 미만']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '1만원 미만': !prev['1만원 미만']}))}
+                  groupRef={refPriceA} familyMode={true} />
+                <PlanGroup title="1만원대" plans={famPriceGroupB} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['1만원대']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '1만원대': !prev['1만원대']}))}
+                  groupRef={refPriceB} familyMode={true} />
+                <PlanGroup title="2만원대" plans={famPriceGroupC} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['2만원대']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '2만원대': !prev['2만원대']}))}
+                  groupRef={refPriceC} familyMode={true} />
+                <PlanGroup title="3만원대" plans={famPriceGroupD} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['3만원대']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '3만원대': !prev['3만원대']}))}
+                  groupRef={refPriceD} familyMode={true} />
+                <PlanGroup title="4만원 이상" plans={famPriceGroupE} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['4만원 이상']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '4만원 이상': !prev['4만원 이상']}))}
+                  groupRef={refPriceE} familyMode={true} />
+              </>
+            )}
+          </div>
+        </main>
+
+        <aside className="kt-side">
+          <form className="comp-search-wrap" onSubmit={handleSearch} style={{marginBottom:'16px'}}>
+            <div className="comp-search-input-box">
+              <input
+                type="text"
+                className="comp-search-input"
+                placeholder="모르는 내용은 물어보세요"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button type="submit" className="comp-search-btn" aria-label="검색">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </button>
+            </div>
+            {searchResult && <div className="comp-search-result">{searchResult}</div>}
+          </form>
+
+          {/* 사이드바 비교함 (수직 장바구니 레이아웃) */}
+          <div className="comp-board">
+            <div className="comp-header">
+              <div>
+                <span className="comp-title">비교함</span>
+                <div className="comp-diff-subtitle">요금제를 담아 한눈에 비교하세요</div>
+              </div>
+              <span className="comp-count"><span style={{color: 'var(--kt-red)'}}>{compareList.length}</span> / 3</span>
+            </div>
+            
+            {compareList.length === 0 ? (
+              <div className="comp-cart-empty">
+                <div className="comp-empty-icon">+</div>
+                비교할 요금제를<br/>추가해주세요
+              </div>
+            ) : (
+              <div className="comp-cart-list">
+                {compareList.map((item, i) => {
+                  const promoGB = calculatePromoGB(item.familyName, item.dataVolume);
+                  const totalGB = item.dataVolume + promoGB;
+                  return (
+                    <div key={i} className="comp-cart-item">
+                      <button className="comp-cart-del" onClick={() => toggleCompare(item)}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                      <div className="comp-cart-name">{cleanPlanName(item.familyName)}</div>
+                      <div className="comp-cart-specs">
+                         <div className="comp-cart-data">{totalGB > 0 ? `${totalGB}GB${item.isUnlimited ? '+' : ''}` : '데이터 없음'}</div>
+                         <div className="comp-cart-price">{item.price.toLocaleString()}<span>원</span></div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
+            <div className="comp-action">
+              <button 
+                className="btn-open-compare" 
+                disabled={compareList.length < 2}
+                onClick={() => setShowCompareModal(true)}
+              >
+                {compareList.length < 2 ? '2개 이상 담아주세요' : '한눈에 표로 비교하기'}
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {/* 비교표 전체 화면 모달 */}
+      {showCompareModal && (
+        <CompareTableModal 
+          plans={compareList} 
+          onClose={() => setShowCompareModal(false)} 
+          stats={compareStats}
+          removePlan={removeComparePlan}
+        />
+      )}
+
+      {/* 요금제 상세 모달 */}
+      {modalPlan && <PlanModal plan={modalPlan} onClose={() => setModalPlan(null)} />}
+
+      {/* 진입 환영 모달 */}
+      {showWelcome && (
+        <div className="wm-overlay" onClick={() => setShowWelcome(false)}>
+          <div className="wm-box" onClick={e => e.stopPropagation()}>
+            <div>
+              <div className="wm-title">지금 쓰는 요금제가 있나요?</div>
+              <div className="wm-sub">입력하면 비교함 첫 칸에 쏙 넣어드릴게요.</div>
+            </div>
+            <div className="wm-fields">
+              <div className="wm-field">
+                <span className="wm-label">월 납부금액</span>
+                <div className="wm-input-wrap">
+                  <input className="wm-input" type="number" placeholder="예) 29000" value={myPrice}
+                    onChange={e => setMyPrice(e.target.value)} />
+                  <span className="wm-unit">원</span>
+                </div>
+              </div>
+              <div className="wm-field">
+                <span className="wm-label">기본 데이터</span>
+                <div className="wm-input-wrap">
+                  <input className="wm-input" type="number" placeholder="예) 15" value={myData}
+                    onChange={e => setMyData(e.target.value)} />
+                  <span className="wm-unit">GB</span>
+                </div>
+              </div>
+            </div>
+            <div className="wm-actions">
+              <button className="wm-btn-primary" onClick={() => {
+                const price = parseInt(myPrice, 10);
+                const data = parseFloat(myData);
+                if (price > 0 && data > 0) {
+                  const myPlan = {
+                    familyName: '현재 내 요금제',
+                    price,
+                    dataVolume: data,
+                    isUnlimited: false,
+                    dataRaw: `${data}GB`,
+                    variants: []
+                  };
+                  setCompareList([myPlan]);
+                }
+                setShowWelcome(false);
+              }}>비교함에 넣고 시작하기</button>
+              <button className="wm-btn-skip" onClick={() => setShowWelcome(false)}>그냥 둘러볼게요</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
