@@ -30,49 +30,61 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
 <style>
 /* ==========================================
-   BASE RESET & TOKENS
+   BASE RESET & TOKENS (Modernized)
    ========================================== */
 * { box-sizing: border-box; }
 :root {
-  --kt-red: #FF0000;
-  --kt-text: #1a1a1a;
-  --kt-line: #e5e5e5;
-  --kt-bg-soft: #f7f7f7;
-  --color-primary: #FF0000;
-  --color-primary-light: #FFE5E5;
-  --color-green: #0F6E56;
-  --color-green-light: #EAF3DE;
-  --color-amber: #633806;
-  --color-amber-light: #FAEEDA;
-  --color-border-primary: #FF0000;
-  --color-border-tertiary: #E5E5E5;
-  --color-text-secondary: #666;
-  --color-background-secondary: #F5F5F5;
-  --kt-cyan: #00c7b5;
+  --kt-red: #E60012;
+  --kt-red-hover: #CC0010;
+  --kt-red-light: #FFF0F1;
+  --kt-cyan: #00C7B5;
+  --kt-cyan-hover: #00B0A0;
+  
+  --text-main: #191919;
+  --text-sub: #666666;
+  --text-muted: #999999;
+  
+  --border-light: #E5E8EB;
+  --border-strong: #D1D6DB;
+  
+  --bg-main: #FFFFFF;
+  --bg-soft: #F7F9FA;
+  --bg-hover: #F2F4F6;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.08);
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
 }
+
 html, body { margin: 0; padding: 0; }
 body {
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
-  color: var(--kt-text);
-  background: #fff;
+  color: var(--text-main);
+  background: var(--bg-main);
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
+  line-height: 1.5;
 }
-button { font-family: inherit; cursor: pointer; border: none; background: none; padding: 0; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; padding: 0; color: inherit; outline: none; }
 
 /* ==========================================
    LAYOUT & PAGE TITLE
    ========================================== */
-.kt-page-title-wrap { max-width: 1280px; margin: 0 auto; padding: 40px 20px 20px; }
-.kt-bcrumb { font-size: 13px; color: #bbb; margin-bottom: 10px; }
-.kt-bcrumb .cur { color: #555; font-weight: 700; }
-.kt-page-title { font-size: 32px; font-weight: 800; margin: 0 0 6px; }
-.kt-page-sub { font-size: 14px; color: #999; margin: 0; }
+.kt-page-title-wrap { max-width: 1280px; margin: 0 auto; padding: 48px 20px 24px; }
+.kt-bcrumb { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
+.kt-bcrumb .cur { color: var(--text-sub); font-weight: 600; }
+.kt-page-title { font-size: 32px; font-weight: 700; margin: 0 0 8px; color: var(--text-main); letter-spacing: -0.02em; }
+.kt-page-sub { font-size: 15px; color: var(--text-sub); margin: 0; }
 
 .kt-layout {
   max-width: 1280px; margin: 0 auto; padding: 24px 20px 100px;
-  display: flex; gap: 32px; align-items: flex-start;
+  display: flex; gap: 40px; align-items: flex-start;
 }
 .kt-main { flex: 1; min-width: 0; }
 .kt-side { width: 340px; flex-shrink: 0; position: sticky; top: 100px; }
@@ -81,378 +93,464 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
    TABS & FILTERS
    ========================================== */
 .network-tabs {
-  display: flex; justify-content: center; gap: 40px;
-  border-bottom: 1px solid var(--kt-line); margin-bottom: 32px;
+  display: flex; justify-content: center; gap: 32px;
+  border-bottom: 1px solid var(--border-light); margin-bottom: 24px;
 }
 .network-tab {
-  padding: 12px 20px; font-size: 18px; font-weight: 700; color: #888;
-  border-bottom: 3px solid transparent; transition: all 0.2s;
+  padding: 12px 4px; font-size: 18px; font-weight: 600; color: var(--text-muted);
+  border-bottom: 3px solid transparent; transition: all 0.2s ease;
+  position: relative; top: 1px;
 }
-.network-tab.active { color: #111; border-bottom-color: #111; }
+.network-tab:hover { color: var(--text-sub); }
+.network-tab.active { color: var(--text-main); border-bottom-color: var(--text-main); font-weight: 700; }
 
-.intent-filter-wrap { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
-.intent-pill {
-  padding: 10px 20px; border-radius: 999px; font-size: 15px; font-weight: 700;
-  background: var(--color-background-secondary); color: var(--color-text-secondary);
-  transition: all 0.2s; border: 1px solid transparent;
-}
-.intent-pill.active { background: var(--color-primary); color: #fff; }
-.segment-filter-wrap { display: flex; gap: 6px; margin: 12px 0 0; }
+.segment-filter-wrap { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
 .segment-pill {
-  padding: 6px 16px; border-radius: 999px; font-size: 13px; font-weight: 700;
-  background: #f5f5f5; color: #666; border: 1.5px solid transparent;
-  cursor: pointer; transition: all 0.15s;
+  padding: 8px 18px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  background: var(--bg-soft); color: var(--text-sub); border: 1px solid transparent;
+  transition: all 0.2s ease;
 }
-.segment-pill.active { background: #fff; color: #E60012; border-color: #E60012; }
+.segment-pill:hover { background: var(--border-light); }
+.segment-pill.active { background: var(--kt-red-light); color: var(--kt-red); border-color: rgba(230,0,18,0.2); }
+
+.view-mode-bar { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+.view-mode-toggle { display: inline-flex; background: var(--bg-soft); border-radius: var(--radius-md); padding: 4px; border: 1px solid var(--border-light); }
+.view-mode-btn { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text-sub); transition: all 0.2s ease; }
+.view-mode-btn:hover { color: var(--text-main); }
+.view-mode-btn.active { background: var(--bg-main); color: var(--text-main); box-shadow: var(--shadow-sm); font-weight: 700; }
 
 .usage-filter-wrap {
   position: sticky; top: 0; z-index: 40;
-  background: #fff; border-bottom: 1px solid #f0f0f0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  display: flex; align-items: stretch; height: 54px;
-  margin: 0;
-}
-.usage-filter-logo {
-  width: 60px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  border-right: 1px solid #f0f0f0; margin-right: 0;
-}
-.usage-filter-logo-sq {
-  width: 34px; height: 34px; background: #E60012; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border-light);
+  display: flex; align-items: stretch; height: 56px;
+  margin: 0 0 16px 0;
 }
 .usage-chip {
-  flex: 1; height: 54px; border-radius: 0;
-  font-size: 14px; font-weight: 700;
-  background: #fff; border: none; border-right: 1px solid #f0f0f0;
-  color: #666; transition: background 0.15s, color 0.15s;
-  letter-spacing: -0.02em;
+  flex: 1; height: 56px; border-radius: 0;
+  font-size: 14px; font-weight: 600;
+  background: transparent; border: none;
+  color: var(--text-sub); transition: all 0.2s ease;
+  position: relative;
 }
-.usage-chip:last-child { border-right: none; }
-.usage-chip:hover { background: #f5f5f5; color: #333; }
-.usage-chip.active { background: #111; color: #fff; }
+.usage-chip::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--kt-red); transform: scaleX(0); transition: transform 0.2s ease;
+}
+.usage-chip:hover { color: var(--text-main); }
+.usage-chip.active { color: var(--kt-red); font-weight: 700; }
+.usage-chip.active::after { transform: scaleX(1); }
 
 /* ==========================================
    PLAN GROUPS (ACCORDION)
    ========================================== */
-.plan-group { border-bottom: 1px solid #f0f0f0; }
+.plan-group { border-bottom: 1px solid var(--border-light); }
 .plan-group:last-child { border-bottom: none; }
 
 .pg-header-row {
   display: flex; align-items: center; justify-content: space-between;
-  cursor: pointer; padding: 28px 0;
+  cursor: pointer; padding: 32px 0;
   gap: 16px;
 }
-.pg-header-left { display: flex; align-items: center; gap: 14px; }
-.pg-title {
-  font-size: 22px; font-weight: 800; margin: 0;
-  color: #111; letter-spacing: -0.04em;
-}
+.pg-header-left { display: flex; align-items: center; gap: 12px; }
+.pg-title { font-size: 20px; font-weight: 700; margin: 0; color: var(--text-main); }
 .pg-count-badge {
   display: inline-flex; align-items: center;
-  background: #f0f0f0; color: #666;
-  font-size: 12px; font-weight: 700;
+  background: var(--bg-soft); color: var(--text-sub);
+  font-size: 13px; font-weight: 600;
   padding: 4px 10px; border-radius: 999px;
 }
-.pg-chevron {
-  color: #bbb;
-  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), color 0.2s;
-  flex-shrink: 0;
-}
-.pg-header-row:hover .pg-chevron { color: #185fa5; }
+.pg-chevron { color: var(--text-muted); transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); }
+.pg-header-row:hover .pg-chevron { color: var(--text-main); }
 
-.pg-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
+.pg-tabs { display: flex; gap: 8px; margin-bottom: 24px; }
 .pg-tab {
-  padding: 7px 16px; border-radius: 999px;
-  background: #f5f5f5; color: #888;
-  font-size: 13px; font-weight: 700;
-  transition: all 0.2s; border: 1.5px solid transparent;
+  padding: 8px 16px; border-radius: 999px;
+  background: var(--bg-main); color: var(--text-sub); border: 1px solid var(--border-strong);
+  font-size: 13px; font-weight: 600;
+  transition: all 0.2s ease;
 }
-.pg-tab:hover { color: #444; background: #ebebeb; }
-.pg-tab.active { background: #111; color: #fff; }
+.pg-tab:hover { background: var(--bg-soft); color: var(--text-main); }
+.pg-tab.active { background: var(--text-main); color: #fff; border-color: var(--text-main); }
 
 /* ==========================================
    PLAN GRID
    ========================================== */
-.plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.plan-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 
 /* ==========================================
-   PLAN CARD UI
+   FAMILY PLAN CARD (Improved Intro)
    ========================================== */
-.plan-card {
-  background: #fff; border: 1px solid var(--color-border-tertiary);
-  border-radius: 14px; padding: 16px; display: flex; flex-direction: column;
-  position: relative; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  cursor: pointer;
+.fpc-card {
+  background: var(--bg-main); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); overflow: hidden;
+  box-shadow: var(--shadow-sm); position: relative;
+  display: flex; flex-direction: column; transition: all 0.2s ease;
 }
-.plan-card:hover { border-color: var(--color-border-primary); box-shadow: 0 6px 20px rgba(24,95,165,0.08); transform: translateY(-2px); }
-.plan-card.added { border: 2px solid var(--color-primary); }
+.fpc-card.has-reco { border-color: var(--text-main); box-shadow: var(--shadow-md); border-width: 1px;}
+.fpc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: var(--border-strong); }
+.fpc-card.has-reco:hover { border-color: var(--text-main); }
+
+.fpc-header {
+  padding: 28px 24px 24px; cursor: pointer;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--bg-main); transition: background 0.2s ease;
+}
+.fpc-header:hover { background: var(--bg-soft); }
+
+.fpc-title { font-size: 16px; font-weight: 700; color: var(--text-sub); line-height: 1.4; margin-bottom: 16px; word-break: keep-all; }
+
+.fpc-data-huge { font-size: 36px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; letter-spacing: -0.02em; line-height: 1; }
+.fpc-data-huge .plus { font-size: 24px; font-weight: 700; margin-left: 2px; color: var(--kt-red); vertical-align: super;}
+
+.fpc-data-detail { font-size: 15px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
+.fpc-speed-note { font-weight: 500; color: var(--text-sub); }
+.fpc-promo-highlight { color: #0F6E56; font-weight: 700; background: #EAF3DE; padding: 2px 6px; border-radius: 4px; font-size: 13px; margin-left: 4px; vertical-align: middle;}
+
+.fpc-voice-sms { 
+  font-size: 14px; font-weight: 600; color: var(--text-sub); 
+  display: flex; align-items: center; gap: 8px; margin-top: 16px; 
+  background: var(--bg-soft); padding: 10px 14px; border-radius: 8px; width: fit-content; 
+}
+.fpc-voice-sms .divider { color: var(--border-strong); }
+
+.fpc-price-list { display: flex; flex-direction: column; }
+.fpc-price-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 24px; border-bottom: 1px solid var(--border-light);
+  transition: background 0.15s; background: var(--bg-main);
+}
+.fpc-price-row:last-child { border-bottom: none; }
+.fpc-price-row:hover { background: var(--bg-soft); }
+.fpc-price-row.is-reco { background: var(--bg-soft); }
+.fpc-logo-wrap {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(0,0,0,0.04); background: #fff;
+}
+.fpc-logo-wrap img { width: 22px; height: 22px; object-fit: contain; }
+.fpc-benefit-label { font-size: 14px; font-weight: 700; color: var(--text-main); flex: 1; line-height: 1.3; }
+.fpc-price-val { font-size: 18px; font-weight: 800; color: var(--kt-red); white-space: nowrap; letter-spacing: -0.02em;}
+.fpc-price-val span { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-left: 2px; }
+.fpc-add-btn {
+  width: 36px; height: 36px; border-radius: var(--radius-sm); flex-shrink: 0;
+  font-size: 20px; font-weight: 400; line-height: 1;
+  border: 1px solid var(--border-strong); color: var(--text-sub); background: var(--bg-main);
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;
+}
+.fpc-add-btn:hover { background: var(--bg-hover); color: var(--text-main); border-color: var(--text-sub); }
+.fpc-add-btn.added { background: var(--kt-red); color: #fff; border-color: var(--kt-red); font-size: 14px; font-weight: 700; }
 
 .pc-reco-badge {
-  position: absolute; top: -10px; right: 14px;
-  background: #111; color: #fff; font-size: 10px; font-weight: 800;
-  padding: 3px 8px; border-radius: 6px; box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  position: absolute; top: -14px; right: 24px;
+  background: var(--text-main);
+  color: #fff; font-size: 12px; font-weight: 700;
+  padding: 6px 16px; border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border: none; z-index: 10;
+  display: flex; align-items: center; gap: 4px;
 }
 
-.pc-top-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-.pc-data-huge { font-size: 28px; font-weight: 900; color: #111; letter-spacing: -0.04em; }
-.pc-data-huge span { font-size: 15px; font-weight: 800; }
-.pc-price-huge { font-size: 20px; font-weight: 900; color: var(--kt-red); letter-spacing: -0.02em; }
-.pc-price-huge span { font-size: 12px; font-weight: 700; color: #888; margin-left: 2px; }
+/* ==========================================
+   PLAN CARD UI (Standard - Non Family)
+   ========================================== */
+.plan-card {
+  background: var(--bg-main); border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column;
+  position: relative; transition: all 0.2s ease; box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.plan-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+.plan-card.added { border: 2px solid var(--kt-red); }
 
-.pc-base-data-note { font-size: 11px; color: #047857; font-weight: 700; margin-bottom: 6px; }
+.pc-top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.pc-data-huge { font-size: 26px; font-weight: 700; color: var(--text-main); line-height: 1.2; }
+.pc-data-huge span { font-size: 14px; font-weight: 600; margin-left: 2px; }
+.pc-price-huge { font-size: 18px; font-weight: 700; color: var(--kt-red); text-align: right; }
+.pc-price-huge span { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-left: 2px; }
 
-.pg-data-group { margin-bottom: 28px; }
-.pg-data-group:last-child { margin-bottom: 4px; }
+.pc-base-data-note { font-size: 12px; color: var(--kt-cyan); font-weight: 600; margin-bottom: 8px; }
+
+.pg-data-group { margin-bottom: 32px; }
+.pg-data-group:last-child { margin-bottom: 8px; }
 .pg-data-label {
-  font-size: 13px; font-weight: 800; color: #aaa;
+  font-size: 16px; font-weight: 700; color: var(--text-main);
   display: flex; align-items: center; gap: 8px;
-  margin-bottom: 10px; padding-bottom: 6px;
-  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 16px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--text-main);
 }
-.pg-data-count { font-size: 11px; font-weight: 600; color: #ccc; }
-.pc-title-row { margin-bottom: 12px; }
-.pc-title { font-size: 14px; font-weight: 800; color: #111; line-height: 1.3; margin: 0 0 4px; word-break: keep-all; }
-.pc-speed-txt { font-size: 12px; font-weight: 600; color: #666; }
-.pc-speed-txt.alert { color: #A32D2D; }
-.pc-promo-txt { font-size: 11px; color: var(--color-green); font-weight: 700; margin-top: 2px; }
-.pc-promo-badge { display: inline-block; background: #E6F9F4; color: #047857; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-top: 3px; }
+.pg-data-count { font-size: 13px; font-weight: 600; color: var(--text-muted); }
 
-.pc-divider { height: 1px; background: #f0f0f0; margin: 0 0 12px; }
+.pc-title-row { margin-bottom: 16px; flex: 1; }
+.pc-title { font-size: 15px; font-weight: 600; color: var(--text-main); line-height: 1.4; margin: 0 0 6px; word-break: keep-all; }
+.pc-speed-txt { font-size: 13px; font-weight: 500; color: var(--text-sub); }
+.pc-speed-txt.alert { color: var(--kt-red); }
 
-.pc-partner-logos { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
+.pc-divider { height: 1px; background: var(--border-light); margin: 0 0 16px; }
+
+.pc-partner-logos { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; margin-top: 4px; }
 .pc-partner-logo-sq {
-  width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+  width: 24px; height: 24px; border-radius: 6px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 800;
-  border: 1px solid rgba(0,0,0,0.06);
-}
-.pc-benefit-chip {
-  font-size: 11px; font-weight: 700; color: #555;
-  background: #f5f5f5; border-radius: 999px; padding: 3px 9px;
+  font-size: 10px; font-weight: 700;
+  border: 1px solid rgba(0,0,0,0.04); background: #fff;
 }
 
 .pc-add-btn {
-  width: 100%; padding: 10px; border-radius: 8px; margin-top: auto;
-  font-size: 12px; font-weight: 800; text-align: center; transition: all 0.2s;
-  border: 1px solid var(--color-border-tertiary); color: #444; background: #fff;
+  width: 100%; padding: 12px; border-radius: var(--radius-sm); margin-top: auto;
+  font-size: 14px; font-weight: 600; text-align: center; transition: all 0.2s ease;
+  border: 1px solid var(--border-strong); color: var(--text-main); background: var(--bg-main);
 }
-.pc-add-btn:hover { background: #f9f9f9; }
-.pc-add-btn.added { background: var(--color-primary-light); color: var(--color-primary); border-color: var(--color-primary-light); }
-.pc-add-btn.added:hover { background: #FFE5E5; } /* Updated hover for red theme */
+.pc-add-btn:hover { background: var(--bg-hover); }
+.pc-add-btn.added { background: var(--kt-red-light); color: var(--kt-red); border-color: var(--kt-red-light); }
+.pc-add-btn.added:hover { background: #FFE5E5; }
 
 /* ==========================================
-   COMPARE BOARD
+   COMPARE BOARD (Sidebar) - Compact Stack Layout
    ========================================== */
-.comp-board { background: #fff; border: 1px solid var(--color-border-tertiary); border-radius: 16px; overflow: hidden; position: sticky; top: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
-.comp-header { padding: 16px 20px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; }
-.comp-title { font-size: 16px; font-weight: 800; }
-.comp-diff-subtitle { font-size: 11px; font-weight: 700; color: #888; margin-top: 2px; letter-spacing: -0.01em; }
-.comp-count { font-size: 13px; color: #888; font-weight: 600; }
+.comp-board { background: var(--bg-main); border: 1px solid var(--border-light); border-radius: var(--radius-xl); overflow: hidden; position: sticky; top: 24px; box-shadow: var(--shadow-md); }
+.comp-header { padding: 20px 24px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; background: var(--bg-soft); }
+.comp-title { font-size: 16px; font-weight: 700; color: var(--text-main); }
+.comp-diff-subtitle { font-size: 12px; font-weight: 500; color: var(--text-sub); margin-top: 4px; }
+.comp-count { font-size: 14px; color: var(--text-sub); font-weight: 600; background: var(--bg-main); padding: 4px 12px; border-radius: 999px; border: 1px solid var(--border-light); }
 
-.comp-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 16px; border-bottom: 1px solid #f0f0f0; }
-.comp-slot {
-  padding: 24px 6px 16px; border: 1px solid #e5e5e5; border-radius: 12px; display: flex; flex-direction: column; align-items: center; position: relative; background: #fff; text-align: center;
+.comp-cart-list { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-bottom: 1px solid var(--border-light); }
+.comp-cart-item {
+  background: var(--bg-main); border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md); padding: 16px; position: relative;
+  box-shadow: var(--shadow-sm); transition: 0.2s;
 }
-.comp-slot.empty {
-  justify-content: center; color: #aaa; font-size: 12px; font-weight: 600;
-  border: 1px dashed #ddd; background: #fafafa; padding: 40px 6px;
+.comp-cart-item:hover { border-color: var(--kt-red); }
+.comp-cart-del {
+  position: absolute; top: 12px; right: 12px; width: 26px; height: 26px;
+  background: var(--bg-soft); border-radius: 50%; display: grid; place-items: center;
+  color: var(--text-muted); cursor: pointer; border: none; transition: 0.2s;
 }
+.comp-cart-del:hover { background: var(--border-light); color: var(--text-main); }
+.comp-cart-del svg { width: 14px; height: 14px; }
 
-.cs-info { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
-.cs-row { display: flex; flex-direction: column; gap: 2px; }
-.cs-label { font-size: 11px; color: #aaa; font-weight: 600; }
+.comp-cart-name { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 12px; padding-right: 28px; word-break: keep-all; line-height: 1.3;}
+.comp-cart-specs { display: flex; justify-content: space-between; align-items: flex-end; }
+.comp-cart-data { font-size: 16px; font-weight: 800; color: var(--kt-cyan); }
+.comp-cart-price { font-size: 18px; font-weight: 800; color: var(--kt-red); }
+.comp-cart-price span { font-size: 13px; font-weight: 500; color: var(--text-muted); margin-left: 2px;}
 
-.cs-data { font-size: 17px; font-weight: 900; line-height: 1.2; word-break: keep-all; color: #111; }
-.cs-price { font-size: 15px; font-weight: 800; color: var(--kt-red); }
-.cs-speed, .cs-call { font-size: 12px; font-weight: 700; color: #555; }
-.cs-benefit-logo { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; font-size: 14px; margin: 0 auto; border: 1px solid #eee; }
+.comp-cart-empty { padding: 40px 20px; text-align: center; color: var(--text-muted); font-size: 14px; background: var(--bg-soft); border-radius: var(--radius-md); border: 1px dashed var(--border-strong); margin: 20px; }
+.comp-empty-icon { width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--border-strong); margin: 0 auto 12px; }
 
-.cs-extra-section {
-  width: 100%; border-top: 1px solid #f0f0f0; padding-top: 10px; margin-top: 4px;
-  display: flex; flex-direction: column; gap: 7px;
-}
-.cs-extra-item { font-size: 11px; font-weight: 700; color: #333; text-align: center; line-height: 1.4; }
-.cs-extra-good { color: #047857; }
-.cs-extra-na { color: #bbb; }
-.cs-benefit-icons { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
-.cs-benefit-logo-sq { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; border: 1px solid rgba(0,0,0,0.06); flex-shrink: 0; }
+.comp-action { padding: 20px; background: var(--bg-soft); }
+.btn-open-compare { width: 100%; padding: 16px; background: var(--kt-red); color: white; font-size: 16px; font-weight: 700; border-radius: var(--radius-md); border: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(230,0,18,0.2); cursor: pointer;}
+.btn-open-compare:hover { background: var(--kt-red-hover); transform: translateY(-2px); }
+.btn-open-compare:disabled { background: var(--border-strong); color: #fff; cursor: not-allowed; box-shadow: none; transform: none; }
 
-.cs-del-btn {
-  position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: #f5f5f5;
-  display: grid; place-items: center; color: #888; font-size: 10px; font-weight: bold; transition: 0.2s;
-}
-.cs-del-btn:hover { background: #e0e0e0; color: #333; }
-
-.highlight-marker {
-  background: linear-gradient(180deg, rgba(255,255,255,0) 50%, #ffe066 50%);
-  padding: 0 4px; display: inline-block;
-}
-
-.comp-action { padding: 16px; background: #fafafa; border-top: 1px solid #f0f0f0; }
-.comp-search-wrap { display: flex; flex-direction: column; gap: 8px; }
-.comp-search-input-box { display: flex; align-items: center; background: #fff; border: 1px solid #ddd; border-radius: 8px; padding: 0 12px; overflow: hidden; transition: 0.2s; }
-.comp-search-input-box:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 2px var(--color-primary-light); }
-.comp-search-input { width: 100%; padding: 12px 0; font-size: 14px; border: none; outline: none; }
-.comp-search-btn { font-size: 16px; color: #888; padding: 8px; }
-.comp-search-result { background: #fff; border: 1px solid var(--color-primary); border-radius: 8px; padding: 12px; font-size: 13px; color: #333; line-height: 1.4; word-break: keep-all; box-shadow: 0 2px 8px rgba(255,0,0,0.1); }
-.comp-search-result strong { color: var(--color-primary); }
 
 /* ==========================================
-   MODAL (상세 페이지)
+   COMPARE FULL MODAL (The Table)
+   ========================================== */
+.cmp-modal-wrap { max-width: 1000px; width: 100%; background: #fff; border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh; box-shadow: 0 24px 48px rgba(0,0,0,0.2); position: relative; animation: kt-pop .3s cubic-bezier(0.16, 1, 0.3, 1); }
+.cmp-header { padding: 32px 40px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; background: #fff;}
+.cmp-title { font-size: 24px; font-weight: 700; color: var(--text-main); margin:0; letter-spacing: -0.02em;}
+.cmp-content { padding: 40px; overflow-y: auto; background: var(--bg-soft); }
+
+.cmp-table-container { background: var(--border-light); border-radius: var(--radius-lg); border: 1px solid var(--border-strong); overflow: hidden; box-shadow: var(--shadow-sm); }
+.cmp-table { display: grid; gap: 1px; }
+
+.cmp-cell { padding: 24px 20px; background: #fff; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.cmp-cell.row-header { background: #F9FAFB; font-weight: 600; color: var(--text-sub); text-align: left; align-items: flex-start; justify-content: center; font-size: 15px; }
+
+/* Table Elements */
+.cmp-head-plan { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 16px; word-break: keep-all; line-height: 1.4;}
+.cmp-btn-signup { background: var(--text-main); color: white; padding: 12px 28px; border-radius: 999px; font-weight: 700; font-size: 15px; transition: 0.2s; border: none; cursor: pointer; width: 100%; max-width: 180px;}
+.cmp-btn-signup:hover { background: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.15);}
+
+.cmp-val-price { font-size: 28px; font-weight: 800; color: var(--text-main); letter-spacing: -0.02em;}
+.cmp-val-price.best { color: var(--kt-red); }
+.cmp-val-data { font-size: 24px; font-weight: 800; color: var(--text-main); }
+.cmp-val-data.best { color: #0F6E56; }
+
+.cs-badge { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 6px; line-height: 1.2; display: inline-block; }
+.cs-badge.price { background: var(--kt-red-light); color: var(--kt-red); }
+.cs-badge.data { background: #EAF3DE; color: #0F6E56; }
+
+/* ==========================================
+   SEARCH / GENERAL
+   ========================================== */
+.comp-search-wrap { display: flex; flex-direction: column; gap: 8px; }
+.comp-search-input-box { display: flex; align-items: center; background: var(--bg-main); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 0 16px; overflow: hidden; transition: 0.2s; box-shadow: var(--shadow-sm); }
+.comp-search-input-box:focus-within { border-color: var(--kt-red); box-shadow: 0 0 0 3px rgba(230,0,18,0.1); }
+.comp-search-input { width: 100%; padding: 14px 0; font-size: 14px; border: none; outline: none; background: transparent; color: var(--text-main); }
+.comp-search-input::placeholder { color: var(--text-muted); }
+.comp-search-btn { font-size: 16px; color: var(--text-sub); padding: 8px; transition: color 0.2s; }
+.comp-search-btn:hover { color: var(--kt-red); }
+.comp-search-result { background: var(--bg-soft); border-radius: var(--radius-md); padding: 16px; font-size: 13px; color: var(--text-main); line-height: 1.5; word-break: keep-all; border: 1px solid var(--border-light); }
+
+/* ==========================================
+   MODAL (General)
    ========================================== */
 .kt-modal-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
   z-index: 1000; display: grid; place-items: center;
   padding: 20px; animation: kt-fade-bg .2s ease;
 }
 @keyframes kt-fade-bg { from{opacity:0} to{opacity:1} }
 .kt-modal {
-  background: #fff; width: min(840px, 100%); max-height: 90vh;
-  border-radius: 20px; overflow: hidden; display: flex; flex-direction: column;
-  animation: kt-pop .25s ease; position: relative;
+  background: var(--bg-main); width: min(840px, 100%); max-height: 90vh;
+  border-radius: var(--radius-xl); overflow: hidden; display: flex; flex-direction: column;
+  animation: kt-pop .3s cubic-bezier(0.16, 1, 0.3, 1); position: relative;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.12);
 }
 @keyframes kt-pop {
-  from{opacity:0;transform:translateY(12px) scale(.97)}
+  from{opacity:0;transform:translateY(20px) scale(.98)}
   to{opacity:1;transform:translateY(0) scale(1)}
 }
 .kt-modal-header {
-  padding: 30px 40px 20px; display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0;
+  padding: 32px 40px 24px; display: flex; align-items: flex-start; justify-content: space-between; flex-shrink: 0;
 }
-.kt-modal-title { font-size: 24px; font-weight: 800; margin: 0; letter-spacing: -0.03em; color: #111; }
+.kt-modal-title { font-size: 24px; font-weight: 700; margin: 0; letter-spacing: -0.02em; color: var(--text-main); }
 .kt-modal-close {
-  width: 32px; height: 32px; display: grid; place-items: center; font-size: 20px;
-  color: #666; cursor: pointer; transition: 0.2s; border-radius: 50%;
+  width: 36px; height: 36px; display: grid; place-items: center;
+  color: var(--text-sub); cursor: pointer; transition: 0.2s; border-radius: 50%;
+  background: var(--bg-soft); border: none;
 }
-.kt-modal-close:hover { background: #f0f0f0; color: #000; }
+.kt-modal-close:hover { background: var(--border-light); color: var(--text-main); }
 .kt-modal-scroll { overflow-y: auto; flex: 1; padding-bottom: 40px; }
 
 /* Welcome Modal */
 .wm-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
   z-index: 2000; display: grid; place-items: center; padding: 20px;
   animation: kt-fade-bg .2s ease;
 }
 .wm-box {
-  background: #fff; border-radius: 20px; padding: 36px 32px 28px;
-  width: min(400px, 100%); display: flex; flex-direction: column; gap: 20px;
-  animation: kt-pop .25s ease; position: relative;
+  background: var(--bg-main); border-radius: var(--radius-xl); padding: 40px 32px 32px;
+  width: min(420px, 100%); display: flex; flex-direction: column; gap: 24px;
+  animation: kt-pop .3s cubic-bezier(0.16, 1, 0.3, 1); position: relative;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.12);
 }
-.wm-title { font-size: 18px; font-weight: 800; color: #111; letter-spacing: -0.03em; line-height: 1.4; }
-.wm-sub { font-size: 13px; color: #888; margin-top: 4px; }
-.wm-fields { display: flex; flex-direction: column; gap: 12px; }
-.wm-field { display: flex; flex-direction: column; gap: 6px; }
-.wm-label { font-size: 12px; font-weight: 700; color: #555; }
-.wm-input-wrap { display: flex; align-items: center; border: 1.5px solid #ddd; border-radius: 10px; padding: 0 14px; transition: .2s; background: #fafafa; }
-.wm-input-wrap:focus-within { border-color: #E60012; background: #fff; }
-.wm-input { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 700; padding: 12px 0; background: transparent; }
-.wm-unit { font-size: 13px; color: #aaa; font-weight: 600; flex-shrink: 0; }
-.wm-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.wm-title { font-size: 20px; font-weight: 700; color: var(--text-main); line-height: 1.4; text-align: center; }
+.wm-sub { font-size: 14px; color: var(--text-sub); margin-top: 8px; text-align: center; }
+.wm-fields { display: flex; flex-direction: column; gap: 16px; }
+.wm-field { display: flex; flex-direction: column; gap: 8px; }
+.wm-label { font-size: 13px; font-weight: 600; color: var(--text-sub); }
+.wm-input-wrap { display: flex; align-items: center; border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 0 16px; transition: .2s; background: var(--bg-main); }
+.wm-input-wrap:focus-within { border-color: var(--kt-red); box-shadow: 0 0 0 3px rgba(230,0,18,0.1); }
+.wm-input { flex: 1; border: none; outline: none; font-size: 16px; font-weight: 500; padding: 14px 0; background: transparent; color: var(--text-main); }
+.wm-input::placeholder { color: var(--text-muted); }
+.wm-unit { font-size: 14px; color: var(--text-sub); font-weight: 500; flex-shrink: 0; }
+.wm-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
 .wm-btn-primary {
-  width: 100%; padding: 14px; border-radius: 12px;
-  background: #E60012; color: #fff; font-size: 15px; font-weight: 800;
-  border: none; cursor: pointer; transition: .15s;
+  width: 100%; padding: 16px; border-radius: var(--radius-md);
+  background: var(--kt-red); color: #fff; font-size: 16px; font-weight: 700;
+  border: none; cursor: pointer; transition: .2s ease;
 }
-.wm-btn-primary:hover { background: #c4000f; }
+.wm-btn-primary:hover { background: var(--kt-red-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(230,0,18,0.2); }
 .wm-btn-skip {
-  width: 100%; padding: 10px; border-radius: 12px; border: none;
-  background: transparent; color: #aaa; font-size: 13px; font-weight: 600;
-  cursor: pointer; transition: .15s;
+  width: 100%; padding: 12px; border-radius: var(--radius-md); border: none;
+  background: transparent; color: var(--text-muted); font-size: 14px; font-weight: 500;
+  cursor: pointer; transition: .2s ease; text-decoration: underline; text-underline-offset: 4px;
 }
-.wm-btn-skip:hover { color: #555; }
+.wm-btn-skip:hover { color: var(--text-sub); background: var(--bg-soft); text-decoration: none; }
 
 /* Modal Summary Box */
 .kt-mdl-sumbox {
-  margin: 0 40px 24px; border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden; background: #fff;
+  margin: 0 40px 32px; border: 1px solid var(--border-light); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg-main);
+  box-shadow: var(--shadow-sm);
 }
 .kt-mdl-icons {
-  display: grid; grid-template-columns: repeat(4, 1fr); padding: 24px 10px; border-bottom: 1px solid #f0f0f0;
+  display: grid; grid-template-columns: repeat(4, 1fr); padding: 24px 0; border-bottom: 1px solid var(--border-light); background: var(--bg-main);
 }
 .kt-mdl-icon-item {
-  display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 8px; position: relative;
+  display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative;
 }
 .kt-mdl-icon-item:not(:last-child)::after {
-  content: ''; position: absolute; right: 0; top: 10%; height: 80%; width: 1px; background: #eee;
+  content: ''; position: absolute; right: 0; top: 15%; height: 70%; width: 1px; background: var(--border-light);
 }
-.kt-mdl-icon-svg { margin-bottom: 12px; color: #ccc; }
-.kt-mdl-val { font-size: 15px; font-weight: 800; color: #111; margin-bottom: 6px; line-height: 1.3; }
-.kt-mdl-val-badge { display: inline-block; background: var(--kt-cyan); color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-bottom: 4px; vertical-align: top; margin-right: 4px;}
-.kt-mdl-sub { font-size: 11.5px; color: #888; line-height: 1.4; word-break: keep-all; }
+.kt-mdl-icon-svg { margin-bottom: 16px; color: var(--text-muted); }
+.kt-mdl-val { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; line-height: 1.3; }
+.kt-mdl-val-badge { display: inline-block; background: var(--kt-cyan); color: #fff; font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; margin-bottom: 8px; }
+.kt-mdl-sub { font-size: 12px; color: var(--text-sub); line-height: 1.4; word-break: keep-all; }
 
 /* Modal Pricing Row */
 .kt-mdl-price-row {
-  display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; background: #fafafa;
+  display: flex; align-items: center; justify-content: space-between; padding: 24px 32px; background: var(--bg-soft);
 }
 .kt-mdl-price-left { display: flex; align-items: center; gap: 12px; }
-.kt-mdl-price-lbl { font-size: 13px; color: #666; font-weight: 600; }
-.kt-mdl-price-strike { font-size: 14px; color: #aaa; text-decoration: line-through; }
-.kt-mdl-price-right { display: flex; align-items: baseline; gap: 12px; }
-.kt-mdl-price-pro-lbl { font-size: 14px; font-weight: 800; color: #111; }
-.kt-mdl-price-pro-val { font-size: 26px; font-weight: 900; color: var(--kt-red); }
-.kt-mdl-price-pro-val span { font-size: 15px; margin-left: 2px; }
+.kt-mdl-price-lbl { font-size: 14px; color: var(--text-sub); font-weight: 500; }
+.kt-mdl-price-strike { font-size: 15px; color: var(--text-muted); text-decoration: line-through; }
+.kt-mdl-price-right { display: flex; align-items: baseline; gap: 16px; }
+.kt-mdl-price-pro-lbl { font-size: 15px; font-weight: 700; color: var(--text-main); }
+.kt-mdl-price-pro-val { font-size: 28px; font-weight: 700; color: var(--kt-red); }
+.kt-mdl-price-pro-val span { font-size: 16px; margin-left: 4px; font-weight: 600; }
 
 /* Modal Action Buttons */
-.kt-mdl-btns { display: flex; gap: 12px; margin: 0 40px 32px; }
+.kt-mdl-btns { display: flex; gap: 16px; margin: 0 40px 40px; }
 .kt-mdl-btn {
-  flex: 1; padding: 18px; border-radius: 999px; font-size: 16px; font-weight: 800;
-  text-align: center; color: #fff; background: var(--kt-cyan);
-  transition: background 0.2s; box-shadow: 0 4px 12px rgba(0, 199, 181, 0.2);
+  flex: 1; padding: 20px; border-radius: var(--radius-lg); font-size: 18px; font-weight: 700;
+  text-align: center; color: #fff; background: var(--kt-cyan); border: none;
+  transition: all 0.2s ease; box-shadow: 0 8px 24px rgba(0, 199, 181, 0.25); cursor: pointer;
 }
-.kt-mdl-btn:hover { background: #00b0a0; }
+.kt-mdl-btn:hover { background: var(--kt-cyan-hover); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 199, 181, 0.35); }
 
 /* Modal Tabs */
-.kt-mdl-tabs { display: flex; border-bottom: 1px solid #ddd; margin: 0 40px 30px; }
+.kt-mdl-tabs { display: flex; border-bottom: 1px solid var(--border-strong); margin: 0 40px 32px; }
 .kt-mdl-tab {
-  flex: 1; text-align: center; padding: 16px; font-size: 15px; font-weight: 800;
-  color: #888; border-bottom: 2px solid transparent; cursor: pointer; transition: 0.2s;
+  flex: 1; text-align: center; padding: 16px; font-size: 16px; font-weight: 600;
+  color: var(--text-muted); border-bottom: 3px solid transparent; cursor: pointer; transition: 0.2s;
 }
-.kt-mdl-tab.active { color: #111; border-bottom-color: #111; }
+.kt-mdl-tab:hover { color: var(--text-sub); }
+.kt-mdl-tab.active { color: var(--text-main); border-bottom-color: var(--text-main); font-weight: 700; }
 
 /* Modal Content Area */
 .kt-mdl-content { padding: 0 40px; }
-.kt-mdl-sec-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 16px; }
+.kt-mdl-sec-title { font-size: 18px; font-weight: 700; color: var(--text-main); margin-bottom: 20px; }
 
 /* 4-Column Graphic Cards (Additional Services) */
-.kt-svc-4grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+.kt-svc-4grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
 .kt-svc-card {
-  background: #fdfdfd; border: 1px solid #eaeaea; border-radius: 12px;
-  padding: 24px 16px; text-align: center; display: flex; flex-direction: column;
-  align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.02); transition: 0.2s;
+  background: var(--bg-main); border: 1px solid var(--border-light); border-radius: var(--radius-md);
+  padding: 24px 20px; text-align: center; display: flex; flex-direction: column;
+  align-items: center; transition: 0.2s ease; box-shadow: var(--shadow-sm);
 }
-.kt-svc-card:hover { border-color: #ccc; transform: translateY(-2px); }
+.kt-svc-card:hover { border-color: var(--border-strong); transform: translateY(-4px); box-shadow: var(--shadow-hover); }
 .kt-svc-icon-wrap {
-  width: 48px; height: 48px; border-radius: 50%; background: #f4f4f4;
-  display: grid; place-items: center; margin-bottom: 16px; font-size: 20px;
+  width: 56px; height: 56px; border-radius: 50%; background: var(--bg-soft);
+  display: grid; place-items: center; margin-bottom: 16px; font-size: 24px; color: var(--text-main);
 }
-.kt-svc-title { font-size: 14px; font-weight: 800; color: #111; margin-bottom: 8px; word-break: keep-all; line-height: 1.3; }
+.kt-svc-title { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; word-break: keep-all; line-height: 1.4; }
 .kt-svc-title.red { color: var(--kt-red); }
-.kt-svc-desc { font-size: 12px; color: #666; line-height: 1.45; word-break: keep-all; }
-.kt-svc-desc.red { color: var(--kt-red); font-weight: 600; }
-.kt-svc-link { font-size: 11px; color: var(--kt-cyan); font-weight: 700; margin-top: 6px; text-decoration: underline; cursor: pointer; }
+.kt-svc-desc { font-size: 13px; color: var(--text-sub); line-height: 1.5; word-break: keep-all; }
+.kt-svc-desc.red { color: var(--kt-red); font-weight: 500; }
+.kt-svc-link { font-size: 13px; color: var(--kt-cyan); font-weight: 600; margin-top: 12px; text-decoration: underline; cursor: pointer; }
 
 /* Accordion Component */
-.kt-acc-wrap { border-top: 1px solid #111; }
-.kt-acc-item { border-bottom: 1px solid #eee; }
+.kt-acc-wrap { border-top: 2px solid var(--text-main); }
+.kt-acc-item { border-bottom: 1px solid var(--border-light); }
 .kt-acc-head {
   width: 100%; display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 0; font-size: 16px; font-weight: 800; color: #111; cursor: pointer;
+  padding: 24px 0; font-size: 16px; font-weight: 600; color: var(--text-main); cursor: pointer; background: transparent;
 }
-.kt-acc-chevron { transition: transform 0.3s; color: #888; }
-.kt-acc-head[aria-expanded="true"] .kt-acc-chevron { transform: rotate(180deg); }
-.kt-acc-body { padding: 0 0 24px 0; font-size: 13px; color: #555; line-height: 1.6; display: none; }
-.kt-acc-head[aria-expanded="true"] + .kt-acc-body { display: block; }
-.kt-acc-box { background: #fafafa; padding: 20px; border-radius: 8px; margin-bottom: 16px; }
+.kt-acc-chevron { transition: transform 0.3s ease; color: var(--text-muted); }
+.kt-acc-head:hover .kt-acc-chevron { color: var(--text-main); }
+.kt-acc-head[aria-expanded="true"] .kt-acc-chevron { transform: rotate(180deg); color: var(--text-main); }
+.kt-acc-body { padding: 0 0 32px 0; font-size: 14px; color: var(--text-sub); line-height: 1.6; display: none; }
+.kt-acc-head[aria-expanded="true"] + .kt-acc-body { display: block; animation: kt-fade-bg 0.3s ease; }
+.kt-acc-box { background: var(--bg-soft); padding: 24px; border-radius: var(--radius-md); margin-bottom: 16px; }
 .kt-acc-list { margin: 0; padding-left: 20px; list-style-type: disc; }
-.kt-acc-list li { margin-bottom: 6px; }
+.kt-acc-list li { margin-bottom: 8px; }
 
 @media (max-width: 1024px) {
   .kt-layout { flex-direction: column; }
   .kt-side { width: 100%; position: static; }
   .plan-grid { grid-template-columns: repeat(1, 1fr); }
-  .kt-svc-4grid { grid-template-columns: repeat(2,1fr); }
-  .kt-mdl-icons { grid-template-columns: repeat(2, 1fr); gap: 16px 0; }
+  .kt-svc-4grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .kt-mdl-icons { grid-template-columns: repeat(2, 1fr); gap: 24px 0; padding: 24px 0; }
   .kt-mdl-icon-item:nth-child(2)::after { display: none; }
-  .kt-mdl-price-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .kt-mdl-price-row { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .kt-mdl-btns, .kt-mdl-tabs, .kt-mdl-content { margin-left: 24px; margin-right: 24px; }
+  .kt-mdl-sumbox { margin: 0 24px 32px; }
+  .kt-modal-header { padding: 24px; }
+  .cmp-content { padding: 24px; }
+  .cmp-header { padding: 24px; }
 }
 </style>
 </head>
@@ -643,29 +741,10 @@ const BENEFIT_COLOR = {
   "모아진": { bg: "#E6F1FB", img: "./data/moazine.png" },
   "CU": { bg: "#EAF3DE", img: "./data/cu.jpg" },
   "후후": { bg: "#E6F1FB", img: "./data/whowho.png" },
-  "default": { bg: "#f0f0f0", img: null }
+  "default": { bg: "#F2F4F6", img: null }
 };
-
-const USAGE_TO_RANGE = {
-  "카카오·SNS 위주":        ["BELOW_1GB", "RANGE_1_6"],
-  "유튜브 가끔 봐요":       ["RANGE_7_10"],
-  "영상 자주 봐요":         ["RANGE_11_50"],
-  "데이터 무제한으로 써요":  ["RANGE_51_99", "RANGE_100_PLUS"],
-  "잘 모르겠어요":          null
-};
-
 
 /* ─── 파싱 및 정규화 함수 ─── */
-function classifyPlan(plan) {
-  const name = plan.familyName;
-  if (name.includes("키즈")) return "kids";
-  if (name.includes("시니어")) return "senior";
-  if (name.includes("복지")) return "welfare";
-  if (name.includes("통화")) return "voice";
-  if (name.includes("5G")) return "5g";
-  return "general";
-}
-
 function parseDataRaw(dataRaw) {
   if (!dataRaw) return { speedAfter: null, isDaily: false };
   const isDaily = dataRaw.includes("일");
@@ -698,18 +777,16 @@ function getBenefitConfig(label) {
   return BENEFIT_COLOR[match] || BENEFIT_COLOR["default"];
 }
 
-// 괄호 안의 불필요한 영어 등을 제거 (예: 밀리의 서재 FREE -> 밀리의 서재)
+// 불필요한 괄호 제거
 function cleanPlanName(name) {
   return name.replace(/\s*\(.*?\)\s*/g, '').trim();
 }
 
 /* =============================================
-   COMPONENTS: MODAL EXTRAS
+   COMPONENTS: EXTRAS
    ============================================= */
-
-// 아이콘 렌더링 컴포넌트
 function SvgIcon({ type }) {
-  const b = { width:32, height:32, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor', strokeWidth:1.5 };
+  const b = { width:28, height:28, viewBox:'0 0 24 24', fill:'none', stroke:'currentColor', strokeWidth:1.5 };
   switch(type) {
     case 'data': return <svg {...b}><path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/></svg>;
     case 'call': return <svg {...b}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>;
@@ -724,7 +801,6 @@ function SvgIcon({ type }) {
   }
 }
 
-// 아코디언 컴포넌트
 function Accordion({ title, children, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   return (
@@ -735,6 +811,118 @@ function Accordion({ title, children, defaultOpen = false }) {
       </button>
       <div className="kt-acc-body">
         {children}
+      </div>
+    </div>
+  );
+}
+
+/* =============================================
+   COMPARE FULL MODAL (The Table)
+   ============================================= */
+function CompareTableModal({ plans, onClose, stats, removePlan }) {
+  const colCount = plans.length + 1;
+  const gridStyle = { gridTemplateColumns: `120px repeat(${plans.length}, minmax(180px, 1fr))` };
+
+  return (
+    <div className="kt-modal-overlay" onClick={onClose} style={{zIndex: 3000}}>
+      <div className="cmp-modal-wrap" onClick={e=>e.stopPropagation()}>
+        <div className="cmp-header">
+          <h2 className="cmp-title">요금제 한눈에 비교</h2>
+          <button className="kt-modal-close" onClick={onClose}>✕</button>
+        </div>
+        <div className="cmp-content">
+          <div className="cmp-table-container">
+            <div className="cmp-table" style={gridStyle}>
+              {/* Header Row */}
+              <div className="cmp-cell row-header" style={{background: '#fff'}}></div>
+              {plans.map((p, i) => (
+                <div key={i} className="cmp-cell" style={{background: '#fff', paddingTop: '32px', position: 'relative'}}>
+                  <button className="comp-cart-del" style={{top: '12px', right: '12px'}} onClick={() => removePlan(p)}>✕</button>
+                  <div className="cmp-head-plan">{cleanPlanName(p.familyName)}</div>
+                  {p.familyName !== '현재 내 요금제' && (
+                    <button className="cmp-btn-signup" onClick={() => window.location.href = `precheck.html?plan=${encodeURIComponent(p.familyName)}&price=${p.price}`}>
+                      가입하기
+                    </button>
+                  )}
+                </div>
+              ))}
+
+              {/* Price Row */}
+              <div className="cmp-cell row-header">월 납부액</div>
+              {plans.map((p, i) => {
+                const isBest = p.price === stats.minPrice && plans.length > 1;
+                return (
+                  <div key={i} className="cmp-cell">
+                    <div className={`cmp-val-price ${isBest ? 'best' : ''}`}>
+                      {p.price.toLocaleString()}<span style={{fontSize:'15px', fontWeight:600, color:'var(--text-sub)'}}>원</span>
+                    </div>
+                    {isBest && <span className="cs-badge price" style={{marginTop:'8px'}}>최저가</span>}
+                  </div>
+                )
+              })}
+
+              {/* Data Row */}
+              <div className="cmp-cell row-header">데이터</div>
+              {plans.map((p, i) => {
+                const promoGB = calculatePromoGB(p.familyName, p.dataVolume);
+                const totalGB = p.dataVolume + promoGB;
+                const { speedAfter } = parseDataRaw(p.dataRaw);
+                const isBest = totalGB === stats.maxData && plans.length > 1;
+                return (
+                  <div key={i} className="cmp-cell">
+                    <div className={`cmp-val-data ${isBest ? 'best' : ''}`}>{totalGB}GB{p.isUnlimited ? '+' : ''}</div>
+                    {speedAfter && <div style={{fontSize:'13px', color:'var(--text-sub)', marginTop:'6px'}}>소진 시 {speedAfter}</div>}
+                    {isBest && <span className="cs-badge data" style={{marginTop:'8px'}}>데이터 최다</span>}
+                  </div>
+                )
+              })}
+
+              {/* Voice/SMS */}
+              <div className="cmp-cell row-header">음성/문자</div>
+              {plans.map((p, i) => (
+                <div key={i} className="cmp-cell">
+                  <div style={{fontWeight:700, fontSize:'15px'}}>{parseCallBasic(p.familyName)}</div>
+                  <div style={{fontSize:'13px', color:'var(--text-sub)', marginTop:'6px'}}>문자 기본제공</div>
+                </div>
+              ))}
+
+              {/* Benefits */}
+              <div className="cmp-cell row-header">제휴 혜택</div>
+              {plans.map((p, i) => {
+                const benefits = [...new Set(p.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean))];
+                return (
+                  <div key={i} className="cmp-cell">
+                    {benefits.length > 0 ? (
+                      <div className="cs-benefit-icons" style={{justifyContent:'center', gap:'8px'}}>
+                        {benefits.map((b, idx) => {
+                          const cfg = getBenefitConfig(b);
+                          return (
+                            <div key={idx} className="cs-benefit-logo-sq" style={{background: cfg.bg, width:'36px', height:'36px', borderRadius:'8px'}} title={b}>
+                              {cfg.img ? <img src={cfg.img} alt={b} style={{width:'22px', height:'22px', objectFit:'contain'}} /> : <span style={{fontSize:'12px'}}>{b.slice(0,2)}</span>}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    ) : <span style={{color:'var(--text-muted)'}}>-</span>}
+                  </div>
+                )
+              })}
+
+              {/* Extra */}
+              <div className="cmp-cell row-header">추가 혜택</div>
+              {plans.map((p, i) => (
+                <div key={i} className="cmp-cell">
+                  {p.familyName !== '현재 내 요금제' ? (
+                    <div style={{display:'flex', flexDirection:'column', gap:'8px', textAlign:'left'}}>
+                       <div style={{fontSize:'13px', color:'var(--text-main)', display:'flex', gap:'6px'}}><span style={{color:'var(--kt-cyan)', fontWeight:'bold'}}>✓</span> 가족결합 추가 할인</div>
+                       <div style={{fontSize:'13px', color:'var(--text-main)', display:'flex', gap:'6px'}}><span style={{color:'var(--kt-cyan)', fontWeight:'bold'}}>✓</span> {p.isUnlimited ? '데이터 쉐어링 가능' : '데이터 쉐어링 불가'}</div>
+                    </div>
+                  ) : <span style={{color:'var(--text-muted)'}}>-</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -752,10 +940,8 @@ function PlanModal({ plan, onClose }) {
   const totalData = plan.dataVolume + promoData;
   const isUnlimited = plan.isUnlimited;
 
-  // 요금 계산 (가상의 기존 요금 설정: 할인 전 요금이 보통 15000~20000원 비쌈)
   const basePrice = plan.price + 18900; 
   
-  // 혜택 추출
   const benefitLabels = plan.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean);
   const benefitText = benefitLabels.length > 0 ? benefitLabels.join(', ') + ' 제공' : '기본제공';
   const benefitIcon = benefitLabels.length > 0 ? 'gift' : 'wifi';
@@ -764,36 +950,32 @@ function PlanModal({ plan, onClose }) {
     <div className="kt-modal-overlay" onClick={onClose}>
       <div className="kt-modal" onClick={e=>e.stopPropagation()}>
         
-        {/* 모달 헤더 */}
         <div className="kt-modal-header">
           <h2 className="kt-modal-title">{cleanPlanName(plan.familyName)}</h2>
-          <div className="kt-modal-close" onClick={onClose}>✕</div>
+          <button className="kt-modal-close" onClick={onClose} aria-label="닫기">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
         </div>
 
         <div className="kt-modal-scroll">
           
-          {/* 상단 요약 박스 */}
           <div className="kt-mdl-sumbox">
             <div className="kt-mdl-icons">
-              {/* 데이터 */}
               <div className="kt-mdl-icon-item">
                 <div className="kt-mdl-icon-svg"><SvgIcon type="data"/></div>
                 {isUnlimited && <span className="kt-mdl-val-badge">최대 {totalData}GB무제한</span>}
                 <div className="kt-mdl-val">{plan.dataVolume}GB{isUnlimited && speedAfter ? '+'+speedAfter : ''}</div>
-                {promoData > 0 && <div className="kt-mdl-sub">+데이터 추가제공 {promoData}GB(24개월)</div>}
+                {promoData > 0 && <div className="kt-mdl-sub">매월 모두에게 {promoData}GB 추가제공</div>}
               </div>
-              {/* 통화 */}
               <div className="kt-mdl-icon-item">
                 <div className="kt-mdl-icon-svg"><SvgIcon type="call"/></div>
                 <div className="kt-mdl-val">기본제공</div>
                 <div className="kt-mdl-sub">+영상/부가통화 300분</div>
               </div>
-              {/* 문자 */}
               <div className="kt-mdl-icon-item">
                 <div className="kt-mdl-icon-svg"><SvgIcon type="msg"/></div>
                 <div className="kt-mdl-val">기본제공</div>
               </div>
-              {/* 혜택/와이파이 */}
               <div className="kt-mdl-icon-item">
                 <div className="kt-mdl-icon-svg"><SvgIcon type={benefitIcon}/></div>
                 <div className="kt-mdl-val">{benefitLabels.length > 0 ? benefitLabels[0] : '무료제공'}</div>
@@ -801,7 +983,6 @@ function PlanModal({ plan, onClose }) {
               </div>
             </div>
 
-            {/* 가격 정보 */}
             <div className="kt-mdl-price-row">
               <div className="kt-mdl-price-left">
                 <span className="kt-mdl-price-lbl">월 기본료(VAT 포함)</span>
@@ -814,24 +995,22 @@ function PlanModal({ plan, onClose }) {
             </div>
           </div>
 
-          {/* 가입 버튼 */}
           <div className="kt-mdl-btns">
-            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:plan.familyName,price:plan.price}); window.location.href = `precheck.html?plan=${encodeURIComponent(plan.familyName)}&price=${plan.price}`; }}>가입하기</button>
+            <button className="kt-mdl-btn" onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_signup_click',plan_name:plan.familyName,price:plan.price}); window.location.href = `precheck.html?plan=${encodeURIComponent(plan.familyName)}&price=${plan.price}`; }}>
+              가입하기
+            </button>
           </div>
 
-          {/* 탭 */}
           <div className="kt-mdl-tabs">
             <div className={`kt-mdl-tab ${activeTab==='detail'?'active':''}`} onClick={()=>setActiveTab('detail')}>상세 안내</div>
             <div className={`kt-mdl-tab ${activeTab==='review'?'active':''}`} onClick={()=>setActiveTab('review')}>사용 후기</div>
           </div>
 
-          {/* 컨텐츠 (상세 안내) */}
           {activeTab === 'detail' && (
             <div className="kt-mdl-content">
               
               <div className="kt-mdl-sec-title">요금제 이용 시 추가 이용가능 서비스</div>
               
-              {/* 4열 그래픽 카드 */}
               <div className="kt-svc-4grid">
                 <div className="kt-svc-card">
                   <div className="kt-svc-icon-wrap" style={{color: 'var(--kt-red)'}}><SvgIcon type="add"/></div>
@@ -839,26 +1018,25 @@ function PlanModal({ plan, onClose }) {
                   <div className="kt-svc-desc red">24개월 동안 매월 LTE 데이터 10GB 추가 제공</div>
                 </div>
                 <div className="kt-svc-card">
-                  <div className="kt-svc-icon-wrap" style={{color: '#1a1a1a'}}><SvgIcon type="link"/></div>
+                  <div className="kt-svc-icon-wrap"><SvgIcon type="link"/></div>
                   <div className="kt-svc-title">아무나 SOLO 결합</div>
-                  <div className="kt-svc-desc">혼자서도 결합 가능! 가입 후 아무나 SOLO 결합 시 매월 평생 데이터 5GB(LTE)를 추가 제공하는 특별 혜택입니다.</div>
+                  <div className="kt-svc-desc">가입 후 아무나 SOLO 결합 시 매월 평생 데이터 5GB(LTE)를 추가 제공하는 특별 혜택입니다.</div>
                   <div className="kt-svc-link">자세히보기</div>
                 </div>
                 <div className="kt-svc-card">
-                  <div className="kt-svc-icon-wrap" style={{color: '#1a1a1a'}}><SvgIcon type="share"/></div>
+                  <div className="kt-svc-icon-wrap"><SvgIcon type="share"/></div>
                   <div className="kt-svc-title">데이터 쉐어링</div>
                   <div className="kt-svc-desc">요금제의 기본제공 데이터를 태블릿 등 다른 기기(1회선)와 추가 요금 없이 무료로 나눠 쓸 수 있습니다.</div>
                   <div className="kt-svc-link">자세히보기</div>
                 </div>
                 <div className="kt-svc-card">
-                  <div className="kt-svc-icon-wrap" style={{color: '#1a1a1a'}}><SvgIcon type="give"/></div>
+                  <div className="kt-svc-icon-wrap"><SvgIcon type="give"/></div>
                   <div className="kt-svc-title">함께쓰기</div>
                   <div className="kt-svc-desc">결합되어 있는 상대방에게 매월 2GB를 줄 수 있는 서비스</div>
                   <div className="kt-svc-link">자세히보기</div>
                 </div>
               </div>
 
-              {/* 아코디언 리스트 */}
               <div className="kt-acc-wrap">
                 <Accordion title="요금제 혜택" defaultOpen={true}>
                   <div className="kt-acc-box">
@@ -914,7 +1092,7 @@ function PlanModal({ plan, onClose }) {
           )}
           
           {activeTab === 'review' && (
-             <div className="kt-mdl-content" style={{textAlign:'center', padding: '60px 20px', color: '#888'}}>
+             <div className="kt-mdl-content" style={{textAlign:'center', padding: '80px 20px', color: 'var(--text-muted)'}}>
                등록된 사용 후기가 없습니다.
              </div>
           )}
@@ -924,10 +1102,66 @@ function PlanModal({ plan, onClose }) {
   );
 }
 
-
 /* =============================================
    COMPONENTS: PLAN CARD & APP
    ============================================= */
+
+function FamilyPlanCard({ family, compareList, toggleCompare, onOpen, recoId }) {
+  const promoGB = calculatePromoGB(family.familyName, family.dataVolume);
+  const totalGB = family.dataVolume + promoGB;
+  const { speedAfter } = parseDataRaw(family.dataRaw);
+  const callBasic = parseCallBasic(family.familyName);
+
+  const hasReco = family.priceOptions.some(o => `${family.familyName}_${o.price}` === recoId);
+
+  return (
+    <div className={`fpc-card ${hasReco ? 'has-reco' : ''}`}>
+      {hasReco && <div className="pc-reco-badge">인기</div>}
+      <div className="fpc-header" onClick={() => onOpen({ ...family, price: family.priceOptions[0].price, variants: family.priceOptions[0].variants })}>
+        <div className="fpc-title">{cleanPlanName(family.familyName)}</div>
+
+        <div className="fpc-data-huge">
+          {totalGB === 0 ? "데이터 없음" : `${totalGB}GB`}{family.isUnlimited ? <span className="plus">+</span> : ''}
+        </div>
+
+        <div className="fpc-data-detail">
+          {family.dataVolume > 0 ? `${family.dataVolume}GB` : '0GB'}
+          {speedAfter && <span className="fpc-speed-note"> + 소진 시 {speedAfter}</span>}
+          {promoGB > 0 && <span className="fpc-promo-highlight"> (매월 모두에게 {promoGB}GB 추가제공)</span>}
+        </div>
+
+        <div className="fpc-voice-sms">
+          통화 {callBasic} <span className="divider">|</span> 문자 기본제공
+        </div>
+      </div>
+      <div className="fpc-price-list">
+        {family.priceOptions.map((opt, i) => {
+          const isAdded = compareList.some(c => c.familyName === family.familyName && c.price === opt.price);
+          const isReco = `${family.familyName}_${opt.price}` === recoId;
+          const benefitKey = opt.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean)[0];
+          const cfg = benefitKey ? getBenefitConfig(benefitKey) : null;
+          const displayLabel = benefitKey || '실속';
+          return (
+            <div key={i} className={`fpc-price-row ${isReco ? 'is-reco' : ''}`}>
+              <div className="fpc-logo-wrap" style={{ background: cfg ? cfg.bg : '#F2F4F6' }}>
+                {cfg?.img
+                  ? <img src={cfg.img} alt={displayLabel} />
+                  : <span style={{fontSize:'11px', fontWeight:700, color:'#888'}}>실속</span>}
+              </div>
+              <span className="fpc-benefit-label">{displayLabel}</span>
+              <span className="fpc-price-val">{opt.price.toLocaleString()}<span>원/월</span></span>
+              <button
+                className={`fpc-add-btn ${isAdded ? 'added' : ''}`}
+                onClick={(e) => { e.stopPropagation(); toggleCompare({ ...family, price: opt.price, variants: opt.variants }); }}
+                title={isAdded ? '비교함에서 제거' : '비교함에 추가'}
+              >{isAdded ? '✓' : '+'}</button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
 
 function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
   const promoGB = calculatePromoGB(plan.familyName, plan.dataVolume);
@@ -941,29 +1175,28 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
 
   return (
     <div className={`plan-card ${isAdded ? 'added' : ''}`} onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_card_open',plan_name:plan.familyName,price:plan.price}); onOpen(plan); }}>
-      {isRecommended && <div className="pc-reco-badge">추천</div>}
+      {isRecommended && <div className="pc-reco-badge">인기</div>}
       
-      {/* 1. 최상단: 데이터(totalGB)와 가격 */}
       <div className="pc-top-row">
         <div>
           <div className="pc-data-huge">
             {totalGB === 0 ? "없음" : <>{totalGB}<span>GB{plan.isUnlimited ? '+' : ''}</span></>}
           </div>
-          {promoGB > 0 && <div className="pc-base-data-note">모두에게 +{promoGB}GB 프로모션</div>}
+          {promoGB > 0 && <div className="pc-base-data-note">매월 모두에게 {promoGB}GB 추가제공</div>}
         </div>
-        <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'6px'}}>
+        <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'8px'}}>
           <div className="pc-price-huge">
             {plan.price.toLocaleString()}<span>원</span>
           </div>
           {uniqueBenefits.length > 0 && (
-            <div style={{display:'flex', gap:'4px', flexWrap:'wrap', justifyContent:'flex-end'}}>
+            <div className="pc-partner-logos">
               {uniqueBenefits.map((b, i) => {
                 const cfg = getBenefitConfig(b);
                 return (
                   <div key={i} className="pc-partner-logo-sq" style={{background: cfg.bg}} title={b}>
                     {cfg.img
-                      ? <img src={cfg.img} alt={b} style={{width:'18px', height:'18px', objectFit:'contain'}} />
-                      : <span style={{fontSize:'11px', fontWeight:800}}>{b.slice(0,2)}</span>}
+                      ? <img src={cfg.img} alt={b} style={{width:'16px', height:'16px', objectFit:'contain'}} />
+                      : <span>{b.slice(0,2)}</span>}
                   </div>
                 );
               })}
@@ -972,7 +1205,6 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
         </div>
       </div>
 
-      {/* 2. 요금제 이름 및 상세정보 */}
       <div className="pc-title-row">
         <h3 className="pc-title">{cleanPlanName(plan.familyName)}</h3>
         <div className={`pc-speed-txt ${!plan.isUnlimited ? 'alert' : ''}`}>
@@ -982,7 +1214,6 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
 
       <div className="pc-divider" />
 
-      {/* 4. 버튼 */}
       <button className={`pc-add-btn ${isAdded ? 'added' : ''}`} onClick={(e) => { e.stopPropagation(); onToggle(plan); }}>
         {isAdded ? '✓ 비교함에 추가됨' : '+ 비교함에 추가'}
       </button>
@@ -990,25 +1221,47 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
   );
 }
 
-/* =============================================
-   PLAN GROUP (ACCORDION)
-   ============================================= */
-function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, recoId, sortDesc = false }) {
+function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, onToggle, groupRef, familyMode = false }) {
   const [filter, setFilter] = useState('all');
 
   const filtered = useMemo(() => {
     let list = plans;
     if (filter === 'unlimit') list = list.filter(p => p.isUnlimited);
     if (filter === 'limit')   list = list.filter(p => !p.isUnlimited);
-    return [...list].sort((a, b) => {
-      const aReco = `${a.familyName}_${a.price}` === recoId ? 0 : 1;
-      const bReco = `${b.familyName}_${b.price}` === recoId ? 0 : 1;
-      if (aReco !== bReco) return aReco - bReco;
-      return a.price - b.price;
-    });
-  }, [plans, filter, recoId]);
+    return list;
+  }, [plans, filter]);
 
-  // totalGB 기준으로 서브 그룹화 → 같은 데이터량끼리 한 행에, 열 = 가격 비교
+  const groupRecoId = useMemo(() => {
+    const validPlans = filtered.filter(p => p.isUnlimited);
+    const targetPlans = validPlans.length > 0 ? validPlans : filtered;
+    if (targetPlans.length === 0) return null;
+
+    let best = targetPlans[0];
+    let maxVal = -1;
+
+    targetPlans.forEach(p => {
+       const val = familyMode
+          ? Math.max(...p.priceOptions.flatMap(o => o.variants.map(v => v.giftTotalValue || 0)))
+          : Math.max(...p.variants.map(v => v.giftTotalValue || 0));
+
+       if (val > maxVal) {
+          best = p;
+          maxVal = val;
+       } else if (val === maxVal) {
+          const bestPrice = familyMode ? best.priceOptions[0].price : best.price;
+          const pPrice = familyMode ? p.priceOptions[0].price : p.price;
+          if (pPrice < bestPrice) {
+             best = p;
+             maxVal = val;
+          }
+       }
+    });
+
+    if (!best) return null;
+    return familyMode ? `${best.familyName}_${best.priceOptions[0].price}` : `${best.familyName}_${best.price}`;
+  }, [filtered, familyMode]);
+
+
   const dataGroups = useMemo(() => {
     const map = new Map();
     filtered.forEach(p => {
@@ -1016,16 +1269,27 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
       if (!map.has(tgb)) map.set(tgb, []);
       map.get(tgb).push(p);
     });
+    
+    // Sort plans within each group
+    Array.from(map.values()).forEach(group => {
+      group.sort((a, b) => {
+        const aReco = familyMode
+          ? (a.priceOptions.some(o => `${a.familyName}_${o.price}` === groupRecoId) ? 0 : 1)
+          : (`${a.familyName}_${a.price}` === groupRecoId ? 0 : 1);
+        const bReco = familyMode
+          ? (b.priceOptions.some(o => `${b.familyName}_${o.price}` === groupRecoId) ? 0 : 1)
+          : (`${b.familyName}_${b.price}` === groupRecoId ? 0 : 1);
+        if (aReco !== bReco) return aReco - bReco;
+        const aP = familyMode ? a.priceOptions[0].price : a.price;
+        const bP = familyMode ? b.priceOptions[0].price : b.price;
+        return aP - bP;
+      });
+    });
+
     return Array.from(map.entries())
-      .sort(([a, aPlans], [b, bPlans]) => {
-        const aHasReco = aPlans.some(p => `${p.familyName}_${p.price}` === recoId);
-        const bHasReco = bPlans.some(p => `${p.familyName}_${p.price}` === recoId);
-        if (aHasReco && !bHasReco) return -1;
-        if (!aHasReco && bHasReco) return 1;
-        return sortDesc ? b - a : a - b;
-      })
+      .sort(([a], [b]) => b - a)
       .map(([tgb, groupPlans]) => ({ tgb, groupPlans }));
-  }, [filtered, recoId, sortDesc]);
+  }, [filtered, groupRecoId, familyMode]);
 
   if (plans.length === 0) return null;
 
@@ -1050,21 +1314,28 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
             <button className={`pg-tab ${filter==='limit'?'active':''}`} onClick={e=>{e.stopPropagation();setFilter('limit');}}>용량 제한</button>
           </div>
           {filtered.length === 0
-            ? <div style={{padding:'40px 0',color:'#bbb',fontSize:14}}>해당 조건의 요금제가 없습니다.</div>
+            ? <div style={{padding:'60px 0',color:'var(--text-muted)',fontSize:15, textAlign:'center'}}>해당 조건의 요금제가 없습니다.</div>
             : dataGroups.map(({ tgb, groupPlans }) => (
               <div key={tgb} className="pg-data-group">
                 <div className="pg-data-label">
                   {tgb}GB{groupPlans[0]?.isUnlimited ? '+' : ''}
-                  <span className="pg-data-count">{groupPlans.length}개 요금제</span>
+                  <span className="pg-data-count">{groupPlans.length}개</span>
                 </div>
                 <div className="plan-grid">
-                  {groupPlans.map(p => (
-                    <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
-                      isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
-                      onToggle={() => toggleCompare(p)}
-                      isRecommended={`${p.familyName}_${p.price}` === recoId}
-                      onOpen={onOpen} />
-                  ))}
+                  {familyMode
+                    ? groupPlans.map(f => (
+                        <FamilyPlanCard key={f.familyName} family={f}
+                          compareList={compareList} toggleCompare={toggleCompare}
+                          onOpen={onOpen} recoId={groupRecoId} />
+                      ))
+                    : groupPlans.map(p => (
+                        <PlanCard key={`${p.familyName}_${p.price}`} plan={p}
+                          isAdded={compareList.some(c => c.familyName === p.familyName && c.price === p.price)}
+                          onToggle={() => toggleCompare(p)}
+                          isRecommended={`${p.familyName}_${p.price}` === groupRecoId}
+                          onOpen={onOpen} />
+                      ))
+                  }
                 </div>
               </div>
             ))
@@ -1078,27 +1349,39 @@ function PlanGroup({ title, plans, compareList, toggleCompare, onOpen, isOpen, o
 function App() {
   const pageEntryTime = React.useRef(Date.now());
   const [network, setNetwork] = useState('lte');
+  const [viewMode, setViewMode] = useState('data'); // 'data' | 'price'
   const [openGroups, setOpenGroups] = useState({ '11~29GB': true });
-  const refA = React.useRef(null);
-  const refB = React.useRef(null);
-  const refC = React.useRef(null);
-  const refD = React.useRef(null);
-  const refE = React.useRef(null);
-  const groupRefs = { '10GB 이하': refA, '11~29GB': refB, '30GB': refC, '31~99GB': refD, '100GB+': refE };
+  
+  const refDataA = React.useRef(null);
+  const refDataB = React.useRef(null);
+  const refDataC = React.useRef(null);
+  const refDataD = React.useRef(null);
+  const refDataE = React.useRef(null);
+  
+  const refPriceA = React.useRef(null);
+  const refPriceB = React.useRef(null);
+  const refPriceC = React.useRef(null);
+  const refPriceD = React.useRef(null);
+  const refPriceE = React.useRef(null);
+
+  const groupRefsData = { '10GB 이하': refDataA, '11~29GB': refDataB, '30GB': refDataC, '31~99GB': refDataD, '100GB+': refDataE };
+  const groupRefsPrice = { '1만원 미만': refPriceA, '1만원대': refPriceB, '2만원대': refPriceC, '3만원대': refPriceD, '4만원 이상': refPriceE };
+  
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResult, setSearchResult] = useState('');
   const [modalPlan, setModalPlan] = useState(null);
   const [showWelcome, setShowWelcome] = useState(true);
+  const [showCompareModal, setShowCompareModal] = useState(false);
   const [myPrice, setMyPrice] = useState('');
   const [myData, setMyData] = useState('');
   const [segment, setSegment] = useState('일반');
 
   useEffect(() => {
-    if (modalPlan) document.body.style.overflow = 'hidden';
+    if (modalPlan || showCompareModal || showWelcome) document.body.style.overflow = 'hidden';
     else document.body.style.overflow = 'unset';
     return () => { document.body.style.overflow = 'unset'; }
-  }, [modalPlan]);
+  }, [modalPlan, showCompareModal, showWelcome]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -1112,61 +1395,86 @@ function App() {
     }
   };
 
-  // 데이터 정규화 (변형 병합)
-  const normalizedPlans = useMemo(() => {
-    const map = new Map();
-    RAW_PLANS.forEach(p => {
-      const key = `${p.price}_${p.dataVolume}_${p.isUnlimited}`;
-      if (!map.has(key)) {
-        map.set(key, { ...p, variants: [...(p.variants || [])] });
-      } else {
-        map.get(key).variants.push(...(p.variants || []));
-      }
-    });
-    return Array.from(map.values());
+  // '실속' 중복 요금제 삭제 전처리
+  const filteredRawPlans = useMemo(() => {
+    return RAW_PLANS.filter(p => !p.familyName.includes('실속'));
   }, []);
 
-  // 필터 파이프라인 (네트워크 + 의도 필터 → flat list)
-  const { allPlans, recoId } = useMemo(() => {
-    let list = normalizedPlans;
+  const familyNormalizedPlans = useMemo(() => {
+    const map = new Map();
+    filteredRawPlans.forEach(p => {
+      if (!map.has(p.familyName)) {
+        map.set(p.familyName, {
+          familyName: p.familyName, dataVolume: p.dataVolume,
+          dataRaw: p.dataRaw, rangeId: p.rangeId, isUnlimited: p.isUnlimited,
+          priceMap: new Map()
+        });
+      }
+      const entry = map.get(p.familyName);
+      if (!entry.priceMap.has(p.price)) entry.priceMap.set(p.price, { price: p.price, variants: [] });
+      entry.priceMap.get(p.price).variants.push(...p.variants);
+    });
+    return Array.from(map.values()).map(({ priceMap, ...rest }) => ({
+      ...rest,
+      priceOptions: Array.from(priceMap.values()).sort((a, b) => a.price - b.price)
+    }));
+  }, [filteredRawPlans]);
 
-    list = list.filter(p => network === '5g' ? p.familyName.includes('5G') : !p.familyName.includes('5G'));
-
+  const { familyAllPlans } = useMemo(() => {
+    let list = familyNormalizedPlans;
+    list = list.filter(f => network === '5g' ? f.familyName.includes('5G') : !f.familyName.includes('5G'));
+    
     if (segment === '일반') {
-      list = list.filter(p => !p.familyName.includes('시니어') && !p.familyName.includes('복지') && !p.familyName.includes('키즈'));
+      list = list.filter(f => !f.familyName.includes('시니어') && !f.familyName.includes('복지') && !f.familyName.includes('키즈') && !f.familyName.includes('청소년') && !f.familyName.includes('워치') && !f.familyName.includes('세컨드') && !f.familyName.includes('2nd') && !f.familyName.includes('쉐어'));
+    } else if (segment === '청소년') {
+      list = list.filter(f => f.familyName.includes('청소년'));
     } else if (segment === '시니어') {
-      list = list.filter(p => p.familyName.includes('시니어') || p.familyName.includes('복지'));
+      list = list.filter(f => f.familyName.includes('시니어'));
     } else if (segment === '키즈') {
-      list = list.filter(p => p.familyName.includes('키즈'));
+      list = list.filter(f => f.familyName.includes('키즈'));
     } else if (segment === '2nd기기') {
-      list = list.filter(p => p.familyName.includes('세컨드') || p.familyName.includes('2nd') || p.familyName.includes('쉐어'));
+      list = list.filter(f => f.familyName.includes('세컨드') || f.familyName.includes('2nd') || f.familyName.includes('쉐어'));
+    } else if (segment === '복지') {
+      list = list.filter(f => f.familyName.includes('복지'));
+    } else if (segment === '스마트워치') {
+      list = list.filter(f => f.familyName.includes('워치'));
     }
 
-    const unlimitedAll = list.filter(p => p.isUnlimited);
-    let recoId = null;
-    if (unlimitedAll.length > 0) {
-      let best = unlimitedAll[0];
-      let maxVal = Math.max(...best.variants.map(v => v.giftTotalValue || 0));
-      unlimitedAll.forEach(p => {
-        const val = Math.max(...p.variants.map(v => v.giftTotalValue || 0));
-        if (val > maxVal || (val === maxVal && p.price < best.price)) { best = p; maxVal = val; }
-      });
-      recoId = `${best.familyName}_${best.price}`;
-    }
+    return { familyAllPlans: list };
+  }, [familyNormalizedPlans, network, segment]);
 
-    return { allPlans: list, recoId };
-  }, [normalizedPlans, network, segment]);
+  const famTGB = (f) => f.dataVolume + calculatePromoGB(f.familyName, f.dataVolume);
+  const famGroupA = familyAllPlans.filter(f => famTGB(f) <= 10);
+  const famGroupB = familyAllPlans.filter(f => { const t = famTGB(f); return t >= 11 && t <= 29; });
+  const famGroupC = familyAllPlans.filter(f => famTGB(f) === 30);
+  const famGroupD = familyAllPlans.filter(f => { const t = famTGB(f); return t >= 31 && t <= 99; });
+  const famGroupE = familyAllPlans.filter(f => famTGB(f) >= 100);
 
-  const totalGB = (p) => p.dataVolume + calculatePromoGB(p.familyName, p.dataVolume);
-  const groupA = allPlans.filter(p => totalGB(p) <= 10);
-  const groupB = allPlans.filter(p => { const t = totalGB(p); return t >= 11 && t <= 29; });
-  const groupC = allPlans.filter(p => totalGB(p) === 30);
-  const groupD = allPlans.filter(p => { const t = totalGB(p); return t >= 31 && t <= 99; });
-  const groupE = allPlans.filter(p => totalGB(p) >= 100);
+  const famPriceGroupA = familyAllPlans.filter(f => f.priceOptions[0].price < 10000);
+  const famPriceGroupB = familyAllPlans.filter(f => f.priceOptions[0].price >= 10000 && f.priceOptions[0].price < 20000);
+  const famPriceGroupC = familyAllPlans.filter(f => f.priceOptions[0].price >= 20000 && f.priceOptions[0].price < 30000);
+  const famPriceGroupD = familyAllPlans.filter(f => f.priceOptions[0].price >= 30000 && f.priceOptions[0].price < 40000);
+  const famPriceGroupE = familyAllPlans.filter(f => f.priceOptions[0].price >= 40000);
 
   function handleNavClick(key) {
-    setOpenGroups(prev => ({ ...prev, [key]: true }));
-    setTimeout(() => { groupRefs[key]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
+    const currentRefs = viewMode === 'data' ? groupRefsData : groupRefsPrice;
+    setOpenGroups(prev => {
+      const isCurrentlyOpen = prev[key];
+      if (!isCurrentlyOpen) {
+        setTimeout(() => { 
+          const element = currentRefs[key]?.current;
+          if(element) {
+            const offset = 80;
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        }, 80);
+      }
+      return { ...prev, [key]: !isCurrentlyOpen };
+    });
   }
 
   const toggleCompare = (plan) => {
@@ -1182,7 +1490,14 @@ function App() {
     });
   };
 
-  // 비교함 형광펜 하이라이트 계산
+  const removeComparePlan = (plan) => {
+    setCompareList(prev => {
+      const updated = prev.filter(p => !(p.familyName === plan.familyName && p.price === plan.price));
+      if(updated.length === 0) setShowCompareModal(false); 
+      return updated;
+    });
+  };
+
   const compareStats = useMemo(() => {
     if (compareList.length < 2) return { minPrice: null, maxData: null };
     const prices = compareList.map(p => p.price);
@@ -1208,20 +1523,25 @@ function App() {
 
           {/* 대상 세그먼트 필터 */}
           <div className="segment-filter-wrap">
-            {['일반', '시니어', '키즈', '2nd기기'].map(seg => (
+            {['일반', '청소년', '시니어', '키즈', '2nd기기', '복지', '스마트워치'].map(seg => (
               <button key={seg} className={`segment-pill ${segment === seg ? 'active' : ''}`}
                 onClick={() => setSegment(seg)}>{seg}</button>
             ))}
           </div>
 
-          {/* 데이터 구간 빠른 이동 — LTE/5G 탭 아래, kt-main 너비 내 */}
-          <div className="usage-filter-wrap">
-            <div className="usage-filter-logo">
-              <div className="usage-filter-logo-sq">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#E60012"/><text x="4" y="14" font-size="10" font-weight="800" fill="white" font-family="sans-serif">M</text></svg>
-              </div>
+          {/* 데이터/가격 기준 보기 토글 */}
+          <div className="view-mode-bar">
+            <div className="view-mode-toggle">
+              <button className={`view-mode-btn ${viewMode === 'data' ? 'active' : ''}`} 
+                onClick={() => { setViewMode('data'); setOpenGroups({'11~29GB': true}); }}>데이터 기준으로 보기</button>
+              <button className={`view-mode-btn ${viewMode === 'price' ? 'active' : ''}`} 
+                onClick={() => { setViewMode('price'); setOpenGroups({'1만원대': true}); }}>가격을 기준으로 보기</button>
             </div>
-            {['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'].map(key => (
+          </div>
+
+          {/* 구간 빠른 이동 */}
+          <div className="usage-filter-wrap">
+            {(viewMode === 'data' ? ['10GB 이하', '11~29GB', '30GB', '31~99GB', '100GB+'] : ['1만원 미만', '1만원대', '2만원대', '3만원대', '4만원 이상']).map(key => (
               <button key={key} className={`usage-chip ${openGroups[key] ? 'active' : ''}`}
                 onClick={() => { handleNavClick(key); window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'plan_nav_section',value:key}); }}>
                 {key}
@@ -1231,31 +1551,58 @@ function App() {
 
           {/* 아코디언 그룹 */}
           <div>
-            <PlanGroup title="10GB 이하" plans={groupA} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['10GB 이하']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '10GB 이하': !prev['10GB 이하']}))}
-              groupRef={refA} sortDesc={true} />
-            <PlanGroup title="11~29GB" plans={groupB} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['11~29GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '11~29GB': !prev['11~29GB']}))}
-              groupRef={refB} />
-            <PlanGroup title="30GB" plans={groupC} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['30GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '30GB': !prev['30GB']}))}
-              groupRef={refC} />
-            <PlanGroup title="31~99GB" plans={groupD} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '31~99GB': !prev['31~99GB']}))}
-              groupRef={refD} />
-            <PlanGroup title="100GB+" plans={groupE} compareList={compareList} toggleCompare={toggleCompare}
-              onOpen={setModalPlan} isOpen={!!openGroups['100GB+']} recoId={recoId}
-              onToggle={() => setOpenGroups(prev => ({...prev, '100GB+': !prev['100GB+']}))}
-              groupRef={refE} />
+            {viewMode === 'data' ? (
+              <>
+                <PlanGroup title="10GB 이하" plans={famGroupA} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['10GB 이하']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '10GB 이하': !prev['10GB 이하']}))}
+                  groupRef={refDataA} sortDesc={true} familyMode={true} />
+                <PlanGroup title="11~29GB" plans={famGroupB} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['11~29GB']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '11~29GB': !prev['11~29GB']}))}
+                  groupRef={refDataB} familyMode={true} />
+                <PlanGroup title="30GB" plans={famGroupC} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['30GB']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '30GB': !prev['30GB']}))}
+                  groupRef={refDataC} familyMode={true} />
+                <PlanGroup title="31~99GB" plans={famGroupD} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['31~99GB']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '31~99GB': !prev['31~99GB']}))}
+                  groupRef={refDataD} familyMode={true} />
+                <PlanGroup title="100GB+" plans={famGroupE} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['100GB+']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '100GB+': !prev['100GB+']}))}
+                  groupRef={refDataE} familyMode={true} />
+              </>
+            ) : (
+              <>
+                <PlanGroup title="1만원 미만" plans={famPriceGroupA} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['1만원 미만']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '1만원 미만': !prev['1만원 미만']}))}
+                  groupRef={refPriceA} familyMode={true} />
+                <PlanGroup title="1만원대" plans={famPriceGroupB} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['1만원대']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '1만원대': !prev['1만원대']}))}
+                  groupRef={refPriceB} familyMode={true} />
+                <PlanGroup title="2만원대" plans={famPriceGroupC} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['2만원대']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '2만원대': !prev['2만원대']}))}
+                  groupRef={refPriceC} familyMode={true} />
+                <PlanGroup title="3만원대" plans={famPriceGroupD} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['3만원대']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '3만원대': !prev['3만원대']}))}
+                  groupRef={refPriceD} familyMode={true} />
+                <PlanGroup title="4만원 이상" plans={famPriceGroupE} compareList={compareList} toggleCompare={toggleCompare}
+                  onOpen={setModalPlan} isOpen={!!openGroups['4만원 이상']}
+                  onToggle={() => setOpenGroups(prev => ({...prev, '4만원 이상': !prev['4만원 이상']}))}
+                  groupRef={refPriceE} familyMode={true} />
+              </>
+            )}
           </div>
         </main>
 
         <aside className="kt-side">
-          <form className="comp-search-wrap" onSubmit={handleSearch} style={{marginBottom:'12px'}}>
+          <form className="comp-search-wrap" onSubmit={handleSearch} style={{marginBottom:'16px'}}>
             <div className="comp-search-input-box">
               <input
                 type="text"
@@ -1264,99 +1611,71 @@ function App() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <button type="submit" className="comp-search-btn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <button type="submit" className="comp-search-btn" aria-label="검색">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </button>
             </div>
             {searchResult && <div className="comp-search-result">{searchResult}</div>}
           </form>
 
+          {/* 사이드바 비교함 (수직 장바구니 레이아웃) */}
           <div className="comp-board">
             <div className="comp-header">
               <div>
                 <span className="comp-title">비교함</span>
-                <div className="comp-diff-subtitle">요금제간 차이를 알려드려요!</div>
+                <div className="comp-diff-subtitle">요금제를 담아 한눈에 비교하세요</div>
               </div>
-              <span className="comp-count"><span style={{color: 'var(--color-primary)'}}>{compareList.length}</span> / 3</span>
+              <span className="comp-count"><span style={{color: 'var(--kt-red)'}}>{compareList.length}</span> / 3</span>
             </div>
             
-            <div className="comp-slots">
-              {[0, 1, 2].map(i => {
-                const item = compareList[i];
-                if (!item) return <div key={i} className="comp-slot empty"><div style={{fontSize: '20px', marginBottom: '4px'}}>+</div> 추가</div>;
-                
-                const promoGB = calculatePromoGB(item.familyName, item.dataVolume);
-                const totalGB = item.dataVolume + promoGB;
-                const { speedAfter } = parseDataRaw(item.dataRaw);
-                const callBasic = parseCallBasic(item.familyName);
-                const uniqueBenefits = [...new Set(item.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean))];
-
-                const isBestData = compareList.length > 1 && totalGB === compareStats.maxData;
-                const isBestPrice = compareList.length > 1 && item.price === compareStats.minPrice;
-
-                return (
-                  <div key={i} className="comp-slot">
-                    <button className="cs-del-btn" onClick={() => toggleCompare(item)}>✕</button>
-                    <div className="cs-info">
-                      
-                      {/* 데이터 */}
-                      <div className="cs-row">
-                        <span className="cs-label">데이터</span>
-                        <div className="cs-data">
-                          <span className={isBestData ? 'highlight-marker' : ''}>{totalGB}GB</span>
-                        </div>
+            {compareList.length === 0 ? (
+              <div className="comp-cart-empty">
+                <div className="comp-empty-icon">+</div>
+                비교할 요금제를<br/>추가해주세요
+              </div>
+            ) : (
+              <div className="comp-cart-list">
+                {compareList.map((item, i) => {
+                  const promoGB = calculatePromoGB(item.familyName, item.dataVolume);
+                  const totalGB = item.dataVolume + promoGB;
+                  return (
+                    <div key={i} className="comp-cart-item">
+                      <button className="comp-cart-del" onClick={() => toggleCompare(item)}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                      <div className="comp-cart-name">{cleanPlanName(item.familyName)}</div>
+                      <div className="comp-cart-specs">
+                         <div className="comp-cart-data">{totalGB > 0 ? `${totalGB}GB${item.isUnlimited ? '+' : ''}` : '데이터 없음'}</div>
+                         <div className="comp-cart-price">{item.price.toLocaleString()}<span>원</span></div>
                       </div>
-
-                      {/* 가격 */}
-                      <div className="cs-row">
-                        <span className="cs-label">월 납부액</span>
-                        <div className="cs-price">
-                          <span className={isBestPrice ? 'highlight-marker' : ''}>{item.price.toLocaleString()}원</span>
-                        </div>
-                      </div>
-
-                      {/* 속도 & 통화 */}
-                      <div className="cs-row" style={{gap: '6px', margin: '8px 0'}}>
-                        <div className="cs-speed">소진 시: {speedAfter ? speedAfter : (item.isUnlimited ? "무제한" : "차단")}</div>
-                        <div className="cs-call">통화: {callBasic}</div>
-                      </div>
-
-                      {/* 제휴 혜택 */}
-                      {uniqueBenefits.length > 0 && (
-                        <div className="cs-benefit-icons">
-                          {uniqueBenefits.map((b, idx) => {
-                            const cfg = getBenefitConfig(b);
-                            return (
-                              <div key={idx} className="cs-benefit-logo-sq" style={{background: cfg.bg}} title={b}>
-                                {cfg.img
-                                  ? <img src={cfg.img} alt={b} style={{width:'18px', height:'18px', objectFit:'contain'}} />
-                                  : <span style={{fontSize:'11px', fontWeight:800}}>{b.slice(0,2)}</span>}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
-
-                      {/* 추가 비교 항목 (하드코딩) — 현재 내 요금제는 공란 */}
-                      {item.familyName !== '현재 내 요금제' && (
-                        <div className="cs-extra-section">
-                          <div className="cs-extra-item cs-extra-good">가족결합+ 시 최대 월 15,000원 할인</div>
-                          <div className={`cs-extra-item ${item.isUnlimited ? 'cs-extra-good' : 'cs-extra-na'}`}>
-                            데이터쉐어링 {item.isUnlimited ? '무료 제공' : '미지원'}
-                          </div>
-                          <div className="cs-extra-item cs-extra-good">KT 인터넷 트리플 할인 가능</div>
-                          <div className="cs-extra-item">후후·T전화·로밍 이용 가능</div>
-                        </div>
-                      )}
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  )
+                })}
+              </div>
+            )}
 
+            <div className="comp-action">
+              <button 
+                className="btn-open-compare" 
+                disabled={compareList.length < 2}
+                onClick={() => setShowCompareModal(true)}
+              >
+                {compareList.length < 2 ? '2개 이상 담아주세요' : '한눈에 표로 비교하기'}
+              </button>
+            </div>
           </div>
         </aside>
       </div>
+
+      {/* 비교표 전체 화면 모달 */}
+      {showCompareModal && (
+        <CompareTableModal 
+          plans={compareList} 
+          onClose={() => setShowCompareModal(false)} 
+          stats={compareStats}
+          removePlan={removeComparePlan}
+        />
+      )}
 
       {/* 요금제 상세 모달 */}
       {modalPlan && <PlanModal plan={modalPlan} onClose={() => setModalPlan(null)} />}
@@ -1367,7 +1686,7 @@ function App() {
           <div className="wm-box" onClick={e => e.stopPropagation()}>
             <div>
               <div className="wm-title">지금 쓰는 요금제가 있나요?</div>
-              <div className="wm-sub">입력하면 비교함 첫 칸에 넣어드려요</div>
+              <div className="wm-sub">입력하면 비교함 첫 칸에 쏙 넣어드릴게요.</div>
             </div>
             <div className="wm-fields">
               <div className="wm-field">
