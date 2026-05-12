@@ -1136,23 +1136,26 @@ function FamilyPlanCard({ family, compareList, toggleCompare, onOpen, recoId }) 
       </div>
       <div className="fpc-price-list">
         {family.priceOptions.map((opt, i) => {
-          const isAdded = compareList.some(c => c.familyName === family.familyName && c.price === opt.price);
+          const planFamilyName = opt.dataLabel ? `모두다 맘껏 ${opt.dataLabel}` : family.familyName;
+          const isAdded = compareList.some(c => c.familyName === planFamilyName && c.price === opt.price);
           const isReco = `${family.familyName}_${opt.price}` === recoId;
           const benefitKey = opt.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean)[0];
           const cfg = benefitKey ? getBenefitConfig(benefitKey) : null;
-          const displayLabel = benefitKey || '실속';
+          const displayLabel = opt.dataLabel || benefitKey || '실속';
+          const logoBg = cfg ? cfg.bg : (opt.dataLabel ? '#E8F5F3' : '#F2F4F6');
+          const logoText = opt.dataLabel ? '안심' : '실속';
           return (
             <div key={i} className={`fpc-price-row ${isReco ? 'is-reco' : ''}`}>
-              <div className="fpc-logo-wrap" style={{ background: cfg ? cfg.bg : '#F2F4F6' }}>
+              <div className="fpc-logo-wrap" style={{ background: logoBg }}>
                 {cfg?.img
                   ? <img src={cfg.img} alt={displayLabel} />
-                  : <span style={{fontSize:'11px', fontWeight:700, color:'#888'}}>실속</span>}
+                  : <span style={{fontSize:'10px', fontWeight:800, color: opt.dataLabel ? '#1f9e8c' : '#aaa'}}>{logoText}</span>}
               </div>
               <span className="fpc-benefit-label">{displayLabel}</span>
               <span className="fpc-price-val">{opt.price.toLocaleString()}<span>원/월</span></span>
               <button
                 className={`fpc-add-btn ${isAdded ? 'added' : ''}`}
-                onClick={(e) => { e.stopPropagation(); toggleCompare({ ...family, price: opt.price, variants: opt.variants }); }}
+                onClick={(e) => { e.stopPropagation(); toggleCompare({ ...family, familyName: planFamilyName, price: opt.price, variants: opt.variants, dataVolume: opt.dataVolume !== undefined ? opt.dataVolume : family.dataVolume }); }}
                 title={isAdded ? '비교함에서 제거' : '비교함에 추가'}
               >{isAdded ? '✓' : '+'}</button>
             </div>
@@ -1403,16 +1406,33 @@ function App() {
   const familyNormalizedPlans = useMemo(() => {
     const map = new Map();
     filteredRawPlans.forEach(p => {
-      if (!map.has(p.familyName)) {
-        map.set(p.familyName, {
-          familyName: p.familyName, dataVolume: p.dataVolume,
-          dataRaw: p.dataRaw, rangeId: p.rangeId, isUnlimited: p.isUnlimited,
-          priceMap: new Map()
+      // "모두다 맘껏 안심 *" 시리즈는 하나의 카드로 통합
+      const isAnshim = !p.familyName.includes('5G') && p.familyName.startsWith('모두다 맘껏 안심');
+      const key = isAnshim ? '모두다 맘껏 안심' : p.familyName;
+
+      if (!map.has(key)) {
+        map.set(key, {
+          familyName: key, dataVolume: p.dataVolume,
+          dataRaw: isAnshim ? null : p.dataRaw,
+          rangeId: p.rangeId, isUnlimited: p.isUnlimited,
+          isSeries: isAnshim, priceMap: new Map()
         });
       }
-      const entry = map.get(p.familyName);
-      if (!entry.priceMap.has(p.price)) entry.priceMap.set(p.price, { price: p.price, variants: [] });
-      entry.priceMap.get(p.price).variants.push(...p.variants);
+      const entry = map.get(key);
+      // 시리즈 카드는 최대 dataVolume을 대표값으로 사용 (그룹 배치용)
+      if (isAnshim && p.dataVolume > entry.dataVolume) {
+        entry.dataVolume = p.dataVolume;
+        entry.dataRaw = p.dataRaw;
+      }
+      const priceKey = isAnshim ? `${p.price}_${p.dataVolume}` : p.price;
+      if (!entry.priceMap.has(priceKey)) {
+        entry.priceMap.set(priceKey, {
+          price: p.price, variants: [],
+          dataLabel: isAnshim ? p.familyName.replace('모두다 맘껏 ', '') : null,
+          dataVolume: isAnshim ? p.dataVolume : undefined
+        });
+      }
+      entry.priceMap.get(priceKey).variants.push(...p.variants);
     });
     return Array.from(map.values()).map(({ priceMap, ...rest }) => ({
       ...rest,
