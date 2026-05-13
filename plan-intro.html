@@ -113,11 +113,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .segment-pill:hover { background: var(--border-light); }
 .segment-pill.active { background: var(--kt-red-light); color: var(--kt-red); border-color: rgba(230,0,18,0.2); }
 
-.view-mode-bar { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+.view-mode-bar { display: flex; flex-direction: column; align-items: flex-end; margin-bottom: 24px; gap: 8px; }
 .view-mode-toggle { display: inline-flex; background: var(--bg-soft); border-radius: var(--radius-md); padding: 4px; border: 1px solid var(--border-light); }
 .view-mode-btn { padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; color: var(--text-sub); transition: all 0.2s ease; }
 .view-mode-btn:hover { color: var(--text-main); }
 .view-mode-btn.active { background: var(--bg-main); color: var(--text-main); box-shadow: var(--shadow-sm); font-weight: 700; }
+.sort-criterion-hint { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
 
 .usage-filter-wrap {
   position: sticky; top: 0; z-index: 40;
@@ -206,6 +207,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .fpc-data-detail { font-size: 15px; font-weight: 600; color: var(--text-main); margin-bottom: 8px; }
 .fpc-speed-note { font-weight: 500; color: var(--text-sub); }
 .fpc-promo-highlight { color: #0F6E56; font-weight: 700; background: #EAF3DE; padding: 2px 6px; border-radius: 4px; font-size: 13px; margin-left: 4px; vertical-align: middle;}
+.promo-live-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #0F6E56; background: #EAF8F4; padding: 2px 8px 2px 6px; border-radius: 999px; margin-left: 4px; vertical-align: middle; }
+.promo-live-dot { width: 5px; height: 5px; background: #0F6E56; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.promo-footnote { font-size: 11px; color: var(--text-muted); margin-top: 20px; padding: 12px 16px; background: var(--bg-soft); border-radius: 8px; line-height: 1.6; }
 
 .fpc-voice-sms { 
   font-size: 14px; font-weight: 600; color: var(--text-sub); 
@@ -965,7 +969,7 @@ function PlanModal({ plan, onClose }) {
                 <div className="kt-mdl-icon-svg"><SvgIcon type="data"/></div>
                 {isUnlimited && <span className="kt-mdl-val-badge">최대 {totalData}GB무제한</span>}
                 <div className="kt-mdl-val">{plan.dataVolume}GB{isUnlimited && speedAfter ? '+'+speedAfter : ''}</div>
-                {promoData > 0 && <div className="kt-mdl-sub">매월 모두에게 {promoData}GB 추가제공</div>}
+                {promoData > 0 && <div className="kt-mdl-sub" style={{display:'flex',alignItems:'center',gap:'4px'}}><span style={{width:'5px',height:'5px',background:'#1f9e8c',borderRadius:'50%',display:'inline-block',flexShrink:0}}/> 지금 매월 +{promoData}GB 추가 제공 중*</div>}
               </div>
               <div className="kt-mdl-icon-item">
                 <div className="kt-mdl-icon-svg"><SvgIcon type="call"/></div>
@@ -1127,7 +1131,12 @@ function FamilyPlanCard({ family, compareList, toggleCompare, onOpen, recoId }) 
         <div className="fpc-data-detail">
           {family.dataVolume > 0 ? `${family.dataVolume}GB` : '0GB'}
           {speedAfter && <span className="fpc-speed-note"> + 소진 시 {speedAfter}</span>}
-          {promoGB > 0 && <span className="fpc-promo-highlight"> (매월 모두에게 {promoGB}GB 추가제공)</span>}
+          {promoGB > 0 && (
+              <span className="promo-live-tag">
+                <span className="promo-live-dot"/>
+                지금 매월 +{promoGB}GB 추가 제공 중
+              </span>
+            )}
         </div>
 
         <div className="fpc-voice-sms">
@@ -1185,7 +1194,12 @@ function PlanCard({ plan, isAdded, onToggle, isRecommended, onOpen }) {
           <div className="pc-data-huge">
             {totalGB === 0 ? "없음" : <>{totalGB}<span>GB{plan.isUnlimited ? '+' : ''}</span></>}
           </div>
-          {promoGB > 0 && <div className="pc-base-data-note">매월 모두에게 {promoGB}GB 추가제공</div>}
+          {promoGB > 0 && (
+              <div className="pc-base-data-note" style={{display:'flex', alignItems:'center', gap:'4px'}}>
+                <span className="promo-live-dot" style={{width:'5px',height:'5px',background:'#1f9e8c',borderRadius:'50%',display:'inline-block',flexShrink:0}}/>
+                지금 매월 +{promoGB}GB 추가 제공 중
+              </div>
+            )}
         </div>
         <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'8px'}}>
           <div className="pc-price-huge">
@@ -1552,11 +1566,17 @@ function App() {
           {/* 데이터/가격 기준 보기 토글 */}
           <div className="view-mode-bar">
             <div className="view-mode-toggle">
-              <button className={`view-mode-btn ${viewMode === 'data' ? 'active' : ''}`} 
+              <button className={`view-mode-btn ${viewMode === 'data' ? 'active' : ''}`}
                 onClick={() => { setViewMode('data'); setOpenGroups({'11~29GB': true}); }}>데이터 기준으로 보기</button>
-              <button className={`view-mode-btn ${viewMode === 'price' ? 'active' : ''}`} 
+              <button className={`view-mode-btn ${viewMode === 'price' ? 'active' : ''}`}
                 onClick={() => { setViewMode('price'); setOpenGroups({'1만원대': true}); }}>가격을 기준으로 보기</button>
             </div>
+            {viewMode === 'data' && (
+              <div className="sort-criterion-hint">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                기본 데이터 + 현재 프로모션 합산 실사용량 기준으로 나뉩니다
+              </div>
+            )}
           </div>
 
           {/* 구간 빠른 이동 */}
@@ -1618,6 +1638,10 @@ function App() {
                   groupRef={refPriceE} familyMode={true} />
               </>
             )}
+          </div>
+
+          <div className="promo-footnote">
+            * 프로모션 추가 데이터는 해당 혜택 기간 동안 신규 가입 고객에게 매월 제공됩니다. 현재 제공 중인 혜택을 놓치지 않으려면 지금 가입을 추천드려요.
           </div>
         </main>
 
