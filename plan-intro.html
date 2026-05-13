@@ -623,6 +623,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   /* Filter tabs scroll */
   .usage-filter-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* Compare table: horizontal scroll on mobile */
+  .cmp-table-container { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  .cmp-table { min-width: max-content; }
+
+  /* Modal title & button */
+  .kt-modal-title { font-size: 20px; }
+  .kt-mdl-btn { padding: 16px; font-size: 16px; }
 }
 
 @media (max-width: 480px) {
@@ -633,6 +641,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .kt-mdl-icons { grid-template-columns: 1fr 1fr; }
   .cmp-header { padding: 12px; }
   .cmp-content { padding: 12px; }
+  .kt-mdl-btn { padding: 14px; font-size: 15px; }
   .kt-modal-header { padding: 16px 12px 10px; }
   .kt-mdl-btns, .kt-mdl-tabs, .kt-mdl-content { margin-left: 12px; margin-right: 12px; }
 }
