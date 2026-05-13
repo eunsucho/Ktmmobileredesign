@@ -36,6 +36,54 @@
       flex-shrink: 0; width: 100%; height: 100%;
       padding: 24px; display: flex; align-items: center; justify-content: space-between;
     }
+
+    /* Mobile drawer */
+    #kmnav-drawer-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.5);
+    }
+    #kmnav-drawer-overlay.open { display: block; }
+    #kmnav-drawer {
+      position: absolute; top: 0; left: 0; bottom: 0; width: 280px;
+      background: #fff; overflow-y: auto;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    #kmnav-drawer-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px; border-bottom: 2px solid #E60012;
+    }
+    .kmnav-drawer-item {
+      display: block; padding: 14px 20px; font-size: 16px; font-weight: 600;
+      color: #1A1A1A; border-bottom: 1px solid #f0f0f0; text-decoration: none;
+    }
+    .kmnav-drawer-item:hover { background: #fafafa; }
+    .kmnav-drawer-login {
+      margin: 12px 20px;
+    }
+    .kmnav-drawer-login button {
+      width: 100%; padding: 12px; background: #E60012; color: #fff;
+      border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* Mobile-specific responsive */
+    @media (max-width: 768px) {
+      #kmnav-header { height: auto !important; min-height: 56px; }
+      #kmnav-header > div { height: 56px !important; padding: 0 16px !important; }
+      #kmnav-desktop-nav { display: none !important; }
+      #kmnav-desktop-right { display: none !important; }
+      #kmnav-mobile-btn { display: flex !important; }
+      #kmnav-promo { height: auto !important; min-height: 40px; padding: 8px 40px 8px 16px; }
+      #kmnav-promo > div:first-child { font-size: 12px !important; }
+      .kmnav-mega-dd { display: none !important; }
+    }
+    #kmnav-mobile-btn {
+      display: none;
+      width: 40px; height: 40px;
+      border-radius: 8px; background: #E60012;
+      align-items: center; justify-content: center;
+      border: none; cursor: pointer; flex-shrink: 0;
+    }
   `;
   document.head.appendChild(style);
 
@@ -210,6 +258,24 @@
     const navKeys = ['가입하기', '상품', '혜택', '결합', '고객센터'];
 
     mount.innerHTML = `
+      <!-- Mobile Drawer Overlay -->
+      <div id="kmnav-drawer-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+        <div id="kmnav-drawer">
+          <div id="kmnav-drawer-head">
+            <img src="ktmmobile_logo.svg" alt="kt M mobile" style="height:22px;">
+            <button onclick="document.getElementById('kmnav-drawer-overlay').classList.remove('open')" style="width:32px;height:32px;background:#f5f5f5;border:none;border-radius:50%;font-size:18px;color:#555;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+          </div>
+          <a href="index.html" class="kmnav-drawer-item">홈</a>
+          <a href="plan-intro.html" class="kmnav-drawer-item">요금제 보기</a>
+          <a href="plan-compare.html" class="kmnav-drawer-item">요금제 비교</a>
+          <a href="precheck.html" class="kmnav-drawer-item">가입조건 확인</a>
+          <a href="sim-guide.html" class="kmnav-drawer-item">SIM 활성화 가이드</a>
+          <a href="#" class="kmnav-drawer-item">혜택</a>
+          <a href="#" class="kmnav-drawer-item">결합</a>
+          <a href="#" class="kmnav-drawer-item">고객센터</a>
+          <div class="kmnav-drawer-login"><button>로그인</button></div>
+        </div>
+      </div>
       <!-- Promo Banner -->
       <div id="kmnav-promo" style="width:100%;height:56px;background:linear-gradient(90deg,#1c3fd8 0%,#2E5BFF 55%,#5579ff 100%);display:flex;align-items:center;justify-content:center;position:relative;">
         <div style="display:flex;align-items:center;gap:8px;color:white;font-weight:600;font-size:14px;">
@@ -223,12 +289,12 @@
       <!-- Header -->
       <header id="kmnav-header">
         <div style="max-width:1280px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 32px;">
-          <!-- Logo + Nav -->
-          <div style="display:flex;align-items:center;gap:48px;">
-            <a href="index.html" style="display:flex;align-items:center;text-decoration:none;">
+          <!-- Logo + Desktop Nav -->
+          <div style="display:flex;align-items:center;gap:48px;min-width:0;">
+            <a href="index.html" style="display:flex;align-items:center;text-decoration:none;flex-shrink:0;">
               <img src="ktmmobile_logo.svg" alt="kt M mobile" style="height:30px;width:auto;">
             </a>
-            <nav style="display:flex;align-items:center;gap:32px;">
+            <nav id="kmnav-desktop-nav" style="display:flex;align-items:center;gap:32px;">
               ${navKeys.map(key => `
                 <div class="kmnav-item" style="position:relative;padding:8px 0;" onmouseenter="kmNavOpenMenu('${key}')" onmouseleave="kmNavStartClose()">
                   <a href="#" style="color:${key === activeKey ? '#E60012' : '#1A1A1A'};font-weight:${key === activeKey ? '700' : '500'};">${key}</a>
@@ -241,8 +307,8 @@
               </div>
             </nav>
           </div>
-          <!-- Right -->
-          <div style="display:flex;align-items:center;gap:16px;">
+          <!-- Right: desktop -->
+          <div id="kmnav-desktop-right" style="display:flex;align-items:center;gap:16px;">
             <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:#767676;">
               <a href="#" onmouseover="this.style.color='#1A1A1A'" onmouseout="this.style.color='#767676'">교체 유심 신청</a>
               <span>|</span>
@@ -255,6 +321,10 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             </button>
           </div>
+          <!-- Mobile hamburger button -->
+          <button id="kmnav-mobile-btn" onclick="document.getElementById('kmnav-drawer-overlay').classList.add('open')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
         </div>
         <!-- Mega Dropdown -->
         <div id="kmnav-mega" class="kmnav-mega-dd" onmouseenter="kmNavDdEnter()" onmouseleave="kmNavDdLeave()">

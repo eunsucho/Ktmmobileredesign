@@ -552,6 +552,54 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   .cmp-content { padding: 24px; }
   .cmp-header { padding: 24px; }
 }
+
+@media (max-width: 768px) {
+  .kt-page-title-wrap { padding: 28px 16px 16px; }
+  .kt-page-title { font-size: 22px; }
+  .kt-page-sub { font-size: 13px; }
+
+  .kt-layout { padding: 16px 16px 60px; gap: 0; }
+  .kt-side { width: 100%; position: static; }
+
+  .network-tabs { gap: 16px; padding: 0 4px; }
+  .network-tab { font-size: 15px; padding: 10px 2px; }
+
+  .plan-grid { grid-template-columns: 1fr; }
+  .kt-svc-4grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .kt-modal-overlay { padding: 0; align-items: flex-end; }
+  .kt-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+  }
+  .kt-modal-header { padding: 20px 16px 12px; }
+  .kt-mdl-btns, .kt-mdl-tabs, .kt-mdl-content { margin-left: 16px; margin-right: 16px; }
+  .kt-mdl-sumbox { margin: 0 16px 24px; }
+  .cmp-modal-wrap { max-width: 100%; }
+  .cmp-header { padding: 16px; }
+  .cmp-content { padding: 16px; }
+
+  .kt-mdl-icons { grid-template-columns: repeat(2, 1fr); gap: 16px 0; }
+  .kt-mdl-icon-item::after { display: none !important; }
+  .kt-mdl-price-row { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; }
+
+  .comp-board { position: static; width: 100%; }
+  .usage-filter-wrap { height: auto; min-height: 48px; flex-wrap: wrap; }
+
+  .view-mode-toggle { display: none; }
+}
+
+@media (max-width: 480px) {
+  .kt-page-title { font-size: 18px; }
+  .network-tab { font-size: 14px; }
+  .kt-layout { padding: 12px 12px 60px; }
+  .kt-svc-4grid { grid-template-columns: 1fr; }
+  .cmp-header, .cmp-content { padding: 12px; }
+  .kt-modal-header { padding: 16px 12px 10px; }
+  .kt-mdl-btns, .kt-mdl-tabs, .kt-mdl-content { margin-left: 12px; margin-right: 12px; }
+}
 </style>
 </head>
 <body>

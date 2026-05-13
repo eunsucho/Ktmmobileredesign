@@ -25,7 +25,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <meta charset="UTF-8">
 <title>요금제 | kt M mobile</title>
-<meta name="viewport" content="width=1280">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
@@ -1004,6 +1004,97 @@ img { max-width: 100%; display: block; }
 }
 .kt-empty-title { font-size: 18px; font-weight: 700; color: #555; margin: 12px 0 6px; }
 .kt-empty-sub { font-size: 13px; }
+
+/* ==============================
+   MOBILE RESPONSIVE
+   ============================== */
+@media (max-width: 768px) {
+  /* Header */
+  .kt-header-inner { padding: 14px 16px; gap: 16px; }
+  .kt-nav { display: none; }
+  .kt-promo-badge { display: none; }
+  .kt-utils { font-size: 12px; gap: 10px; }
+  .kt-utils-divider { display: none; }
+  .kt-utils a:not(:last-child) { display: none; }
+
+  /* Mobile hamburger */
+  .kt-mobile-menu-btn { display: flex !important; }
+
+  /* Page title */
+  .kt-page-title-wrap { padding: 24px 16px 16px; }
+  .kt-page-title { font-size: 24px; }
+  .kt-page-sub { font-size: 13px; }
+
+  /* Pill tabs */
+  .kt-pill-tabs-wrap { padding: 0 16px; }
+  .kt-pill-tabs-grid { height: 56px; }
+  .kt-pill-tab { font-size: 14px; }
+  .kt-pill-tab.verb .kt-pill-tab-title { font-size: 14px; }
+
+  /* Filter bar */
+  .kt-filterbar { padding: 16px; top: 57px; }
+  .kt-slider-grid { grid-template-columns: 1fr; gap: 20px; }
+  .kt-slider-val { font-size: 18px; }
+
+  /* Interest chips */
+  .kt-interest-wrap { padding: 12px 16px; }
+
+  /* Page list */
+  .kt-plan-list { padding: 16px; }
+
+  /* Plan card: stack layout */
+  .kt-plan2 { padding: 16px; }
+  .kt-plan2-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .kt-plan2-name { font-size: 15px; white-space: normal; }
+  .kt-data-base { font-size: 22px; }
+  .kt-data-base .gb { font-size: 13px; }
+
+  /* Pin button: full row on mobile */
+  .kt-pin-btn { width: 100%; justify-content: center; padding: 10px; }
+
+  /* Modal: bottom sheet */
+  .kt-modal-overlay { padding: 0; align-items: flex-end; }
+  .kt-modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 92vh;
+    border-radius: 20px 20px 0 0;
+  }
+  .kt-modal-header { padding: 20px 16px 12px; }
+  .kt-modal-title { font-size: 18px; }
+
+  /* Pinbar */
+  .kt-pinbar { padding: 10px 16px; }
+  .kt-pinbar-inner { gap: 10px; flex-wrap: wrap; }
+  .kt-pinbar-name { max-width: none; flex: 1; font-size: 14px; }
+  .kt-pinbar-stat { display: none; }
+  .kt-pinbar-btn { padding: 9px 16px; font-size: 13px; }
+  .kt-pinbar-label { padding: 5px 10px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .kt-header-inner { padding: 12px; gap: 12px; }
+  .kt-page-title { font-size: 20px; }
+  .kt-pill-tabs-grid { height: 48px; }
+  .kt-pill-tab { font-size: 13px; }
+  .kt-filterbar { padding: 12px; }
+  .kt-plan2 { padding: 12px; }
+  .kt-pinbar-inner { gap: 8px; }
+  .kt-pinbar-btn.outline { display: none; }
+}
+
+/* Mobile hamburger button (hidden on desktop) */
+.kt-mobile-menu-btn {
+  display: none;
+  width: 36px; height: 36px;
+  align-items: center; justify-content: center;
+  background: var(--kt-red); color: #fff;
+  border-radius: 8px; border: none; cursor: pointer;
+  flex-shrink: 0;
+}
 </style>
 </head>
 <body>

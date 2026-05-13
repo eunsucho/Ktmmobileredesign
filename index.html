@@ -227,6 +227,87 @@
 
     /* ---- Price text ---- */
     .price-green { color: var(--green); font-weight: 800; letter-spacing: -0.03em; }
+
+    /* ==============================
+       MOBILE RESPONSIVE (@768px)
+       ============================== */
+    /* Hamburger menu */
+    #mobile-menu-btn { display: none; }
+    #mobile-nav-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.5);
+    }
+    #mobile-nav-overlay.open { display: block; }
+    #mobile-nav-drawer {
+      position: absolute; top: 0; left: 0; bottom: 0; width: 280px;
+      background: #fff; padding: 24px 0; overflow-y: auto;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+    }
+    #mobile-nav-drawer a, #mobile-nav-drawer .mobile-nav-item {
+      display: block; padding: 14px 24px; font-size: 16px; font-weight: 600;
+      color: #1A1A1A; border-bottom: 1px solid #f0f0f0; text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      /* Header */
+      #main-header { height: auto !important; min-height: 56px !important; }
+      #main-header > div { padding: 0 16px !important; height: 56px !important; }
+      #main-nav { display: none !important; }
+      #main-header > div > div:first-child { gap: 12px !important; }
+
+      /* Show hamburger, hide desktop right text links */
+      #mobile-menu-btn { display: flex !important; }
+      #main-header > div > div:last-child > div:first-child { display: none !important; }
+      /* Hide login button on mobile to save space */
+      #main-header > div > div:last-child > button:first-of-type { display: none !important; }
+
+      /* Promo banner */
+      #promo-banner { height: auto !important; padding: 8px 40px 8px 16px !important; }
+      #promo-banner > div:first-child { font-size: 12px !important; }
+
+      /* Entry popup */
+      #entry-popup-overlay > div { width: 90vw !important; max-width: 400px !important; padding: 20px !important; }
+
+      /* Hero section outer padding */
+      #main-hero-outer { padding: 16px 0 !important; }
+      #main-hero-outer > div { padding: 0 12px !important; }
+
+      /* Hero + Q&A: stack vertically */
+      #hero-qa-wrap { flex-direction: column !important; }
+      #hero-qa-wrap > div:first-child { width: 100% !important; }
+      #hero-qa-wrap > div:last-child { width: 100% !important; position: static !important; }
+
+      /* Pagination controls: reposition */
+      #hero-track + div { left: 12px !important; bottom: 8px !important; }
+
+      /* Reviews grid: 1 column */
+      #reviews-grid { grid-template-columns: 1fr !important; }
+
+      /* Customer center: 2 columns */
+      #cust-center-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+      /* Today's picks: 1 column */
+      #today-picks-grid { grid-template-columns: 1fr !important; }
+
+      /* Floating buttons */
+      #help-float { bottom: 16px !important; right: 16px !important; }
+
+      /* Phone slides: 1 at a time */
+      .phone-slide { width: 100% !important; }
+
+      /* Mega dropdown: hidden on mobile */
+      .mega-dd { display: none !important; }
+
+      /* Category icon boxes: smaller on mobile */
+      .cat-icon-box { width: 56px !important; height: 56px !important; border-radius: 14px !important; }
+    }
+
+    @media (max-width: 480px) {
+      #main-header > div { padding: 0 10px !important; }
+      #entry-popup-overlay > div { width: 95vw !important; padding: 16px !important; }
+      #cust-center-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      #hero-qa-wrap > div:first-child, #hero-qa-wrap > div:last-child { width: 100% !important; }
+    }
   </style>
 </head>
 <body class="min-h-screen bg-white">
@@ -401,7 +482,7 @@ function closePopup() {
       <button style="width:40px;height:40px;border-radius:50%;background:#E60012;display:flex;align-items:center;justify-content:center;border:none;">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
-      <button style="width:40px;height:40px;border-radius:8px;background:#E60012;display:flex;align-items:center;justify-content:center;border:none;">
+      <button id="mobile-menu-btn" onclick="document.getElementById('mobile-nav-overlay').classList.add('open')" style="width:40px;height:40px;border-radius:8px;background:#E60012;display:flex;align-items:center;justify-content:center;border:none;">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
       </button>
     </div>
@@ -442,10 +523,30 @@ function closePopup() {
   </div>
 </header>
 
+<!-- Mobile Nav Drawer -->
+<div id="mobile-nav-overlay" onclick="if(event.target===this)this.classList.remove('open')">
+  <div id="mobile-nav-drawer">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px 16px;border-bottom:2px solid #E60012;margin-bottom:8px;">
+      <img src="ktmmobile_logo.svg" alt="kt M mobile" style="height:24px;">
+      <button onclick="document.getElementById('mobile-nav-overlay').classList.remove('open')" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:none;background:#f5f5f5;border-radius:50%;font-size:18px;color:#555;">✕</button>
+    </div>
+    <a href="plan-intro.html" class="mobile-nav-item">요금제 보기</a>
+    <a href="plan-compare.html" class="mobile-nav-item">요금제 비교</a>
+    <a href="precheck.html" class="mobile-nav-item">가입조건 확인</a>
+    <a href="sim-guide.html" class="mobile-nav-item">SIM 활성화 가이드</a>
+    <a href="#" class="mobile-nav-item">혜택</a>
+    <a href="#" class="mobile-nav-item">결합</a>
+    <a href="#" class="mobile-nav-item">고객센터</a>
+    <div style="padding:16px 24px;margin-top:8px;">
+      <button style="width:100%;padding:12px;background:#E60012;color:white;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;">로그인</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== SECTION 3 & 4: Hero Slider + Q&A ===== -->
-<div style="width:100%;background:white;padding:24px 0;">
+<div id="main-hero-outer" style="width:100%;background:white;padding:24px 0;">
   <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
-    <div style="display:flex;gap:24px;align-items:stretch;">
+    <div id="hero-qa-wrap" style="display:flex;gap:24px;align-items:stretch;">
 
       <!-- Left 70%: Hero Slider -->
       <div style="width:70%;display:flex;flex-direction:column;">
@@ -688,7 +789,7 @@ function closePopup() {
         </button>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
+    <div id="today-picks-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;">
       <div style="border-radius:16px;padding:32px;background:#2E5BFF;display:flex;align-items:center;justify-content:space-between;">
         <div style="color:white;">
           <h3 style="font-size:22px;font-weight:700;margin-bottom:4px;">단 4일간만,</h3>
@@ -715,7 +816,7 @@ function closePopup() {
 <!-- ===== SECTION 11: Customer Center ===== -->
 <div style="width:100%;padding:48px 0;background:white;">
   <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e5e7eb;">
+    <div id="cust-center-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e5e7eb;">
       <div style="background:white;padding:48px;display:flex;flex-direction:column;align-items:center;gap:24px;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
         <div style="width:80px;height:80px;border-radius:50%;background:#f3f4f6;display:flex;align-items:center;justify-content:center;font-size:36px;">📱</div>
         <button style="padding:12px 24px;border:2px solid #d1d5db;border-radius:999px;background:white;cursor:pointer;font-family:inherit;">이용량 조회 →</button>
