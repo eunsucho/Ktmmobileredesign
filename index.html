@@ -249,64 +249,154 @@
     }
 
     @media (max-width: 768px) {
-      /* Header */
+      /* ── Header ── */
       #main-header { height: auto !important; min-height: 56px !important; }
       #main-header > div { padding: 0 16px !important; height: 56px !important; }
       #main-nav { display: none !important; }
       #main-header > div > div:first-child { gap: 12px !important; }
-
-      /* Show hamburger, hide desktop right text links */
       #mobile-menu-btn { display: flex !important; }
+      /* hide desktop links + login btn */
       #main-header > div > div:last-child > div:first-child { display: none !important; }
-      /* Hide login button on mobile to save space */
       #main-header > div > div:last-child > button:first-of-type { display: none !important; }
+      /* hide desktop search button */
+      #main-header > div > div:last-child > button:nth-of-type(1) { display: none !important; }
 
-      /* Promo banner */
-      #promo-banner { height: auto !important; padding: 8px 40px 8px 16px !important; }
-      #promo-banner > div:first-child { font-size: 12px !important; }
+      /* ── Promo banner ── */
+      #promo-banner { height: auto !important; padding: 8px 44px 8px 16px !important; }
+      #promo-banner > div:first-child { font-size: 12px !important; flex-wrap: wrap !important; gap: 4px !important; }
+      #promo-banner > div:last-child { right: 8px !important; }
 
-      /* Entry popup */
-      #entry-popup-overlay > div { width: 90vw !important; max-width: 400px !important; padding: 20px !important; }
+      /* ── Entry popup ── */
+      #entry-popup-overlay > div { width: 92vw !important; max-width: 380px !important; }
 
-      /* Hero section outer padding */
-      #main-hero-outer { padding: 16px 0 !important; }
+      /* ── Hero outer wrapper ── */
+      #main-hero-outer { padding: 12px 0 !important; }
       #main-hero-outer > div { padding: 0 12px !important; }
 
-      /* Hero + Q&A: stack vertically */
-      #hero-qa-wrap { flex-direction: column !important; }
+      /* ── Hero + Q&A: stack ── */
+      #hero-qa-wrap { flex-direction: column !important; gap: 16px !important; }
       #hero-qa-wrap > div:first-child { width: 100% !important; }
-      #hero-qa-wrap > div:last-child { width: 100% !important; position: static !important; }
+      #hero-qa-wrap > div:last-child { width: 100% !important; position: static !important; top: auto !important; }
 
-      /* Pagination controls: reposition */
-      #hero-track + div { left: 12px !important; bottom: 8px !important; }
+      /* ── Hero slide inner layout: text only, hide illustration ── */
+      .hero-slide > div { padding: 0 16px !important; min-height: 180px !important; }
+      .hero-slide > div > div:first-child { padding-left: 4px !important; padding-right: 8px !important; }
+      .hero-slide > div > div:first-child > div { font-size: 18px !important; line-height: 1.45 !important; }
+      .hero-slide > div > div:first-child > p { font-size: 12px !important; margin-top: 6px !important; }
+      /* Hide the illustration (right block) */
+      .hero-slide > div > div:last-child { display: none !important; }
 
-      /* Reviews grid: 1 column */
-      #reviews-grid { grid-template-columns: 1fr !important; }
+      /* ── Hero pagination controls ── */
+      #hero-track ~ div { left: 12px !important; bottom: 8px !important; }
+      #hero-track ~ div > div { height: 40px !important; padding: 0 12px !important; gap: 10px !important; }
+      #hero-track ~ div > div > span { font-size: 13px !important; min-width: 44px !important; }
 
-      /* Customer center: 2 columns */
+      /* ── Category icons: fit 5 in row ── */
+      #hero-qa-wrap > div:first-child > div:last-child > div { padding: 16px 0 12px !important; }
+      #hero-qa-wrap > div:first-child > div:last-child > div > div > div > div:first-child {
+        width: 52px !important; height: 52px !important; border-radius: 14px !important;
+      }
+      #hero-qa-wrap > div:first-child > div:last-child > div > div > div > span {
+        font-size: 11px !important;
+      }
+
+      /* ── Q&A widget ── */
+      #hero-qa-wrap > div:last-child > div { height: auto !important; min-height: 200px !important; padding: 20px !important; }
+
+      /* ── SIM/Phone tabs section ── */
+      #tab-sim, #tab-phone { padding: 10px 20px !important; font-size: 14px !important; }
+
+      /* ── Reviews section ── */
+      #reviews-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+      /* Card compact */
+      #reviews-grid > div { padding: 16px !important; }
+      /* Text: remove forced min-height */
+      #reviews-grid > div > p { min-height: 0 !important; font-size: 14px !important; margin-bottom: 10px !important; }
+      /* Phone mockup section inside card: smaller */
+      #reviews-grid > div > div:nth-child(4) { padding: 10px !important; }
+      #reviews-grid > div > div:nth-child(4) > div > div:last-child { min-height: 90px !important; padding: 12px !important; }
+
+      /* ── Today's picks: 1 column ── */
+      #today-picks-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+      /* Fix card text overflow */
+      #today-picks-grid > div { padding: 20px !important; }
+      #today-picks-grid > div h3 { font-size: 18px !important; }
+
+      /* ── Customer center: 2 columns ── */
       #cust-center-grid { grid-template-columns: repeat(2, 1fr) !important; }
+      #cust-center-grid > div { padding: 24px 16px !important; }
+      #cust-center-grid > div > div { width: 56px !important; height: 56px !important; font-size: 24px !important; }
+      #cust-center-grid > div > button { padding: 8px 14px !important; font-size: 12px !important; }
 
-      /* Today's picks: 1 column */
-      #today-picks-grid { grid-template-columns: 1fr !important; }
+      /* ── Section outer padding: 48px → 24px ── */
+      #sec-sim-phone, #sec-reviews, #sec-today, #sec-cust {
+        padding-top: 28px !important; padding-bottom: 28px !important;
+      }
+      #sec-sim-phone > div, #sec-reviews > div, #sec-today > div, #sec-cust > div {
+        padding-left: 14px !important; padding-right: 14px !important;
+      }
 
-      /* Floating buttons */
-      #help-float { bottom: 16px !important; right: 16px !important; }
+      /* ── Section header rows (title + button): stack ── */
+      #sec-reviews > div > div:first-child,
+      #sec-today > div > div:first-child {
+        flex-direction: column !important; align-items: flex-start !important;
+        gap: 8px !important; margin-bottom: 16px !important;
+      }
+      #sec-reviews > div > div:first-child h2,
+      #sec-today > div > div:first-child h2 {
+        font-size: 22px !important;
+      }
+      #sec-reviews > div > div:first-child span:last-of-type { display: none !important; }
 
-      /* Phone slides: 1 at a time */
+      /* ── SIM/Phone tabs section ── */
+      #sec-sim-phone > div > div { padding: 24px 16px !important; }
+      #sec-sim-phone > div > div > div:first-child { margin-bottom: 20px !important; flex-wrap: wrap !important; gap: 8px !important; }
+      #sec-sim-phone > div > div > div:first-child > div { gap: 8px !important; }
+
+      /* ── Notice bar ── */
+      #notice-bar {
+        border-radius: 16px !important;
+        padding: 14px 16px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+      }
+      #notice-bar > div:last-child {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 4px !important;
+      }
+      /* Hide the long preview text, keep date and 더보기 */
+      #notice-bar > div:last-child > span:first-child { display: none !important; }
+
+      /* ── Floating buttons: smaller ── */
+      #help-float-wrap {
+        bottom: 16px !important; right: 16px !important; gap: 10px !important;
+      }
+      #help-float-wrap > div > div {
+        width: 48px !important; height: 48px !important;
+      }
+      #help-float-wrap > button {
+        width: 48px !important; height: 48px !important;
+      }
+      #help-float-wrap > div > div svg { width: 24px !important; height: 24px !important; }
+      #help-float-wrap > button svg { width: 24px !important; height: 24px !important; }
+
+      /* ── Phone carousel: 1 per slide ── */
       .phone-slide { width: 100% !important; }
 
-      /* Mega dropdown: hidden on mobile */
+      /* ── Mega dropdown: hidden ── */
       .mega-dd { display: none !important; }
 
-      /* Category icon boxes: smaller on mobile */
-      .cat-icon-box { width: 56px !important; height: 56px !important; border-radius: 14px !important; }
+      /* ── Footer ── */
+      footer > div { padding: 0 16px !important; }
     }
 
     @media (max-width: 480px) {
       #main-header > div { padding: 0 10px !important; }
-      #entry-popup-overlay > div { width: 95vw !important; padding: 16px !important; }
-      #cust-center-grid { grid-template-columns: repeat(2, 1fr) !important; }
-      #hero-qa-wrap > div:first-child, #hero-qa-wrap > div:last-child { width: 100% !important; }
+      #entry-popup-overlay > div { width: 96vw !important; }
+      .hero-slide > div > div:first-child > div { font-size: 16px !important; }
+      #today-picks-grid > div h3 { font-size: 16px !important; }
     }
   </style>
 </head>
@@ -531,7 +621,6 @@ function closePopup() {
       <button onclick="document.getElementById('mobile-nav-overlay').classList.remove('open')" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:none;background:#f5f5f5;border-radius:50%;font-size:18px;color:#555;">✕</button>
     </div>
     <a href="plan-intro.html" class="mobile-nav-item">요금제 보기</a>
-    <a href="plan-compare.html" class="mobile-nav-item">요금제 비교</a>
     <a href="precheck.html" class="mobile-nav-item">가입조건 확인</a>
     <a href="sim-guide.html" class="mobile-nav-item">SIM 활성화 가이드</a>
     <a href="#" class="mobile-nav-item">혜택</a>
@@ -708,7 +797,7 @@ function closePopup() {
 </div>
 
 <!-- ===== SECTION 6: SIM / Phone Tabs + Accordion ===== -->
-<div style="width:100%;padding:48px 0;background:white;">
+<div id="sec-sim-phone" style="width:100%;padding:48px 0;background:white;">
   <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
     <div style="border-radius:24px;padding:48px;background:linear-gradient(160deg,#EEF6FA 0%,#E4F0F8 100%);">
 
@@ -756,7 +845,7 @@ function closePopup() {
 </div>
 
 <!-- ===== SECTION 8: Reviews ===== -->
-<div style="width:100%;padding:48px 0;background:white;">
+<div id="sec-reviews" style="width:100%;padding:48px 0;background:white;">
   <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
       <div style="display:flex;align-items:center;gap:12px;">
@@ -773,7 +862,7 @@ function closePopup() {
 </div>
 
 <!-- ===== SECTION 10: Today's Product Suggestions ===== -->
-<div style="width:100%;padding:48px 0;background:white;">
+<div id="sec-today" style="width:100%;padding:48px 0;background:white;">
   <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
       <div style="display:flex;align-items:center;gap:12px;">
@@ -814,7 +903,7 @@ function closePopup() {
 </div>
 
 <!-- ===== SECTION 11: Customer Center ===== -->
-<div style="width:100%;padding:48px 0;background:white;">
+<div id="sec-cust" style="width:100%;padding:48px 0;background:white;">
   <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
     <div id="cust-center-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e5e7eb;">
       <div style="background:white;padding:48px;display:flex;flex-direction:column;align-items:center;gap:24px;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
@@ -840,7 +929,7 @@ function closePopup() {
 <!-- ===== SECTION 12: Notice ===== -->
 <div style="width:100%;padding:48px 0;background:white;">
   <div style="max-width:1280px;margin:0 auto;padding:0 32px;">
-    <div style="border:1px solid #d1d5db;border-radius:999px;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+    <div id="notice-bar" style="border:1px solid #d1d5db;border-radius:999px;padding:20px 32px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;" onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
       <div style="display:flex;align-items:center;gap:16px;">
         <span style="font-weight:700;">공지</span>
         <span style="font-weight:700;">시스템 점검에 따른 서비스 이용 안내</span>
@@ -869,7 +958,7 @@ function closePopup() {
 </footer>
 
 <!-- ===== Floating Elements ===== -->
-<div style="position:fixed;bottom:32px;right:32px;display:flex;flex-direction:column;align-items:flex-end;gap:16px;z-index:50;">
+<div id="help-float-wrap" style="position:fixed;bottom:32px;right:32px;display:flex;flex-direction:column;align-items:flex-end;gap:16px;z-index:50;">
   <div id="help-float" style="position:relative;">
     <div style="width:64px;height:64px;border-radius:50%;background:white;box-shadow:0 4px 12px rgba(0,0,0,0.15);display:flex;align-items:center;justify-content:center;cursor:pointer;">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E60012" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>

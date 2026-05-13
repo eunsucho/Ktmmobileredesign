@@ -267,7 +267,6 @@
           </div>
           <a href="index.html" class="kmnav-drawer-item">홈</a>
           <a href="plan-intro.html" class="kmnav-drawer-item">요금제 보기</a>
-          <a href="plan-compare.html" class="kmnav-drawer-item">요금제 비교</a>
           <a href="precheck.html" class="kmnav-drawer-item">가입조건 확인</a>
           <a href="sim-guide.html" class="kmnav-drawer-item">SIM 활성화 가이드</a>
           <a href="#" class="kmnav-drawer-item">혜택</a>
