@@ -379,14 +379,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ==========================================
    SEARCH / GENERAL
    ========================================== */
-.comp-search-wrap { display: flex; flex-direction: column; gap: 8px; }
-.comp-search-input-box { display: flex; align-items: center; background: var(--bg-main); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 0 16px; overflow: hidden; transition: 0.2s; box-shadow: var(--shadow-sm); }
-.comp-search-input-box:focus-within { border-color: var(--kt-red); box-shadow: 0 0 0 3px rgba(230,0,18,0.1); }
-.comp-search-input { width: 100%; padding: 14px 0; font-size: 14px; border: none; outline: none; background: transparent; color: var(--text-main); }
+.search-section { background: var(--bg-main); border: 1px solid var(--border-light); border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 16px; }
+.search-section-head { padding: 18px 20px 14px; border-bottom: 1px solid var(--border-light); background: var(--bg-soft); }
+.search-section-label { font-size: 15px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
+.search-section-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+.search-section-body { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
+.comp-search-wrap { display: flex; flex-direction: column; gap: 0; }
+.comp-search-input-box { display: flex; align-items: center; background: var(--bg-main); border: 1.5px solid var(--border-strong); border-radius: 12px; padding: 0 14px; overflow: hidden; transition: 0.2s; }
+.comp-search-input-box:focus-within { border-color: var(--kt-red); box-shadow: 0 0 0 3px rgba(230,0,18,0.08); }
+.comp-search-input { width: 100%; padding: 13px 0; font-size: 14px; border: none; outline: none; background: transparent; color: var(--text-main); }
 .comp-search-input::placeholder { color: var(--text-muted); }
-.comp-search-btn { font-size: 16px; color: var(--text-sub); padding: 8px; transition: color 0.2s; }
+.comp-search-btn { color: var(--text-sub); padding: 6px; transition: color 0.2s; flex-shrink: 0; }
 .comp-search-btn:hover { color: var(--kt-red); }
-.comp-search-result { background: var(--bg-soft); border-radius: var(--radius-md); padding: 16px; font-size: 13px; color: var(--text-main); line-height: 1.5; word-break: keep-all; border: 1px solid var(--border-light); }
+.search-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.search-chip { font-size: 12px; font-weight: 600; color: #374151; background: #F3F4F6; border: 1px solid #E5E7EB; border-radius: 999px; padding: 5px 11px; transition: all 0.15s; cursor: pointer; white-space: nowrap; }
+.search-chip:hover { background: #E8F5F3; color: #0F6E56; border-color: #A7D9D0; }
+.search-result-card { background: var(--bg-soft); border-radius: 12px; padding: 16px; border: 1px solid var(--border-light); display: flex; flex-direction: column; gap: 8px; animation: fadeIn 0.2s ease; }
+.src-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; color: #0F6E56; background: #EAF8F4; padding: 3px 8px; border-radius: 999px; width: fit-content; }
+.src-title { font-size: 14px; font-weight: 700; color: var(--text-main); }
+.src-desc { font-size: 13px; color: var(--text-sub); line-height: 1.6; margin: 0; }
+.src-points { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.src-points li { font-size: 12px; color: var(--text-sub); line-height: 1.5; padding-left: 14px; position: relative; }
+.src-points li::before { content: '·'; position: absolute; left: 4px; color: #1f9e8c; font-weight: 900; }
+.src-notfound { font-size: 13px; color: var(--text-muted); text-align: center; padding: 12px 0; }
+@keyframes fadeIn { from { opacity:0; transform: translateY(4px); } to { opacity:1; transform: translateY(0); } }
 
 /* ==========================================
    MODAL (General)
@@ -1386,7 +1402,50 @@ function App() {
   
   const [compareList, setCompareList] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResult, setSearchResult] = useState('');
+  const [searchResultKey, setSearchResultKey] = useState(null);
+
+  const SEARCH_ANSWERS = {
+    solo: {
+      badge: '결합할인',
+      title: '아무나 SOLO결합',
+      desc: '가족 회선 없이 혼자서도 결합할인을 받을 수 있는 KT M 모바일 전용 서비스예요.',
+      points: [
+        'KT M 모바일 요금제 가입 시 별도 신청 없이 자동 적용',
+        '가족·지인 회선 없이 단독으로 결합 혜택 받기 가능',
+        '결합 조건 충족 시 매월 요금 할인 적용',
+        '기존 KT 결합 고객은 아무나 SOLO결합 중복 불가',
+      ],
+    },
+    sharing: {
+      badge: '데이터 공유',
+      title: '데이터 쉐어링',
+      desc: '내 요금제 기본 데이터를 태블릿·스마트워치·라우터 등 다른 기기와 나눠 쓰는 서비스예요.',
+      points: [
+        '메인 폰의 기본 데이터를 최대 5개 회선에 공유',
+        '공유받는 기기는 별도 데이터 요금제 없이 사용 가능',
+        '프로모션으로 추가 제공된 데이터도 쉐어링 이용 가능',
+        '데이터 쉐어링 전용 유심 또는 eSIM 삽입 기기에서 사용',
+      ],
+    },
+  };
+
+  const KEYWORD_MAP = {
+    solo: ['아무나solo결합', '아무나솔로결합', 'solo결합', '솔로결합', 'solo', '결합'],
+    sharing: ['데이터쉐어링', '쉐어링', '데이터공유', '공유', '쉐어', '쉐어서비스'],
+  };
+
+  const SEARCH_CHIPS = [
+    { key: 'solo', label: '아무나 SOLO결합이 뭔가요?' },
+    { key: 'sharing', label: '데이터 쉐어링이 뭔가요?' },
+  ];
+
+  function matchSearchKey(q) {
+    const norm = q.toLowerCase().replace(/\s+/g, '');
+    for (const [key, kws] of Object.entries(KEYWORD_MAP)) {
+      if (kws.some(k => norm.includes(k))) return key;
+    }
+    return 'notfound';
+  }
   const [modalPlan, setModalPlan] = useState(null);
   const [showWelcome, setShowWelcome] = useState(true);
   const [showCompareModal, setShowCompareModal] = useState(false);
@@ -1402,14 +1461,14 @@ function App() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const q = searchQuery.trim().replace(/\s+/g, '');
-    if (q.includes('아무나solo결합') || q.includes('아무나솔로결합')) {
-      setSearchResult('아무나 SOLO결합은 혼자서도 결합가능한 kt m 모바일의 결합할인 상품입니다.');
-    } else if (q.length > 0) {
-      setSearchResult('현재는 "아무나 SOLO 결합"에 대한 답변만 준비되어 있습니다.');
-    } else {
-      setSearchResult('');
-    }
+    const q = searchQuery.trim();
+    if (!q) { setSearchResultKey(null); return; }
+    setSearchResultKey(matchSearchKey(q));
+  };
+
+  const handleChipClick = (key) => {
+    setSearchResultKey(key);
+    setSearchQuery('');
   };
 
   // '실속' 중복 요금제 삭제 전처리
@@ -1646,21 +1705,58 @@ function App() {
         </main>
 
         <aside className="kt-side">
-          <form className="comp-search-wrap" onSubmit={handleSearch} style={{marginBottom:'16px'}}>
-            <div className="comp-search-input-box">
-              <input
-                type="text"
-                className="comp-search-input"
-                placeholder="모르는 내용은 물어보세요"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button type="submit" className="comp-search-btn" aria-label="검색">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              </button>
+          <div className="search-section">
+            <div className="search-section-head">
+              <div className="search-section-label">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                궁금한 게 있으세요?
+              </div>
+              <div className="search-section-sub">요금제·혜택에 대해 바로 확인하세요</div>
             </div>
-            {searchResult && <div className="comp-search-result">{searchResult}</div>}
-          </form>
+            <div className="search-section-body">
+              <form className="comp-search-wrap" onSubmit={handleSearch}>
+                <div className="comp-search-input-box">
+                  <input
+                    type="text"
+                    className="comp-search-input"
+                    placeholder="결합할인, 데이터 공유 등 검색"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <button type="submit" className="comp-search-btn" aria-label="검색">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  </button>
+                </div>
+              </form>
+              <div className="search-chips">
+                {SEARCH_CHIPS.map(chip => (
+                  <button key={chip.key} className="search-chip" onClick={() => handleChipClick(chip.key)}>
+                    {chip.label}
+                  </button>
+                ))}
+              </div>
+              {searchResultKey && (
+                searchResultKey === 'notfound'
+                  ? <div className="search-result-card"><p className="src-notfound">아직 준비된 답변이 없어요.<br/>아래 버튼을 눌러 자주 묻는 질문을 확인해 보세요.</p></div>
+                  : (() => {
+                      const ans = SEARCH_ANSWERS[searchResultKey];
+                      return (
+                        <div className="search-result-card">
+                          <div className="src-badge">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            {ans.badge}
+                          </div>
+                          <div className="src-title">{ans.title}</div>
+                          <p className="src-desc">{ans.desc}</p>
+                          <ul className="src-points">
+                            {ans.points.map((pt, i) => <li key={i}>{pt}</li>)}
+                          </ul>
+                        </div>
+                      );
+                    })()
+              )}
+            </div>
+          </div>
 
           {/* 사이드바 비교함 (수직 장바구니 레이아웃) */}
           <div className="comp-board">
