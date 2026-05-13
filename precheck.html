@@ -252,7 +252,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
 
           {/* ── Main Form ── */}
-          <div className="max-w-[800px] mx-auto px-6 pb-24">
+          <div className="max-w-[800px] mx-auto px-6 pb-16">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', paddingTop: '24px' }}>
 
               {/* ── 고객유형 ── */}
@@ -975,35 +975,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
 
           {/* ── 하단 고정 요약 바 ── */}
-          <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#fff', borderTop: '2px solid #E60012', boxShadow: '0 -2px 12px rgba(0,0,0,.1)', zIndex: 30 }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '10px 24px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <div style={{ width: '36px', height: '36px', background: '#f3f4f6', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px' }}>📱</div>
-                  <div>
-                    <span style={{ fontWeight: 600, fontSize: '14px', color: '#111' }}>
-                      {activationType === 'usim-have' && 'USIM'}
-                      {activationType === 'esim' && 'ESIM'}
-                    </span>
-                    <span style={{ fontSize: '12px', color: '#4b5563', marginLeft: '10px' }}>
-                      {subscriptionType === 'transfer' ? '번호이동' : '신규가입'} / 모두다 맘껏 15GB+(PAY쿠폰 5000P)
-                    </span>
-                  </div>
-                </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{ fontSize: '12px', color: '#E60012', marginBottom: '2px' }}>월 예상 납부금액</div>
-                  <div>
-                    <span style={{ fontSize: '24px', fontWeight: 700, color: '#E60012' }}>23,700</span>
-                    <span style={{ fontSize: '18px', color: '#111' }}>원</span>
-                  </div>
-                  <div style={{ fontSize: '12px', color: '#9ca3af' }}>가입비 및 유심비 등 기타요금은 별도 청구됩니다</div>
-                </div>
-                <button
-                  onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_next_click',customer_type:customerType,sim_type:activationType,subscription_type:subscriptionType}); window.location.href = '셀프개통.html'; }}
-                  style={{ marginLeft: '24px', padding: '12px 36px', background: '#E60012', color: '#fff', borderRadius: '8px', fontWeight: 700, fontSize: '16px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
-                  다음 →
-                </button>
+          <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: '#fff', borderTop: '2px solid #E60012', boxShadow: '0 -2px 8px rgba(0,0,0,.07)', zIndex: 30 }}>
+            <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 24px', height: '56px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ flex: 1, fontSize: '13px', color: '#555', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                <span style={{ fontWeight: 700, color: '#111' }}>{activationType === 'usim-have' ? 'USIM' : 'ESIM'}</span>
+                <span style={{ margin: '0 5px', color: '#ccc' }}>·</span>
+                <span>{subscriptionType === 'transfer' ? '번호이동' : '신규가입'}</span>
+                <span style={{ margin: '0 5px', color: '#ccc' }}>·</span>
+                <span>{_planNameFromURL}</span>
               </div>
+              <div style={{ fontWeight: 800, fontSize: '18px', color: '#E60012', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                {_priceFromURL.toLocaleString()}<span style={{ fontSize: '12px', fontWeight: 600, color: '#777', marginLeft: '2px' }}>원/월</span>
+              </div>
+              <button
+                onClick={() => { window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'precheck_next_click',customer_type:customerType,sim_type:activationType,subscription_type:subscriptionType}); window.location.href = '셀프개통.html'; }}
+                style={{ padding: '8px 22px', background: '#E60012', color: '#fff', borderRadius: '6px', fontWeight: 700, fontSize: '15px', border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                다음 →
+              </button>
             </div>
           </div>
 

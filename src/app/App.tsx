@@ -252,7 +252,7 @@ export default function App() {
   const idTypes = ['주민등록증', '운전면허증', '장애인 등록증', '국가 유공자증', '외국인 등록증'];
 
   return (
-    <div className="min-h-screen bg-white pb-[90px] font-sans relative">
+    <div className="min-h-screen bg-white pb-[56px] font-sans relative">
       <div id="nav-mount"></div>
 
       {/* Main Content Area (800px width) */}
@@ -1911,25 +1911,17 @@ export default function App() {
       </footer>
 
       {/* Sticky Bottom Bar */}
-      <div className="fixed bottom-0 left-0 right-0 h-[90px] bg-white border-t border-[#E60012] shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-40">
-        <div className="max-w-[800px] mx-auto h-full px-6 flex items-center justify-between">
-          <div className="text-[14px] text-gray-600 font-medium">
-            모두다 맘껏 10GB+(밀리의 서재 FREE)
-          </div>
+      <div className="fixed bottom-0 left-0 right-0 h-[56px] bg-white border-t-2 border-[#E60012] shadow-[0_-2px_8px_rgba(0,0,0,0.06)] z-40">
+        <div className="max-w-[800px] mx-auto h-full px-6 flex items-center gap-3">
+          <span className="text-[13px] text-gray-500 flex-1 truncate">모두다 맘껏 10GB+(밀리의 서재 FREE)</span>
+          <span className="text-[13px] text-gray-500 shrink-0">월 납부금액</span>
+          <span className="text-[18px] font-extrabold text-[#E60012] shrink-0">19,000<span className="text-[12px] font-semibold text-gray-500 ml-0.5">원</span></span>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="w-10 h-10 bg-white border-2 border-[#E60012] rounded-full flex items-center justify-center hover:bg-red-50 transition"
+            className="w-8 h-8 bg-white border border-[#E60012] rounded-full flex items-center justify-center hover:bg-red-50 transition shrink-0"
           >
-            <span className="text-[#E60012] text-xl">∧</span>
+            <span className="text-[#E60012] text-sm font-bold">↑</span>
           </button>
-          <div className="text-right">
-            <div className="flex items-baseline gap-2 mb-1 justify-end">
-              <span className="text-[13px] text-black">월 납부금액</span>
-              <span className="text-[28px] font-extrabold text-[#E60012]">19,000</span>
-              <span className="text-[16px] text-[#E60012] font-bold">원</span>
-            </div>
-            <p className="text-[11px] text-gray-500">가입비 및 유심비 등 기타요금은 별도 청구됩니다</p>
-          </div>
         </div>
       </div>
 
