@@ -631,6 +631,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   /* Modal title & button */
   .kt-modal-title { font-size: 20px; }
   .kt-mdl-btn { padding: 16px; font-size: 16px; }
+
+  /* Modal icon grid: compact on mobile */
+  .kt-mdl-icon-item { padding: 0 6px; }
+  .kt-mdl-icon-svg { margin-bottom: 8px; }
+  .kt-mdl-icon-svg svg { width: 22px; height: 22px; }
+  .kt-mdl-val { font-size: 14px; }
+  .kt-mdl-val-badge { font-size: 10px; padding: 3px 6px; margin-bottom: 5px; }
+  .kt-mdl-sub { font-size: 11px; }
+  .kt-mdl-price-pro-val { font-size: 24px; }
 }
 
 @media (max-width: 480px) {
@@ -913,6 +922,63 @@ function Accordion({ title, children, defaultOpen = false }) {
    COMPARE FULL MODAL (The Table)
    ============================================= */
 function CompareTableModal({ plans, onClose, stats, removePlan }) {
+  const isMobile = window.innerWidth <= 768;
+
+  // ── Mobile: per-plan card layout (no horizontal scroll) ──
+  if (isMobile) {
+    return (
+      <div className="kt-modal-overlay" onClick={onClose} style={{zIndex:3000, padding:'16px', alignItems:'flex-start', paddingTop:'8vh', overflowY:'auto'}}>
+        <div className="cmp-modal-wrap" onClick={e=>e.stopPropagation()} style={{borderRadius:'16px', maxHeight:'85vh', overflowY:'auto', width:'100%'}}>
+          <div className="cmp-header" style={{position:'sticky', top:0, background:'#fff', zIndex:1}}>
+            <h2 className="cmp-title">요금제 한눈에 비교</h2>
+            <button className="kt-modal-close" onClick={onClose}>✕</button>
+          </div>
+          <div style={{padding:'16px', display:'flex', flexDirection:'column', gap:'12px', background:'var(--bg-soft)'}}>
+            {plans.map((p, i) => {
+              const promoGB = calculatePromoGB(p.familyName, p.dataVolume);
+              const totalGB = p.dataVolume + promoGB;
+              const { speedAfter } = parseDataRaw(p.dataRaw);
+              const isBestPrice = p.price === stats.minPrice && plans.length > 1;
+              const isBestData = totalGB === stats.maxData && plans.length > 1;
+              const benefits = [...new Set(p.variants.map(v => BENEFIT_NORMALIZE[v.benefitLabel]).filter(Boolean))];
+              return (
+                <div key={i} style={{background:'#fff', borderRadius:'12px', border:'1px solid var(--border-light)', overflow:'hidden', position:'relative', boxShadow:'var(--shadow-sm)'}}>
+                  <button className="comp-cart-del" style={{top:'12px', right:'12px'}} onClick={() => removePlan(p)}>✕</button>
+                  <div style={{padding:'14px 44px 14px 16px', borderBottom:'1px solid var(--border-light)'}}>
+                    <div style={{fontWeight:700, fontSize:'15px', color:'var(--text-main)', lineHeight:'1.4'}}>{cleanPlanName(p.familyName)}</div>
+                  </div>
+                  {[
+                    { label: '월 납부액', content: <><span style={{fontSize:'18px',fontWeight:800,color:isBestPrice?'var(--kt-red)':'var(--text-main)'}}>{p.price.toLocaleString()}원</span>{isBestPrice && <span className="cs-badge price" style={{marginLeft:'8px'}}>최저가</span>}</> },
+                    { label: '데이터',   content: <><span style={{fontSize:'16px',fontWeight:800,color:isBestData?'#0F6E56':'var(--text-main)'}}>{totalGB}GB{p.isUnlimited?'+':''}</span>{speedAfter && <span style={{fontSize:'12px',color:'var(--text-sub)',marginLeft:'6px'}}>소진 시 {speedAfter}</span>}{isBestData && <span className="cs-badge data" style={{marginLeft:'8px'}}>데이터 최다</span>}</> },
+                    { label: '음성/문자', content: <span style={{fontWeight:700,fontSize:'13px'}}>{parseCallBasic(p.familyName)} · 문자 기본제공</span> },
+                    { label: '제휴 혜택', content: benefits.length > 0 ? <span style={{fontSize:'13px',color:'var(--text-sub)'}}>{benefits.join(', ')}</span> : <span style={{color:'var(--text-muted)'}}>-</span> },
+                    { label: '추가 혜택', content: p.familyName !== '현재 내 요금제'
+                        ? <span style={{fontSize:'12px',color:'var(--text-main)'}}><span style={{color:'var(--kt-cyan)',fontWeight:'bold'}}>✓</span> 가족결합 할인 · 데이터 쉐어링</span>
+                        : <span style={{color:'var(--text-muted)'}}>-</span> },
+                  ].map((row, j) => (
+                    <div key={j} style={{display:'flex',alignItems:'center',padding:'10px 16px',borderTop:'1px solid var(--border-light)'}}>
+                      <span style={{fontSize:'11px',fontWeight:600,color:'var(--text-muted)',width:'58px',flexShrink:0,lineHeight:'1.3'}}>{row.label}</span>
+                      <div style={{flex:1}}>{row.content}</div>
+                    </div>
+                  ))}
+                  {p.familyName !== '현재 내 요금제' && (
+                    <div style={{padding:'12px 16px', borderTop:'1px solid var(--border-light)'}}>
+                      <button className="cmp-btn-signup" style={{width:'100%',maxWidth:'none',padding:'11px 16px'}}
+                        onClick={() => window.location.href = `precheck.html?plan=${encodeURIComponent(p.familyName)}&price=${p.price}`}>
+                        가입하기
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Desktop: grid table layout ──
   const colCount = plans.length + 1;
   const gridStyle = { gridTemplateColumns: `120px repeat(${plans.length}, minmax(180px, 1fr))` };
 
